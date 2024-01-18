@@ -1,0 +1,51 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>:: My-Task:: Employee Dashboard </title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
+    <!-- project css file  -->
+    <link rel="stylesheet" href="{% static 'css/my-task.style.min.css'%}">
+    {%block style%}
+
+    {%endblock%}
+</head>
+<body>
+
+<div id="mytask-layout" class="theme-indigo">
+    
+    <!-- sidebar -->
+    {% include 'fragments/sidebar.html' %}
+    <!-- main body area -->
+    <div class="main px-lg-4 px-md-4">
+
+        <!-- Body: Header -->
+        {% include 'fragments/header.html' %}
+        <!-- Body: Body -->
+        {%block body%}
+        
+        {%endblock%}
+
+        <!-- Modal Members-->
+        {% include 'fragments/modal.html'%}
+    </div>
+</div>
+
+<!-- Jquery Core Js -->
+<script src="{% static 'js/libscripts.bundle.js' %}"></script>
+
+<!-- Plugin Js-->
+<script src="{% static 'js/apexcharts.bundle.js' %}"></script>
+
+<!-- Jquery Page Js -->
+<script src="{% static 'js/template.js' %}"></script>
+<script src="{%static 'js/page/hr.js'%} "></script>
+{%block script%}
+
+{%endblock%}
+</body>
+</html> 
