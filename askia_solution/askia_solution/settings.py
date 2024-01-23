@@ -37,7 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
     'askia_admin',
+=======
+    'askia_admin.apps.AskiaAdminConfig'
+>>>>>>> a3e5a3f6f06ef1471565c781c80f9cbdcdb5a1b0
 ]
 
 MIDDLEWARE = [
