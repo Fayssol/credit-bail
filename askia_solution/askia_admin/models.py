@@ -6,11 +6,11 @@ class Personne(models.Model):
     nom=models.CharField(max_length=50)
     prenom=models.CharField(max_length=50)
     adresse=models.CharField(max_length=50)
-    date_naissance=models.DateField(auto_now_add=True)
+    date_naissance=models.DateField()
     contact=models.CharField(max_length=15)
     
     def __str__(self):
-        return self.nom + " " + self.prenom + " " + self.date_naissance + " " + self.contact
+        return self.nom + " " + self.prenom + " " + self.adresse + " " + self.contact
     
     class Meta:
         abstract = True
@@ -20,14 +20,19 @@ class Client(Personne):
 
 
 class Contrat(models.Model):
-    id = models.BigAutoField(primary_key=True,default=0)
-    parent= models.OneToOneField("self", on_delete=models.PROTECT, null=True, blank=True, related_name="contrats")
+    contrat_parent= models.ForeignKey("self", on_delete=models.CASCADE, null=True,blank=True, related_name="contrats_enfants")
     montant_contrat=models.IntegerField()
-    duree=models.IntegerField()    
-    etat=models.CharField(max_length=50)
-    status=models.CharField(max_length=50)
+    duree=models.CharField(max_length=50)  
+
+    Etat = models.TextChoices("Etat", "EN_COURS ANNULE TERMINE")
+
+    etat = models.CharField(max_length=10, choices=Etat.choices, default=Etat.EN_COURS)
+
+    Status = models.TextChoices("Status", "A_JOUR EN_RETARD")
+
+    status = models.CharField(max_length=10, choices=Status.choices, default=Status.A_JOUR)
     date_contrat=models.DateField()
-    fichier=models.CharField(max_length=50)
+    fichier=models.FileField(max_length=50)
     client=models.OneToOneField(Client,on_delete=models.CASCADE,null=True)
     
     
