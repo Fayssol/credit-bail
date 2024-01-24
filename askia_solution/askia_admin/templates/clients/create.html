@@ -1,0 +1,176 @@
+{%extends 'layouts/base.html' %}
+{% load static%}
+
+
+{%block style%}
+
+{%endblock%}
+
+
+{%block header_js%}
+
+{%endblock%}
+
+{%block body%}
+<div class="content-fluid">
+  <form action="" class="mx-4 mt-4">
+    <fieldset class="form-group border p-3 shadow-sm border border-dark" >
+      <legend class="w-auto px-2">Client Info</legend>
+      <div class="form-row mb-3">
+        <div class="col-md-6 mb-3 ">
+            <label for="" class="form-label" >Full Name</label>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><img src="{%static 'img/user-solid.svg'%}" alt=""></div>
+              </div>
+              <input type="text" class="form-control" placeholder="Full Name">
+            </div>
+            <!-- <input type="text" class="form-control " placeholder="Full Name"> -->
+        </div>
+        <div class="col-md-6 ">
+          <label for="" class="form-label">Telephone</label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><img src="{%static 'img/phone-solid.svg' %}" alt=""></div>
+            </div>
+            <input type="text" class="form-control" placeholder="+228">
+          </div>
+          <!-- <input type="text" class="form-control" placeholder="+228"> -->
+        </div>
+    </div>
+
+    <div class="form-row ">
+      <div class="col-md-6">
+          <label for="" class="form-label">Address</label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><img src="{%static 'img/house-solid.svg' %}" alt=""></div>
+            </div>
+            <input type="text" class="form-control" placeholder="Address">
+          </div>
+          <!-- <input type="text" class="form-control mb-3" placeholder="Address"> -->
+      </div>
+      <div class="col-md-6 ">
+        <label for="" class="form-label">Date Naiss</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><img src="{%static 'img/calendar-days-solid.svg' %}" alt=""></div>
+          </div>
+          <input type="date" class="form-control" placeholder="Date Naiss">
+        </div>
+        <!-- <input type="date" class="form-control" placeholder="Date Naiss" > -->
+      </div>
+
+    </fieldset>
+    
+   
+    <fieldset  class="form-group border p-3 shadow-sm border border-dark">
+      <legend class="w-auto px-2"> Contrat Info</legend>
+      <div class="form-row">
+        <div class="col-md-4">
+          <label for="" class="form-label">Montant</label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><img src="{%static 'img/piggy-bank-solid.svg' %}" alt=""></div>
+            </div>
+            <input type="number" class="form-control" placeholder="En FCFA">
+          </div>
+          <!-- <input type="integer" class="form-control mb-3" placeholder="En FCFA"> -->
+        </div>
+        <div class="col-md-4">
+          <label for="" class="form-label">Durée</label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><img src="{%static 'img/clock-solid.svg' %}" alt=""></div>
+            </div>
+            <input type="number" class="form-control" placeholder="En mois">
+          </div>
+          <!-- <input type="integer" class="form-control mb-3" placeholder="En mois"> -->
+        </div>
+
+        <div class="col-md-4">
+          <label for="" class="form-label">Date Signature</label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><img src="{%static 'img/calendar-days-solid.svg' %}" alt=""></div>
+            </div>
+            <input type="date" class="form-control" placeholder="">
+          </div>
+          <!-- <input type="date" class="form-control"> -->
+        </div>
+
+      </div>
+    </fieldset>
+
+    <fieldset class="form-group border p-3 shadow-sm border border-dark">
+      <legend class="w-auto px-2">Témoins Info</legend>
+      <div id="temoins">
+        <div class="temoin form-row">
+          <div class="col-md-4">
+            <label for="" class="form-label">Full Name</label>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><img src="{%static 'img/user-solid.svg' %}" alt=""></div>
+              </div>
+              <input type="text" class="form-control" placeholder="Full Name">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label for="" class="form-label">Telephone</label>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><img src="{%static 'img/phone-solid.svg' %}" alt=""></div>
+              </div>
+              <input type="text" class="form-control" placeholder="+228">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label for="" class="form-label">Address</label>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><img src="{%static 'img/house-solid.svg' %}" alt=""></div>
+              </div>
+              <input type="text" class="form-control" placeholder="Address">
+            </div>
+          </div>
+          <div class="col-md-12 text-right">
+            <button type="button" class="btn btn-success btn-sm add-temoin">Add temoin</button>
+            <button type="button" class="btn btn-danger btn-sm remove-temoin" style="display:none;">Remove temoin</button>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+
+  </form>
+</div>
+
+{%endblock%}
+
+
+
+{%block footer_js%}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+$(document).ready(function () {
+  // Add temoin
+  $(".add-temoin").click(function () {
+    var clone = $("#temoins .temoin:first").clone(true);
+    clone.find("input").val(""); // Clear input values in the cloned row
+    clone.find(".add-temoin").remove(); // Remove remove button in the cloned row
+    clone.find(".remove-temoin").show(); // Show remove button in the cloned row
+    $("#temoins").append(clone);
+  });
+
+  // Remove temoin
+  $("#temoins").on("click", ".remove-temoin", function () {
+    $(this).closest(".temoin").remove();
+  });
+});
+</script>
+{%endblock%}
