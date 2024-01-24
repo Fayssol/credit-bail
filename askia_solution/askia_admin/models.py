@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 
 # Create your models here.
@@ -19,8 +20,8 @@ class Client(Personne):
 
 
 class Contrat(models.Model):
-    
-    contrats= models.ForeignKey("Contrat",on_delete=models.CASCADE,null=True)
+    id = models.BigAutoField(primary_key=True,default=0)
+    parent= models.OneToOneField("self", on_delete=models.PROTECT, null=True, blank=True, related_name="contrats")
     montant_contrat=models.IntegerField()
     duree=models.IntegerField()    
     etat=models.CharField(max_length=50)
@@ -31,7 +32,7 @@ class Contrat(models.Model):
     
     
 class Temoin(Personne):
-    contrat=models.ForeignKey(Contrat,on_delete=models.CASCADE)
+    contrat=models.ForeignKey(Contrat,on_delete=models.CASCADE,default=0)
     
     
         
@@ -39,7 +40,7 @@ class Versement(models.Model):
     montant_versement=models.IntegerField()
     date_versement=models.DateField()
     montant_total_paye=models.IntegerField()
-    contrat=models.ForeignKey(Contrat, on_delete=models.CASCADE)
+    contrat=models.ForeignKey(Contrat, on_delete=models.CASCADE,default=0)
     
     
 class Vaque(models.Model):
