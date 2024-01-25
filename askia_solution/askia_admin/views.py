@@ -11,7 +11,5 @@ def create(request):
 
 def index(request):
     return HttpResponse("Welcome")
-<<<<<<< HEAD
 
-=======
->>>>>>> fccce1c256e78506f7fb7c5e7c6dacc9dc08b7eb
+
