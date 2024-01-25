@@ -20,7 +20,8 @@ class Client(Personne):
 
 
 class Contrat(models.Model):
-    contrat_parent= models.ForeignKey("self", on_delete=models.CASCADE, null=True,blank=True, related_name="contrats_enfants")
+    id = models.BigAutoField(primary_key=True)
+    contrat_parent= models.OneToOneField("self", on_delete=models.PROTECT, null=True,blank=True, related_name="contrats_enfants")
     montant_contrat=models.IntegerField()
     duree=models.CharField(max_length=50)  
 
@@ -37,7 +38,7 @@ class Contrat(models.Model):
     
     
 class Temoin(Personne):
-    contrat=models.ForeignKey(Contrat,on_delete=models.CASCADE,default=0)
+    contrat=models.ForeignKey(Contrat,on_delete=models.CASCADE)
     
     
         
@@ -45,7 +46,7 @@ class Versement(models.Model):
     montant_versement=models.IntegerField()
     date_versement=models.DateField()
     montant_total_paye=models.IntegerField()
-    contrat=models.ForeignKey(Contrat, on_delete=models.CASCADE,default=0)
+    contrat=models.ForeignKey(Contrat, on_delete=models.CASCADE)
     
     
 class Vaque(models.Model):
