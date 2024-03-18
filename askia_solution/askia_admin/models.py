@@ -40,13 +40,22 @@ class Contrat(models.Model):
 class Temoin(Personne):
     contrat=models.ForeignKey(Contrat,on_delete=models.CASCADE)
     
-    
-        
+
 class Versement(models.Model):
-    montant_versement=models.IntegerField()
-    date_versement=models.DateField()
-    montant_total_paye=models.IntegerField()
-    contrat=models.ForeignKey(Contrat, on_delete=models.CASCADE)
+    montant_versement = models.IntegerField()
+    date_versement = models.DateField()
+    montant_total_paye = models.IntegerField(default=0) 
+    contrat = models.ForeignKey(Contrat, on_delete=models.CASCADE)
+    note = models.CharField(max_length=50)
+
+    def save(self, *args, **kwargs):
+        # Calculer le nouveau montant total payé en ajoutant le montant du versement actuel
+        # au montant total payé précédent dans le versement
+        self.montant_total_paye += self.montant_versement
+        super().save(*args, **kwargs)  # Appeler la méthode save() du modèle parent
+
+
+
     
     
 class Vaque(models.Model):

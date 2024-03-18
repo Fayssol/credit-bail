@@ -1,0 +1,85 @@
+{%extends 'layouts/base.html' %}
+{% load static%}
+
+
+{%block style%}
+
+{%endblock%}
+
+
+{%block header_js%}
+
+{%endblock%}
+
+
+{% block body%}
+
+<form action="{% url 'askia_admin:save_transaction' %}" method="post" class="form-control-sm">
+
+
+    <fieldset class="form-group border p-3 shadow-sm border border-wihte" >
+        <legend class="w-auto px-2">Transaction</legend>
+        <div class="form-row mb-3">
+          <div class="col-md-6 mb-3 ">
+              <label for="" class="form-label" >Client</label>
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><img src="{%static 'img/user-solid.svg'%}" alt=""></div>
+                </div>
+                <input class="form-control" name="contrat" list="datalistOptions" id="exampleDataList" placeholder="Chercher un client">
+                <datalist id="datalistOptions">
+                  {% for contrat in contrats%}
+                <option value="{{contrat.id}}">{{contrat.client.nom}}</option>
+                  {%endfor%}
+               
+                </datalist>
+               
+            </div>
+              
+          </div>
+          <div class="col-md-6 ">
+            <label for="" class="form-label">Montant</label>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><img src="{%static 'img/piggy-bank-solid.svg' %}" alt=""></div>
+              </div>
+              <input type="number" name="montant_versement" class="form-control" placeholder="Enter un montant">
+            </div>
+           
+          </div>
+      </div>
+  
+      <div class="form-row ">
+        <div class="col-md-6">
+            <label for="" class="form-label">Date</label>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><img src="{%static 'img/calendar-days-solid.svg' %}" alt=""></div>
+              </div>
+              <input type="date" class="form-control" name="date_versement" placeholder="Enter une date">
+            </div>
+        </div>
+        <div class="col-md-6 ">
+          <label for="" class="form-label">Note</label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><img src="{%static 'img/note.svg' %}" alt=""></div>
+            </div>
+            <input type="text" name="note" class="form-control" placeholder="Enter une note">
+          </div>
+         
+        </div>
+        <button type="button" type="submit" class="btn btn-primary mt-4">Enregister</button>
+
+      </fieldset>
+
+</form>
+
+
+{%endblock%}
+
+
+
+{%block footer_js%}
+
+{%endblock%}
