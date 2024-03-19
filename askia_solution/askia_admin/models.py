@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 class Personne(models.Model):
     nom=models.CharField(max_length=50)
-    prenom=models.CharField(max_length=50)
+    # prenom=models.CharField(max_length=50)
     adresse=models.CharField(max_length=50)
     date_naissance=models.DateField()
     contact=models.CharField(max_length=15)
