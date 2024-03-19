@@ -1,4 +1,4 @@
-import uuid
+
 from django.db import models
 
 # Create your models here.
@@ -20,7 +20,8 @@ class Client(Personne):
 
 
 class Contrat(models.Model):
-    contrat_parent= models.ForeignKey("self", on_delete=models.CASCADE, null=True,blank=True, related_name="contrats_enfants")
+    id = models.BigAutoField(primary_key=True)
+    contrat_parent= models.OneToOneField("self", on_delete=models.PROTECT, null=True,blank=True, related_name="contrats_enfants")
     montant_contrat=models.IntegerField()
     duree=models.CharField(max_length=50)  
 
@@ -37,15 +38,24 @@ class Contrat(models.Model):
     
     
 class Temoin(Personne):
-    contrat=models.ForeignKey(Contrat,on_delete=models.CASCADE,default=0)
+    contrat=models.ForeignKey(Contrat,on_delete=models.CASCADE)
     
-    
-        
+
 class Versement(models.Model):
-    montant_versement=models.IntegerField()
-    date_versement=models.DateField()
-    montant_total_paye=models.IntegerField()
-    contrat=models.ForeignKey(Contrat, on_delete=models.CASCADE,default=0)
+    montant_versement = models.IntegerField()
+    date_versement = models.DateField()
+    montant_total_paye = models.IntegerField(default=0) 
+    contrat = models.ForeignKey(Contrat, on_delete=models.CASCADE)
+    note = models.CharField(max_length=50)
+
+    def save(self, *args, **kwargs):
+        # Calculer le nouveau montant total payé en ajoutant le montant du versement actuel
+        # au montant total payé précédent dans le versement
+        self.montant_total_paye += self.montant_versement
+        super().save(*args, **kwargs)  # Appeler la méthode save() du modèle parent
+
+
+
     
     
 class Vaque(models.Model):

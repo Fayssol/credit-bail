@@ -1,4 +1,12 @@
+<<<<<<< HEAD
+from django.http import HttpResponseRedirect
+from django.shortcuts import render,HttpResponse
+from .vues.transactions_views import *
+from .vues.client_views import *
+from .models import Contrat, Versement
+=======
 from django.shortcuts import render,HttpResponse,redirect
+>>>>>>> c401a84af74c0b031721cb83d3be714e3d458c51
 
 # Create your views here.
 
@@ -6,6 +14,8 @@ from django.shortcuts import render,HttpResponse,redirect
 def base(request):
     return render(request,'layouts/base.html')
 
+<<<<<<< HEAD
+=======
 def create(request):
     if request.method=='POST':
         #client
@@ -24,6 +34,7 @@ def create(request):
         #date_naiss=request.POST.get('date_naissance')
         print("request: \n")
         print(request.POST)
+>>>>>>> c401a84af74c0b031721cb83d3be714e3d458c51
 
 
         ## save et validator##
@@ -32,3 +43,7 @@ def create(request):
         return render(request,'clients/create.html')
 def index(request):
     return HttpResponse("Welcome")
+
+
+
+

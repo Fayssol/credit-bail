@@ -7,7 +7,16 @@ app_name = 'askia_admin'
 
 
 urlpatterns = [
-    path('base/', views.base,name='base'),
-    path('create/', views.create,name='create'),
+    # affichage des templates
+    # path('base/', views.base,name='base'),
+   
+
+    #les chemins urls
+    path('transaction/', views.save_transaction, name="save_transaction"),
+    path('create_client/', views.client_form,name='create_client'),
+    path('transaction_form/', views.transaction_form, name="transaction_form"),
+    path('transaction_list',views.transaction_list, name="transaction_list")
 ]
+
+
 
