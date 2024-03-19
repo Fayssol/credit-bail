@@ -1,0 +1,112 @@
+{%extends 'layouts/base.html' %}
+{% load static%}
+
+
+{%block style%}
+
+{%endblock%}
+
+
+{%block header_js%}
+
+{%endblock%}
+
+
+{% block body%}
+
+<form id="transactionForm" action="{% url 'askia_admin:save_transaction' %}" method="post" class="form-control-sm">
+  {% csrf_token %}
+
+    <fieldset class="form-group border p-3 shadow-sm border border-wihte" >
+        <legend class="w-auto px-2">Transaction</legend>
+        <div class="form-row mb-3">
+          <div class="col-md-6 mb-3 ">
+              <label for="" class="form-label" >Client</label>
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><img src="{%static 'img/user-solid.svg'%}" alt=""></div>
+                </div>
+                <input id="contrat" class="form-control" name="contrat" list="datalistOptions" id="exampleDataList" placeholder="Chercher un client">
+                <span id="contratError" class="error"></span>
+                <datalist id="datalistOptions">
+                  {% for contrat in contrats%}
+                <option value="{{contrat.id}}">{{contrat.client.nom}}</option>
+                  {%endfor%}
+               
+                </datalist>
+               
+            </div>
+              
+          </div>
+          <div class="col-md-6 ">
+            <label for="" class="form-label">Montant</label>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><img src="{%static 'img/piggy-bank-solid.svg' %}" alt=""></div>
+              </div>
+              <input id="montant" type="number" name="montant_versement" class="form-control" placeholder="Enter un montant">
+              <span id="montantError" class="error"></span>
+            </div>
+           
+          </div>
+      </div>
+  
+      <div class="form-row ">
+        <div class="col-md-6">
+            <label for="" class="form-label">Date</label>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><img src="{%static 'img/calendar-days-solid.svg' %}" alt=""></div>
+              </div>
+              <input id="date" type="date" class="form-control" name="date_versement" placeholder="Enter une date">
+              <span id="dateError" class="error"></span>
+            </div>
+        </div>
+        <div class="col-md-6 ">
+          <label for="" class="form-label">Note</label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><img src="{%static 'img/note.svg' %}" alt=""></div>
+            </div>
+            <input id ="note" type="text" name="note" class="form-control" placeholder="Enter une note">
+            <span id="noteError" class="error"></span>
+          </div>
+         
+        </div>
+        <button id="transactionBtn" type="button" class="btn btn-primary mt-4">Enregister</button>
+
+      </fieldset>
+
+</form>
+
+
+{%endblock%}
+
+
+
+{%block footer_js%}
+
+<script>
+$('#transactionBtn').click(function() {
+    var note = $("#note").val();
+    var montant = $("#montant").val();
+    var contrat = $("#contrat").val();
+    var date = $("#date").val();
+    
+    // Vérification du montant
+   montant_validation(montant);
+    
+    // Vérification du contrat
+   contrat_validation(contrat);
+    
+   // Vérification de date
+   date_validation(date);
+    
+    
+    // Si la validation réussit, vous pouvez continuer à soumettre le formulaire ici
+    // Par exemple, vous pouvez utiliser form.submit(); ou AJAX pour soumettre le formulaire.
+});
+
+</script>
+
+{%endblock%}
