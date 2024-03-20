@@ -166,8 +166,6 @@
 $(document).ready(function () {
 
 
-
-
   // Add temoin
   $(".add-temoin").click(function () {
     var clone = $("#temoins .temoin:first").clone(true);
@@ -182,22 +180,25 @@ $(document).ready(function () {
     $(this).closest(".temoin").remove();
   });
 
-  //recuperer la valeur de l'id nomclient 
-  $(".btn-save").click(function(){
-    //regex
-
-    const re1=/[a-z]/;
-    let nom=$("#nomClt" ).val() ;
-    if(){
-      
-    }
-    
-    alert(nom);
-    let contact=$("#contact").val();
-    alert(contact);
-  });
   
   
 });
+</script>
+
+<script>
+  //recuperer la valeur de l'id nomclient 
+  // $(".btn-save").click(function(){
+  //   //regex
+
+  //   const re1=/[a-z]/;
+  //   let nom=$("#nomClt" ).val() ;
+  //   if(){
+      
+  //   }
+    
+  //   alert(nom);
+  //   let contact=$("#contact").val();
+  //   alert(contact);
+  // });
 </script>
 {%endblock%}

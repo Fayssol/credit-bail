@@ -4,13 +4,12 @@ from django.db import models
 # Create your models here.
 class Personne(models.Model):
     nom=models.CharField(max_length=50)
-    # prenom=models.CharField(max_length=50)
     adresse=models.CharField(max_length=50)
     date_naissance=models.DateField()
     contact=models.CharField(max_length=15)
     
     def __str__(self):
-        return self.nom + " " + self.prenom + " " + self.adresse + " " + self.contact
+        return self.nom + " " + self.adresse + " " + self.contact
     
     class Meta:
         abstract = True
@@ -33,7 +32,6 @@ class Contrat(models.Model):
 
     status = models.CharField(max_length=10, choices=Status.choices, default=Status.A_JOUR)
     date_contrat=models.DateField()
-    fichier=models.FileField(max_length=50)
     client=models.OneToOneField(Client,on_delete=models.CASCADE,null=True)
     
     

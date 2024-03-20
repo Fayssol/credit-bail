@@ -1,0 +1,101 @@
+{%extends 'layouts/base.html' %}
+{% load static%}
+
+
+{%block style%}
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Poppins:400,500,600,700|Roboto:400,500" rel="stylesheet" />
+<link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
+<link href="{% static '/css/datatables.bootstrap4.min.css' %}" rel='stylesheet'>
+{%endblock%}
+
+{%block header_js%}
+    
+{%endblock%}
+
+{%block body%}
+<div class="row">
+	<div class="col-12">
+		<div class="card card-default">
+			<div class="card-header card-header-border-bottom d-flex justify-content-between">
+				<h2>Liste des contrats</h2>
+
+				<!-- <a href="https://datatables.net/examples/styling/display.html" target="_blank" class="btn btn-outline-primary btn-sm text-uppercase">
+					<i class=" mdi mdi-link mr-1"></i> Docs
+				</a> -->
+			</div>
+
+			<div class="card-body">
+				<div class="basic-data-table">
+
+<table id="basic-data-table" class="table nowrap" style="width:100%">
+    <thead>
+        <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Position</th>
+            <th>Office</th>
+            <th>Age</th>
+            <th>Start date</th>
+            <th>Salary</th>
+            <th>Extn.</th>
+            <th>E-mail</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>Tiger</td>
+            <td>Nixon</td>
+            <td>System Architect</td>
+            <td>Edinburgh</td>
+            <td>61</td>
+            <td>2011/04/25</td>
+            <td>$320,800</td>
+            <td>5421</td>
+            <td>t.nixon@datatables.net</td>
+        </tr>
+
+        <tr>
+            <td>Garrett</td>
+            <td>Winters</td>
+            <td>Accountant</td>
+            <td>Tokyo</td>
+            <td>63</td>
+            <td>2011/07/25</td>
+            <td>$170,750</td>
+            <td>8422</td>
+            <td>g.winters@datatables.net</td>
+        </tr>
+
+        <tr>
+            <td>Ashton</td>
+            <td>Cox</td>
+            <td>Junior Technical Author</td>
+            <td>San Francisco</td>
+            <td>66</td>
+            <td>2009/01/12</td>
+            <td>$86,000</td>
+            <td>1562</td>
+            <td>a.cox@datatables.net</td>
+        </tr>
+
+       
+      
+
+       
+
+       
+    </tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+{%endblock%}
+
+{%block footer_js%}
+<script src="{%static '/js/jquery.datatables.min.js' %}"></script>
+<script src="{% static '/js/datatables.bootstrap4.min.js' %}"></script>
+
+{%endblock%}

@@ -15,7 +15,9 @@ urlpatterns = [
     path('transaction/', views.save_transaction, name="save_transaction"),
     path('create_client/', views.client_form,name='create_client'),
     path('transaction_form/', views.transaction_form, name="transaction_form"),
-    path('transaction_list',views.transaction_list, name="transaction_list")
+    path('transaction_list',views.transaction_list, name="transaction_list"),
+    path('client_list', views.client_liste, name="client_list"),
+    path('', views.welcome, name="welcome"),
 ]
 
 

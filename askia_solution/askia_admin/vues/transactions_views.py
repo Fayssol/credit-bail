@@ -3,6 +3,9 @@ from ..models import Versement, Contrat
 from django.http import HttpResponseRedirect
 from django.shortcuts import render,HttpResponse
 
+from datetime import date
+
+
 # sauvegarde d'une transaction#
 def save_transaction(request):
      if request.method == "POST":
@@ -26,8 +29,19 @@ def save_transaction(request):
 
 # formulaire de création d'une transaction#
 def transaction_form(request):
+     # Obtenir la date actuelle
+    date_actuelle = date.today().isoformat()
     contrats = Contrat.objects.all()
-    return render(request,"transactions/create.html", {contrats:contrats})
+    
+    context = {
+        'date_actuelle': date_actuelle,
+        'contrats':contrats
+    }
+    return render(request,"transactions/create.html", context)
 # transactions liste
 def transaction_list(request):
     return render(request,"transactions/liste.html")
+
+
+
+

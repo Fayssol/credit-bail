@@ -6,7 +6,8 @@ from django.shortcuts import redirect, render,HttpResponse
 def client_form(request):
     return render(request,'clients/create.html')
 
-
+def client_liste(request):
+    return render(request,'clients/liste.html')
 
 
 def create_client(request):
