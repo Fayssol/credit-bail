@@ -49,7 +49,7 @@ class Versement(models.Model):
     def save(self, *args, **kwargs):
         # Calculer le nouveau montant total payé en ajoutant le montant du versement actuel
         # au montant total payé précédent dans le versement
-        self.montant_total_paye += self.montant_versement
+        self.montant_total_paye += int(self.montant_versement)
         super().save(*args, **kwargs)  # Appeler la méthode save() du modèle parent
 
 
