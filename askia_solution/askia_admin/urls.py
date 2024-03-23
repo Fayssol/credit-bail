@@ -18,6 +18,7 @@ urlpatterns = [
     path('transaction_list',views.transaction_list, name="transaction_list"),
     path('client_list', views.client_liste, name="client_list"),
     path('', views.welcome, name="welcome"),
+    path('ajax_transaction_list', views.transaction_list, name="ajax_transaction_list")
 ]
 
 

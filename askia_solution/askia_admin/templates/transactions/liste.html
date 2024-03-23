@@ -6,6 +6,7 @@
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Poppins:400,500,600,700|Roboto:400,500" rel="stylesheet" />
 <link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
 <link href="{% static '/css/datatables.bootstrap4.min.css' %}" rel='stylesheet'>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
 {%endblock%}
 
 {%block header_js%}
@@ -25,29 +26,48 @@
 			</div>
 
 			<div class="card-body">
+
 				<div class="basic-data-table">
+                    <form id="date_filter" class="ms-auto mb-4" method="POST">
+                        {% csrf_token %}
+                        <!-- <input type="hidden" name="csrfmiddlewaretoken"> -->
+                        <div class="row">
+                            <div class="col">
+                                <input name="from_date" id="from_date" required class="form-control" type="date"
+                                       data-date-format="yyyy/mm/dd">
+                            </div>
+                            <div class="col">
+                                <input name="to_date" readonly id="to_date" required class="form-control"
+                                       type="date" data-date-format="yyyy/mm/dd">
+                            </div>
+                            <div class="col d-flex align-self-center">
+                                <button style="font-size: small" class="btn btn-dark">Filtrer</button>
+                            </div>
+                        </div>
+                    </form>
 
-<table id="basic-data-table" class="table nowrap" style="width:100%">
-    <thead>
-        <tr>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>Position</th>
-            <th>Office</th>
-            <th>Age</th>
-            <th>Start date</th>
-            <th>Salary</th>
-            <th>Extn.</th>
-            <th>E-mail</th>
-        </tr>
-    </thead>
+                        <table id="transactions_table" class="table nowrap transactions" style="width:100%">
+                        <!-- <table id="basic-data-table" class="table nowrap transactions" style="width:100%"> -->
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Client</th>
+                                    <th>Contact</th>
+                                    <th>Date</th>
+                                    <th>Montant Vers</th>
+                                    <th>Total Vers</th>
+                                    <th>A Payé</th>
+                                    <th>Reste</th>
+                                    <th>Note</th>
+                                </tr>
+                            </thead>
 
- <tbody>
-    
- </tbody>
-</table>
+                        <tbody>
+                            
+                        </tbody>
+                        </table>
 
-</div>
+                </div>
 </div>
 </div>
 </div>
@@ -56,5 +76,83 @@
 {%block footer_js%}
 <script src="{%static '/js/jquery.datatables.min.js' %}"></script>
 <script src="{% static '/js/datatables.bootstrap4.min.js' %}"></script>
+
+<script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+
+<script>
+    var TOKEN = $('input[name="csrfmiddlewaretoken"]').val();
+
+function loadData(initial_date, finale_date) {
+    $('#transactions_table').DataTable( {
+        serverSide: true,
+        paging: true,
+        processing: true,
+        stateSave: true,
+        'lengthMenu': [10, 25, 50, 100, 150, 200, 300, 500],
+        searching: true,
+        sort: false,
+        ajax: {
+            url : "{% url 'askia_admin:ajax_transaction_list' %}",
+            type: 'POST',
+            headers: {
+            'X-CSRFToken': TOKEN
+            },
+            data: {
+
+            "from_date": initial_date,
+            "to_date": finale_date,
+
+            },
+        
+        },
+        language: {
+             search: "Rechercher:"
+        },
+        columns: [
+            {data: 'id', visible: false},
+            { data: 'nom', visible: true },
+            { data: 'contact', visible: true },
+            { data: 'date_versement', visible: true },
+            { data: 'montant_versement', visible: true },
+            { data: 'montant_total_paye', visible: true },
+            { data: 'montant_a_paye', visible: true },
+            { data: 'reste', visible: true },
+            { data: 'note', visible: true }
+        ]
+} 
+
+);}
+
+
+
+$(document).ready(function () {
+
+loadData()
+
+$('form#date_filter').on('submit', function (e) {
+
+    e.preventDefault();
+
+    var from_date = $('#from_date').val()
+    var to_date = $('#to_date').val()
+    $('#transactions_table').DataTable().destroy()
+    loadData(from_date, to_date)
+
+});
+
+
+
+$('#from_date').on('change', function () {
+
+$('#to_date').removeAttr("readonly")
+$('#to_date').attr("min", $(this).val())
+$('#to_date').val($(this).val())
+
+});
+
+
+});
+
+</script>    
 
 {%endblock%}
