@@ -24,8 +24,8 @@ def save_transaction(request):
             Versement.objects.create(montant_versement=montant_versement, date_versement=date_versement, contrat=contrat_obj, note=note)
             msg = True  # Définir msg à True si la transaction est réussie
             # Passer toutes les données nécessaires au formulaire
-            return render(request,'transactions/create.html', {"msg": msg, "montant_versement": montant_versement, "client": contrat_obj.client.nom})
-            # return HttpResponseRedirect(reverse("askia_admin:transaction_form"), {"msg": msg, "montant_versement": montant_versement, "date_versement": date_versement, "contrat": contrat, "note": note, "client": contrat_obj.client})
+           # return render(request,'transactions/create.html', {"msg": msg, "montant_versement": montant_versement, "client": contrat_obj.client.nom})
+            return HttpResponseRedirect(reverse("askia_admin:transaction_form"), locals())
         except Contrat.DoesNotExist:
             print("Contrat does not exist")
         except Exception as e:
@@ -42,12 +42,13 @@ def transaction_form(request):
      # Obtenir la date actuelle
     date_actuelle = date.today().isoformat()
     contrats = Contrat.objects.all()
-    
-    context = {
-        'date_actuelle': date_actuelle,
-        'contrats':contrats
-    }
-    return render(request,"transactions/create.html", context)
+    # date_actuelle =  date_actuelle,
+    # contrats = contrats
+    # context = {
+    #     'date_actuelle': date_actuelle,
+    #     'contrats':contrats
+    # }
+    return render(request,"transactions/create.html", locals())
 
 # transactions liste
 def transaction_list(request):
