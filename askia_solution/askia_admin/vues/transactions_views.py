@@ -8,7 +8,12 @@ from django.db.models import Q
 
 from datetime import date
 
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
 def save_transaction(request):
+    msg = False  # Initialiser msg en dehors du bloc try
     if request.method == "POST":
         try:
             montant_versement = request.POST["montant_versement"]
@@ -17,14 +22,18 @@ def save_transaction(request):
             note = request.POST["note"]  
             contrat_obj = Contrat.objects.get(client=Client.objects.get(nom=contrat))
             Versement.objects.create(montant_versement=montant_versement, date_versement=date_versement, contrat=contrat_obj, note=note)
-            return HttpResponseRedirect(reverse("askia_admin:transaction_form"))
+            msg = True  # Définir msg à True si la transaction est réussie
+            # Passer toutes les données nécessaires au formulaire
+            return render(request,'transactions/create.html', {"msg": msg, "montant_versement": montant_versement, "client": contrat_obj.client.nom})
+            # return HttpResponseRedirect(reverse("askia_admin:transaction_form"), {"msg": msg, "montant_versement": montant_versement, "date_versement": date_versement, "contrat": contrat, "note": note, "client": contrat_obj.client})
         except Contrat.DoesNotExist:
             print("Contrat does not exist")
         except Exception as e:
             print("Error:", e)
 
     # Handle GET request or any other scenario where POST method isn't used
-    return HttpResponseRedirect(reverse("askia_admin:transaction_form"))
+    return HttpResponseRedirect(reverse("askia_admin:transaction_form"), {"msg": msg})
+
 
 
 
@@ -39,18 +48,18 @@ def transaction_form(request):
         'contrats':contrats
     }
     return render(request,"transactions/create.html", context)
+
 # transactions liste
 def transaction_list(request):
     return render(request,"transactions/liste.html")
 
 
 
-
+from django.db.models import Q
 
 @csrf_protect
 def transaction_list(request):
     if request.method == "POST":
-        print('******yes')
         draw = int(request.POST.get('draw'))
         start = int(request.POST.get('start'))
         length = int(request.POST.get('length'))
@@ -58,24 +67,31 @@ def transaction_list(request):
         date_from = request.POST.get('from_date', None)
         date_to = request.POST.get('to_date', None)
 
-        if date_from is not None:
-            # Filter data based on date range
-            filtered_transactions = Versement.objects.filter(
-                Q(montant_versement__icontains=search) | Q(montant_total_paye__icontains=search) | Q(
-                    note__icontains=search),
+        filtered_transactions = Versement.objects.all()
+
+        if search:
+            filtered_transactions = filtered_transactions.filter(
+                Q(montant_versement__icontains=search) |
+                Q(montant_total_paye__icontains=search) |
+                Q(note__icontains=search) |
+                Q(date_versement__icontains=search) |
+                Q(contrat__montant_contrat__icontains=search) |
+                Q(contrat__client__nom__icontains=search) |  
+                Q(contrat__client__contact__icontains=search) 
+            )
+
+        if date_from and date_to:
+            filtered_transactions = filtered_transactions.filter(
                 date_versement__range=[date_from + " 00:00:00", date_to + " 23:59:59"]
-            )[start:start + length]
-        else:
-            # Filter data without date range
-             filtered_transactions = Versement.objects.filter(
-                Q(montant_versement__icontains=search) | Q(montant_total_paye__icontains=search) | Q(
-                    note__icontains=search)
-            )[start:start + length]
+            )
+
+        total_records = Versement.objects.count()
+        total_filtered_records = filtered_transactions.count()
 
         data = {
             "draw": draw,
-            "recordsTotal": Versement.objects.count(),
-            "recordsFiltered": filtered_transactions.count(),
+            "recordsTotal": total_records,
+            "recordsFiltered": total_filtered_records,
             "data": [{
                 "id": versement.id,
                 "nom": versement.contrat.client.nom,
@@ -83,11 +99,10 @@ def transaction_list(request):
                 "date_versement": versement.date_versement,
                 "montant_versement": versement.montant_versement,
                 "montant_total_paye": versement.montant_total_paye,
-                "montant_a_paye": versement.contrat.montant_contrat,
+                "montant_contrat": versement.contrat.montant_contrat,
                 "reste": f"{versement.contrat.montant_contrat - versement.montant_total_paye}",
                 "note": versement.note,
-              
-            } for versement in filtered_transactions]
+            } for versement in filtered_transactions[start:start + length]]
         }
 
         return JsonResponse(data)

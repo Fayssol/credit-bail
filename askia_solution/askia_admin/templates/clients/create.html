@@ -14,7 +14,7 @@
 {%block body%}
 <div class="content-fluid">
   <form action="" class="mx-4 mt-4" method="post">
-    @{% csrf_token %}
+    {% csrf_token %}
     <fieldset class="form-group border p-3 shadow-sm border border-dark" >
       <legend class="w-auto px-2">Client Info</legend>
       <div class="form-row mb-3">

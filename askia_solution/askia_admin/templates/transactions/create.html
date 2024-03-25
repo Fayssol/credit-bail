@@ -14,6 +14,25 @@
 
 {% block body%}
 
+{% if msg %}
+<div id="myAlert" class="alert alert-success alert-dismissible d-flex align-items-center justify-content-between fade show">
+ <div>
+    <i class="bi-check-circle-fill"></i>
+    <strong class="mx-2">Success!</strong> Transaction de <strong> {{montant_versement}} CFA  </strong> pour le client {{client}}
+ </div>
+  <!-- <button id="myBtn" type="button" class="btn-close" data-bs-dismiss="alert"></button> -->
+  <span class="fermer">
+    <i class="bi bi-x-lg text-danger"></i>
+  </span>
+</div>
+
+
+{% else %}
+
+
+
+{% endif %}
+
 <form id="transactionForm" action="{% url 'askia_admin:save_transaction' %}" method="post" class="form-control-sm">
   {% csrf_token %}
 
@@ -64,7 +83,15 @@
                 <div class="input-group-text"><img src="{%static 'img/calendar-days-solid.svg' %}" alt=""></div>
               </div>
               <!-- <input id="date" type="date" class="form-control" name="date_versement" placeholder="Enter une date"> -->
-              <input id="date" type="date" class="form-control" name="date_versement" placeholder="Enter une date" max="{{ date_actuelle }}" value="{{ date_actuelle }}">
+              <input id="date" 
+                type="date" 
+                class="form-control" 
+                name="date_versement" 
+                placeholder="Enter une date" 
+                max="{{ date_actuelle }}" 
+                value="{{ date_actuelle }}"
+                data-date-format="yyyy/mm/dd"
+              >
 
             </div>
             <span id="dateError" class="error text-danger"></span>
@@ -96,6 +123,8 @@
 
 {%block footer_js%}
 
+
+
 <script>
 $('#transactionBtn').click(function() {
     const note = $("#note").val();
@@ -122,11 +151,19 @@ $('#transactionBtn').click(function() {
 });
 
 </script>
+
 <script>
-
-
-
-</script>
-
+  // $(document).ready(function(){
+  //     $("#myBtn").click(function(){
+  //         $("#myAlert").alert("close");
+  //     });
+  // });
+  $(document).ready(function() {
+    $(".fermer").click(function(){
+      $("#myAlert").remove();
+    });
+    
+  });
+  </script>
 
 {%endblock%}

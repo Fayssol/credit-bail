@@ -33,13 +33,24 @@
   
     <!-- FAVICON -->
     <link href="{% static 'img/favicon.png' %}" rel="shortcut icon" />
+    <!-- les alerts -->
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+  <style>
+    /* Custom style to set icon size */
+    .alert i[class^="bi-"]{
+      font-size: 1.5em;
+      line-height: 1;
+    }
+    </style>
     {%block style%}
 
 
   
     {%endblock%}
   
-    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{%static '/js/nprogress.js' %}"></script>
     {%block header_js%}
 
@@ -119,16 +130,16 @@
     
 
     
-    <script src="{%static '/js/sleek.js' %}"></script>
+    <script src="{% static '/js/sleek.js' %}"></script>
   <link href="{% static '/css/optionswitch.css' %}" rel="stylesheet">
 <script src="{% static '/js/optionswitcher.js' %}"></script>
 
 <script src="{% static '/js/validations_fonctions.js' %}"></script>
 <script src="{% static '/js/vider_champs.js' %}"></script>
-{%block footer_js%}
+{% block footer_js %}
 
 
-{%endblock%}
+{% endblock %}
 </body>
 </html>
 
