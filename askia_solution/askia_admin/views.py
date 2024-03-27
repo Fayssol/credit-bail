@@ -12,9 +12,5 @@ def base(request):
     return render(request,'layouts/base.html')
 
 
-def index(request):
-    return HttpResponse("Welcome")
-
-
 
 
