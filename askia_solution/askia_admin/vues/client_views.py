@@ -1,37 +1,98 @@
-from ..models import Versement, Contrat
-from django.http import HttpResponseRedirect
-from django.shortcuts import redirect, render,HttpResponse
-
-# formulaire de création d'un client#
-def client_form(request):
-    return render(request,'clients/create.html')
+from ..models import Versement,Client,Temoin,Contrat
+from django.shortcuts import redirect, render,get_object_or_404,HttpResponse
+# formulaire de création d'un contrat#
+def contrat_form(request):
+    return render(request,'contrats/create.html')
 
 
 
 
-def create_client(request):
+def save_contrat(request):
+
     if request.method=='POST':
-        #client
+        #validator
+        #client infos
         nom=request.POST.get('nom')
         contact=request.POST.get('contact')
-        adresse=request.POST.get('adresse')
+        adress=request.POST.get('adresse')
         date_naiss=request.POST.get('date_naissance')
-        ####contrat
+        #instance
+        clt=Client(nom=nom,contact=contact,adresse=adress,date_naissance=date_naiss)
+        clt.save()
+        ####contrat infos
         montant=request.POST.get('montant')
         duree=request.POST.get('duree')
-        date_signature=request.POST.get('date_sgnture')
-        ###temoin
-        nomTemoin=request.POST.get('nomTemoin')
-        adresseTemoin=request.POST.get('adresseTemoin')
-        contact=request.POST.get('contactTemoin')
-        #date_naiss=request.POST.get('date_naissance')
-        print("request: \n")
-        print(request.POST)
+        date=request.POST.get('date_sgnture')
+        #instance
+        contrat=Contrat(montant_contrat=montant,date_contrat=date,duree=duree,client=clt)
+        contrat.save()
+        ###temoin infos
+       
+        nomsTemoin=request.POST.getlist('nomTemoin')
+        adressesTemoin=request.POST.getlist('adresseTemoin')
+        contacts=request.POST.getlist('contactTemoin')
+        print(nomsTemoin)
+        for i in range (len(nomsTemoin)):
+            t=Temoin(nom=nomsTemoin[i],contact=contacts[i],adresse=adressesTemoin[i],contrat=contrat)
+            print(t)
+            t.save()
+        
 
 
 
         ## save et validator##
-        return redirect("/create")
+        return redirect("/base")
     else:
-        return render(request,'clients/create.html')
-    
+        return render(request,'contrats/create.html')
+      
+
+
+def index(request):
+    return render(request,"contrats/index.html")
+
+#view that print client list
+def list_contrat(request):
+    contrats=Contrat.objects.all()
+    return render(request,"contrats/list.html",locals())
+#delete client
+def delete():
+    pass
+#update client
+def edit_contrat(request,id):
+    result=Contrat.objects.filter(pk=id)
+    contrat=get_object_or_404(result)
+    print(contrat)
+    return  render(request,'contrats/edit.html',locals())
+
+def update_contrat(request,id):
+     if request.method=='POST':
+        #validator
+        #client infos
+        nom=request.POST.get('nom')
+        contact=request.POST.get('contact')
+        adress=request.POST.get('adresse')
+        date_naiss=request.POST.get('date_naissance')
+        #instance
+        clt=Client(nom=nom,contact=contact,adresse=adress,date_naissance=date_naiss)
+        clt.save()
+        ####contrat infos
+        montant=request.POST.get('montant')
+        duree=request.POST.get('duree')
+        date=request.POST.get('date_sgnture')
+        #instance
+        contrat=Contrat(montant_contrat=montant,date_contrat=date,duree=duree,client=clt)
+        contrat.save()
+        ###temoin infos
+       
+        nomsTemoin=request.POST.getlist('nomTemoin')
+        adressesTemoin=request.POST.getlist('adresseTemoin')
+        contacts=request.POST.getlist('contactTemoin')
+        print(nomsTemoin)
+        for i in range (len(nomsTemoin)):
+            t=Temoin(nom=nomsTemoin[i],contact=contacts[i],adresse=adressesTemoin[i],contrat=contrat)
+            print(t)
+            t.save()
+        
+        return HttpResponse("ok")
+
+

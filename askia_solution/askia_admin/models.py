@@ -6,11 +6,11 @@ class Personne(models.Model):
     nom=models.CharField(max_length=50)
     # prenom=models.CharField(max_length=50)
     adresse=models.CharField(max_length=50)
-    date_naissance=models.DateField()
+    date_naissance=models.DateField(null=True)
     contact=models.CharField(max_length=15)
     
     def __str__(self):
-        return self.nom + " " + self.prenom + " " + self.adresse + " " + self.contact
+        return self.nom + " " + self.adresse + " " + self.contact
     
     class Meta:
         abstract = True
@@ -23,7 +23,7 @@ class Contrat(models.Model):
     id = models.BigAutoField(primary_key=True)
     contrat_parent= models.OneToOneField("self", on_delete=models.PROTECT, null=True,blank=True, related_name="contrats_enfants")
     montant_contrat=models.IntegerField()
-    duree=models.CharField(max_length=50)  
+    duree=models.IntegerField()  
 
     Etat = models.TextChoices("Etat", "EN_COURS ANNULE TERMINE")
 
@@ -33,7 +33,7 @@ class Contrat(models.Model):
 
     status = models.CharField(max_length=10, choices=Status.choices, default=Status.A_JOUR)
     date_contrat=models.DateField()
-    fichier=models.FileField(max_length=50)
+    #fichier=models.FileField(max_length=50)
     client=models.OneToOneField(Client,on_delete=models.CASCADE,null=True)
     
     

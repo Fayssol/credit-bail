@@ -13,7 +13,7 @@
 
 {%block body%}
 <div class="content-fluid">
-  <form action="" class="mx-4 mt-4" method="post">
+  <form action="{% url 'askia_admin:update_contrat' contrat.pk %}" class="mx-4 mt-4" method="post">
     @{% csrf_token %}
     <fieldset class="form-group border p-3 shadow-sm border border-dark" >
       <legend class="w-auto px-2">Client Info</legend>
@@ -25,7 +25,7 @@
                 <div class="input-group-text"><img src="{%static 'img/user-solid.svg'%}" alt=""></div>
               </div>
               <input type="text" 
-             id="nomClt" class="form-control" placeholder="Full Name" name="nom" >
+             id="nomClt" class="form-control" placeholder="Full Name" value="{{contrat.client.nom}}" name="nom" >
             </div>
             <!-- <input type="text" class="form-control " placeholder="Full Name"> -->
         </div>
@@ -35,7 +35,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text"><img src="{%static 'img/phone-solid.svg' %}" alt=""></div>
             </div>
-            <input id="contact" type="text" class="form-control" placeholder="+228" name="contact">
+            <input id="contact" type="text" class="form-control" value="{{contrat.client.contact}}"   placeholder="+228" name="contact">
           </div>
           <!-- <input type="text" class="form-control" placeholder="+228"> -->
         </div>
@@ -48,7 +48,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text"><img src="{%static 'img/house-solid.svg' %}" alt=""></div>
             </div>
-            <input type="text" id="address" class="form-control" placeholder="Address" name="adresse">
+            <input type="text" id="address" class="form-control" placeholder="Address" value="{{contrat.client.adresse}}"  name="adresse">
           </div>
           <!-- <input type="text" class="form-control mb-3" placeholder="Address"> -->
       </div>
@@ -58,7 +58,7 @@
           <div class="input-group-prepend">
             <div class="input-group-text"><img src="{% static 'img/calendar-days-solid.svg' %}" alt=""></div>
           </div>
-          <input type="date" class="form-control" placeholder="Date Naiss" name="date_naissance">
+          <input type="date" class="form-control" placeholder="Date Naiss" value="{{contrat.client.date_naissance}}"  name="date_naissance">
         </div>
       </div>
 
@@ -74,7 +74,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text"><img src="{%static 'img/piggy-bank-solid.svg' %}" alt=""></div>
             </div>
-            <input type="number" class="form-control" placeholder="En FCFA" name="montant">
+            <input type="number" class="form-control" placeholder="En FCFA" name="montant" value="{{contrat.montant_contrat}}" >
           </div>
           <!-- <input type="integer" class="form-control mb-3" placeholder="En FCFA"> -->
         </div>
@@ -84,9 +84,9 @@
             <div class="input-group-prepend">
               <div class="input-group-text"><img src="{%static 'img/clock-solid.svg' %}" alt=""></div>
             </div>
-            <input type="number" class="form-control" placeholder="En mois" name="duree">
+            <input type="number" class="form-control" placeholder="En mois"  value="{{contrat.duree}}" name="duree">
           </div>
-          <!-- <input type="integer" class="form-control mb-3" placeholder="En mois"> -->
+          
         </div>
 
         <div class="col-md-4">
@@ -95,15 +95,16 @@
             <div class="input-group-prepend">
               <div class="input-group-text"><img src="{%static 'img/calendar-days-solid.svg' %}" alt=""></div>
             </div>
-            <input type="date" class="form-control" placeholder="" name="date_sgnture">
+            <input type="date" class="form-control" placeholder=""  value="{{contrat.date_contrat}}" name="date_sgnture">
           </div>
-          <!-- <input type="date" class="form-control"> -->
+        
         </div>
 
       </div>
     </fieldset>
 
     <fieldset class="form-group border p-3 shadow-sm border border-dark">
+      {% for temoin in temoins %}
       <legend class="w-auto px-2">Témoins Info</legend>
       <div id="temoins">
         <div class="temoin form-row">
@@ -113,7 +114,7 @@
               <div class="input-group-prepend">
                 <div class="input-group-text"><img src="{%static 'img/user-solid.svg' %}" alt=""></div>
               </div>
-              <input type="text" class="form-control" placeholder="Full Name" name="nomTemoin">
+              <input id="inpu-id" type="text" class="form-control" placeholder="Full Name"   value="{{temoin.nom}}" name="nomTemoin">
             </div>
           </div>
           <div class="col-md-4">
@@ -122,7 +123,7 @@
               <div class="input-group-prepend">
                 <div class="input-group-text"><img src="{%static 'img/phone-solid.svg' %}" alt=""></div>
               </div>
-              <input type="text" class="form-control" placeholder="+228" name="contactTemoin">
+              <input type="text" class="form-control" placeholder="+228" value="{{temoin.contact}}"  name="contactTemoin">
             </div>
           </div>
           <div class="col-md-4">
@@ -131,9 +132,11 @@
               <div class="input-group-prepend">
                 <div class="input-group-text"><img src="{%static 'img/house-solid.svg' %}" alt=""></div>
               </div>
-              <input type="text" class="form-control" placeholder="Address" name="adresseTemoin">
+              <input type="text" class="form-control" placeholder="Address" value="{{temoin.adresse}}"  name="adresseTemoin">
             </div>
           </div>
+          {% endfor %}
+        {% comment %}  {% endcomment %}
           <div class="col-md-12 text-right">
             <button type="button" class="btn btn-primary btn-sm add-temoin">Add temoin</button>
             <button type="button" class="btn btn-danger btn-sm remove-temoin" style="display:none;">Remove temoin</button>
@@ -186,15 +189,13 @@ $(document).ready(function () {
   $(".btn-save").click(function(){
     //regex
 
-    const re1=/[a-z]/;
-    let nom=$("#nomClt" ).val() ;
-    if(){
-      
-    }
+    //const re1=/[a-z]/;
+    let nom=$("#inpu-id" ).val() ;
+    console.log(nom);
     
-    alert(nom);
+    //alert(nom);
     let contact=$("#contact").val();
-    alert(contact);
+   // alert(contact);
   });
   
   

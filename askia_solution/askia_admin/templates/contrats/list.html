@@ -1,0 +1,31 @@
+{%extends 'layouts/base.html' %}
+{% load static%}
+
+
+{%block style%}
+
+{%endblock%}
+
+
+{%block header_js%}
+
+{%endblock%}
+
+{%block body%}
+<table border="3">
+    <tr>
+      <th>Date contrat</th>
+      <th>Montant</th>
+      <th>Client</th>
+    </tr>
+    {% for c in contrats %}
+    <tr>
+      <td>{{c.date_contrat}}</td>
+      <td>{{c.montant_contrat}}</td>
+      <td>{{c.client.nom}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+{%endblock%}
