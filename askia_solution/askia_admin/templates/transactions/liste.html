@@ -20,9 +20,6 @@
 			<div class="card-header card-header-border-bottom d-flex justify-content-between">
 				<h2>Liste des transactions</h2>
 
-				<!-- <a href="https://datatables.net/examples/styling/display.html" target="_blank" class="btn btn-outline-primary btn-sm text-uppercase">
-					<i class=" mdi mdi-link mr-1"></i> Docs
-				</a> -->
 			</div>
 
 			<div class="card-body">
@@ -48,23 +45,7 @@
 
                         <table id="transactions_table" class="table nowrap transactions" style="width:100%">
                         <!-- <table id="basic-data-table" class="table nowrap transactions" style="width:100%"> -->
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Client</th>
-                                    <th>Contact</th>
-                                    <th>Date</th>
-                                    <th>Montant Vers</th>
-                                    <th>Total Vers</th>
-                                    <th>A Payé</th>
-                                    <th>Reste</th>
-                                    <th>Note</th>
-                                </tr>
-                            </thead>
-
-                        <tbody>
                             
-                        </tbody>
                         </table>
 
                 </div>
@@ -110,15 +91,16 @@ function loadData(initial_date, finale_date) {
         },
         columns: [
             {data: 'id', visible: false},
-            { data: 'nom', visible: true },
-            { data: 'contact', visible: true },
-            { data: 'date_versement', visible: true },
-            { data: 'montant_versement', visible: true },
-            { data: 'montant_total_paye', visible: true },
-            { data: 'montant_contrat', visible: true },
-            { data: 'reste', visible: true },
-            { data: 'note', visible: true }
-        ]
+            { data: 'nom', visible: true ,title:"Clients"},
+            { data: 'contact', visible: true, title:"Contacts" },
+            { data: 'date_versement', visible: true,title:"Date Vers." },
+            { data: 'montant_versement', visible: true,title:"Montant Versé" },
+            { data: 'montant_total_paye', visible: true, title:"Toatal Versé" },
+            { data: 'montant_contrat', visible: true,title:"À Payé" },
+            { data: 'reste', visible: true,title:"Reste" },
+            { data: 'note', visible: true, title:"Notes" }
+        ],
+        
 } 
 
 );}
