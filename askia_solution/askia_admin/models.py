@@ -4,7 +4,6 @@ from django.db import models
 # Create your models here.
 class Personne(models.Model):
     nom=models.CharField(max_length=50)
-    # prenom=models.CharField(max_length=50)
     adresse=models.CharField(max_length=50)
     date_naissance=models.DateField(null=True)
     contact=models.CharField(max_length=15)
@@ -33,6 +32,7 @@ class Contrat(models.Model):
 
     status = models.CharField(max_length=10, choices=Status.choices, default=Status.A_JOUR)
     date_contrat=models.DateField()
+
     #fichier=models.FileField(max_length=50)
     client=models.OneToOneField(Client,on_delete=models.CASCADE,null=True)
     
@@ -51,7 +51,7 @@ class Versement(models.Model):
     def save(self, *args, **kwargs):
         # Calculer le nouveau montant total payé en ajoutant le montant du versement actuel
         # au montant total payé précédent dans le versement
-        self.montant_total_paye += self.montant_versement
+        self.montant_total_paye += int(self.montant_versement)
         super().save(*args, **kwargs)  # Appeler la méthode save() du modèle parent
 
 

@@ -13,4 +13,7 @@ def base(request):
 
 
 
+def welcome(request):
+    return render(request, 'pages/index.html')
+
 

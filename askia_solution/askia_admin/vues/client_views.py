@@ -4,7 +4,8 @@ from django.shortcuts import redirect, render,get_object_or_404,HttpResponse
 def contrat_form(request):
     return render(request,'contrats/create.html')
 
-
+# def client_liste(request):
+#     return render(request,'clients/liste.html')
 
 
 def save_contrat(request):

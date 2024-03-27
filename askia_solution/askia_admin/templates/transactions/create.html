@@ -14,30 +14,54 @@
 
 {% block body%}
 
+{% if msg %}
+<div id="myAlert" class="alert alert-success alert-dismissible d-flex align-items-center justify-content-between fade show">
+ <div>
+    <i class="bi-check-circle-fill"></i>
+    <strong class="mx-2">Success!</strong> Transaction de <strong> {{montant_versement}} CFA  </strong> pour le client {{client}}
+ </div>
+  <!-- <button id="myBtn" type="button" class="btn-close" data-bs-dismiss="alert"></button> -->
+  <span class="fermer">
+    <i class="bi bi-x-lg text-danger"></i>
+  </span>
+</div>
+
+
+{% else %}
+
+
+
+{% endif %}
+
 <form id="transactionForm" action="{% url 'askia_admin:save_transaction' %}" method="post" class="form-control-sm">
   {% csrf_token %}
 
     <fieldset class="form-group border p-3 shadow-sm border border-wihte" >
         <legend class="w-auto px-2">Transaction</legend>
         <div class="form-row mb-3">
+          <!--  -->
           <div class="col-md-6 mb-3 ">
               <label for="" class="form-label" >Client</label>
               <div class="input-group mb-2">
                 <div class="input-group-prepend">
                   <div class="input-group-text"><img src="{%static 'img/user-solid.svg'%}" alt=""></div>
                 </div>
+                
                 <input id="contrat" class="form-control" name="contrat" list="datalistOptions" id="exampleDataList" placeholder="Chercher un client">
-                <span id="contratError" class="error"></span>
                 <datalist id="datalistOptions">
-                  {% for contrat in contrats%}
-                <option value="{{contrat.id}}">{{contrat.client.nom}}</option>
-                  {%endfor%}
-               
-                </datalist>
-               
-            </div>
-              
+                  
+                  {% for contrat in contrats %}
+                  <option value="{{contrat.client.nom}}">
+                    {%endfor%}
+                    
+                  </datalist>
+                  
+                </div>
+                
+                <span id="contratError" class="error text-danger"></span>
+       
           </div>
+
           <div class="col-md-6 ">
             <label for="" class="form-label">Montant</label>
             <div class="input-group mb-2">
@@ -45,8 +69,8 @@
                 <div class="input-group-text"><img src="{%static 'img/piggy-bank-solid.svg' %}" alt=""></div>
               </div>
               <input id="montant" type="number" name="montant_versement" class="form-control" placeholder="Enter un montant">
-              <span id="montantError" class="error"></span>
             </div>
+            <span id="montantError" class="error text-danger"></span>
            
           </div>
       </div>
@@ -58,21 +82,34 @@
               <div class="input-group-prepend">
                 <div class="input-group-text"><img src="{%static 'img/calendar-days-solid.svg' %}" alt=""></div>
               </div>
-              <input id="date" type="date" class="form-control" name="date_versement" placeholder="Enter une date">
-              <span id="dateError" class="error"></span>
+              <!-- <input id="date" type="date" class="form-control" name="date_versement" placeholder="Enter une date"> -->
+              <input id="date" 
+                type="date" 
+                class="form-control" 
+                name="date_versement" 
+                placeholder="Enter une date" 
+                max="{{ date_actuelle }}" 
+                value="{{ date_actuelle }}"
+                data-date-format="yyyy/mm/dd"
+              >
+
             </div>
+            <span id="dateError" class="error text-danger"></span>
         </div>
-        <div class="col-md-6 ">
-          <label for="" class="form-label">Note</label>
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <div class="input-group-text"><img src="{%static 'img/note.svg' %}" alt=""></div>
+        
+          <div class="col-md-6">
+            <label for="note" class="form-label">Note</label>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><img src="{%static 'img/note.svg' %}" alt=""></div>
+                </div>
+                <input id="note" type="text" name="note" class="form-control" placeholder="Enter une note">
             </div>
-            <input id ="note" type="text" name="note" class="form-control" placeholder="Enter une note">
-            <span id="noteError" class="error"></span>
-          </div>
-         
+            <span id="noteError" class="error text-danger"></span>
         </div>
+
+       
+
         <button id="transactionBtn" type="button" class="btn btn-primary mt-4">Enregister</button>
 
       </fieldset>
@@ -86,27 +123,47 @@
 
 {%block footer_js%}
 
+
+
 <script>
 $('#transactionBtn').click(function() {
-    var note = $("#note").val();
-    var montant = $("#montant").val();
-    var contrat = $("#contrat").val();
-    var date = $("#date").val();
+    const note = $("#note").val();
+    const montant = $("#montant").val();
+    const contrat = $("#contrat").val();
+    const date = $("#date").val();
+    const form = $("#transactionForm");
     
     // Vérification du montant
-   montant_validation(montant);
+   const v1 = montant_validation(montant);
     
     // Vérification du contrat
-   contrat_validation(contrat);
+   const v2 = contrat_validation(contrat);
     
    // Vérification de date
-   date_validation(date);
+   const v3 = date_validation(date);
+  if (v1 && v2 && v3) {
+    console.log('form valid');
+    form.submit();
     
-    
-    // Si la validation réussit, vous pouvez continuer à soumettre le formulaire ici
-    // Par exemple, vous pouvez utiliser form.submit(); ou AJAX pour soumettre le formulaire.
+  }
+ 
+   
 });
 
 </script>
+
+<script>
+  // $(document).ready(function(){
+  //     $("#myBtn").click(function(){
+  //         $("#myAlert").alert("close");
+  //     });
+  // });
+  $(document).ready(function() {
+    $(".fermer").click(function(){
+      $("#myAlert").remove();
+    });
+    
+  });
+  </script>
 
 {%endblock%}

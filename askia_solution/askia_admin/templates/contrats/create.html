@@ -13,8 +13,10 @@
 
 {%block body%}
 <div class="content-fluid">
-  <form action="{% url 'askia_admin:save' %}" class="mx-4 mt-4" method="post">
-    @{% csrf_token %}
+
+  <form action="{% url 'askia_admin:save_contrat' %}" class="mx-4 mt-4" method="post">
+    {% csrf_token %}
+
     <fieldset class="form-group border p-3 shadow-sm border border-dark" >
       <legend class="w-auto px-2">Client Info</legend>
       <div class="form-row mb-3">
@@ -166,8 +168,6 @@
 $(document).ready(function () {
 
 
-
-
   // Add temoin
   $(".add-temoin").click(function () {
     var clone = $("#temoins .temoin:first").clone(true);
@@ -182,6 +182,8 @@ $(document).ready(function () {
     $(this).closest(".temoin").remove();
   });
 
+
+
   //recuperer la valeur de l'id nomclient 
   $(".btn-save").click(function(){
     //regex
@@ -194,8 +196,26 @@ $(document).ready(function () {
     let contact=$("#contact").val();
    // alert(contact);
   });
+
   
   
 });
+</script>
+
+<script>
+  //recuperer la valeur de l'id nomclient 
+  // $(".btn-save").click(function(){
+  //   //regex
+
+  //   const re1=/[a-z]/;
+  //   let nom=$("#nomClt" ).val() ;
+  //   if(){
+      
+  //   }
+    
+  //   alert(nom);
+  //   let contact=$("#contact").val();
+  //   alert(contact);
+  // });
 </script>
 {%endblock%}
