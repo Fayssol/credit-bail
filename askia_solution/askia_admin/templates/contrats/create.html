@@ -13,13 +13,10 @@
 
 {%block body%}
 <div class="content-fluid">
-<<<<<<< HEAD:askia_solution/askia_admin/templates/clients/create.html
-  <form action="" class="mx-4 mt-4" method="post">
+
+  <form action="{% url 'askia_admin:save_contrat' %}" class="mx-4 mt-4" method="post">
     {% csrf_token %}
-=======
-  <form action="{% url 'askia_admin:save' %}" class="mx-4 mt-4" method="post">
-    @{% csrf_token %}
->>>>>>> 621187b01e362d028feb97e1601f5c77de8611a3:askia_solution/askia_admin/templates/contrats/create.html
+
     <fieldset class="form-group border p-3 shadow-sm border border-dark" >
       <legend class="w-auto px-2">Client Info</legend>
       <div class="form-row mb-3">
@@ -185,8 +182,8 @@ $(document).ready(function () {
     $(this).closest(".temoin").remove();
   });
 
-<<<<<<< HEAD:askia_solution/askia_admin/templates/clients/create.html
-=======
+
+
   //recuperer la valeur de l'id nomclient 
   $(".btn-save").click(function(){
     //regex
@@ -199,7 +196,7 @@ $(document).ready(function () {
     let contact=$("#contact").val();
    // alert(contact);
   });
->>>>>>> 621187b01e362d028feb97e1601f5c77de8611a3:askia_solution/askia_admin/templates/contrats/create.html
+
   
   
 });
