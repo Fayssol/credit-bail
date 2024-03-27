@@ -49,14 +49,33 @@ class Versement(models.Model):
     note = models.CharField(max_length=50)
 
     def save(self, *args, **kwargs):
-        # Calculer le nouveau montant total payé en ajoutant le montant du versement actuel
-        # au montant total payé précédent dans le versement
-        self.montant_total_paye += int(self.montant_versement)
-        super().save(*args, **kwargs)  # Appeler la méthode save() du modèle parent
+        if not self.pk:  # Vérifie si l'instance est nouvellement créée
+            # Récupère le dernier versement pour ce contrat
+            # dernier_versement = Versement.objects.filter(contrat=self.contrat).order_by('date_versement').first()
+            dernier_versement = Versement.objects.filter(contrat=self.contrat).latest('date_versement')
 
-
-
+            if dernier_versement:
+                self.montant_total_paye = dernier_versement.montant_total_paye + int(self.montant_versement)
+            else:
+                self.montant_total_paye = self.montant_versement
+        else:
+            # L'instance existe déjà, donc il s'agit probablement d'une modification
+            # Ne modifiez pas le montant_total_paye car cela pourrait entraîner des erreurs de suivi
+            pass
+        super().save(*args, **kwargs) 
     
+    # def save(self, *args, **kwargs):
+    #     try:
+    #         dernier_versement = Versement.objects.filter(contrat=self.contrat).latest('date_versement')
+    #     except:  
+    #         dernier_versement = None  
+
+    #     if dernier_versement != None:
+    #         self.montant_total_paye = dernier_versement.montant_total_paye +  int(self.montant_versement)
+           
+    #     else:
+    #          self.montant_total_paye = int(self.montant_versement)
+    #     super().save(*args, **kwargs)  # Appeler la méthode save() du modèle parent     
     
 class Vaque(models.Model):
     date_arrivee=models.DateField()

@@ -13,7 +13,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 def save_transaction(request):
-    msg = False  # Initialiser msg en dehors du bloc try
+    msg = False 
     if request.method == "POST":
         try:
             montant_versement = request.POST["montant_versement"]
@@ -22,16 +22,15 @@ def save_transaction(request):
             note = request.POST["note"]  
             contrat_obj = Contrat.objects.get(client=Client.objects.get(nom=contrat))
             Versement.objects.create(montant_versement=montant_versement, date_versement=date_versement, contrat=contrat_obj, note=note)
+            print("*************oui")
             msg = True  # Définir msg à True si la transaction est réussie
-            # Passer toutes les données nécessaires au formulaire
-           # return render(request,'transactions/create.html', {"msg": msg, "montant_versement": montant_versement, "client": contrat_obj.client.nom})
+            
             return HttpResponseRedirect(reverse("askia_admin:transaction_form"), locals())
         except Contrat.DoesNotExist:
             print("Contrat does not exist")
         except Exception as e:
             print("Error:", e)
-
-    # Handle GET request or any other scenario where POST method isn't used
+    print("*********Non")
     return HttpResponseRedirect(reverse("askia_admin:transaction_form"), {"msg": msg})
 
 
@@ -68,7 +67,8 @@ def transaction_list(request):
         date_from = request.POST.get('from_date', None)
         date_to = request.POST.get('to_date', None)
 
-        filtered_transactions = Versement.objects.all()
+        filtered_transactions = Versement.objects.all().order_by('date_versement')
+
 
         if search:
             filtered_transactions = filtered_transactions.filter(
@@ -80,10 +80,9 @@ def transaction_list(request):
                 Q(contrat__client__nom__icontains=search) |  
                 Q(contrat__client__contact__icontains=search) 
             )
-
         if date_from and date_to:
             filtered_transactions = filtered_transactions.filter(
-                date_versement__range=[date_from + " 00:00:00", date_to + " 23:59:59"]
+                date_versement__range=[date_from , date_to ]
             )
 
         total_records = Versement.objects.count()

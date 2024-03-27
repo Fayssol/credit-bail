@@ -31,11 +31,11 @@
                         <div class="row">
                             <div class="col">
                                 <input name="from_date" id="from_date" required class="form-control" type="date"
-                                       data-date-format="yyyy/mm/dd">
+                                       data-date-format="YYYY-MM-DD HH:MM:SS">
                             </div>
                             <div class="col">
                                 <input name="to_date" readonly id="to_date" required class="form-control"
-                                       type="date" data-date-format="yyyy/mm/dd">
+                                       type="date" data-date-format="YYYY-MM-DD HH:MM:SS">
                             </div>
                             <div class="col d-flex align-self-center">
                                 <button style="font-size: small" class="btn btn-dark">Filtrer</button>
@@ -95,7 +95,7 @@ function loadData(initial_date, finale_date) {
             { data: 'contact', visible: true, title:"Contacts" },
             { data: 'date_versement', visible: true,title:"Date Vers." },
             { data: 'montant_versement', visible: true,title:"Montant Versé" },
-            { data: 'montant_total_paye', visible: true, title:"Toatal Versé" },
+            { data: 'montant_total_paye', visible: true, title:"Total Versé" },
             { data: 'montant_contrat', visible: true,title:"À Payé" },
             { data: 'reste', visible: true,title:"Reste" },
             { data: 'note', visible: true, title:"Notes" }
