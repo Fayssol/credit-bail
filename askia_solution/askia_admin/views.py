@@ -12,9 +12,8 @@ def base(request):
     return render(request,'layouts/base.html')
 
 
+
 def welcome(request):
     return render(request, 'pages/index.html')
-
-
 
 
