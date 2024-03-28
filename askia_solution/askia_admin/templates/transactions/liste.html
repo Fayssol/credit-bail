@@ -7,6 +7,8 @@
 <link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
 <link href="{% static '/css/datatables.bootstrap4.min.css' %}" rel='stylesheet'>
 <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
+
+  
 {%endblock%}
 
 {%block header_js%}
@@ -28,7 +30,7 @@
                     <form id="date_filter" class="ms-auto mb-4" method="POST">
                         {% csrf_token %}
                         <!-- <input type="hidden" name="csrfmiddlewaretoken"> -->
-                        <div class="row">
+                        <div class="row ">
                             <div class="col">
                                 <input name="from_date" id="from_date" required class="form-control" type="date"
                                        data-date-format="YYYY-MM-DD HH:MM:SS">
@@ -38,12 +40,12 @@
                                        type="date" data-date-format="YYYY-MM-DD HH:MM:SS">
                             </div>
                             <div class="col d-flex align-self-center">
-                                <button style="font-size: small" class="btn btn-dark">Filtrer</button>
+                                <button style="font-size: small" class="btn btn-primary">Filtrer</button>
                             </div>
                         </div>
                     </form>
 
-                        <table id="transactions_table" class="table nowrap transactions" style="width:100%">
+                        <table id="transactions_table" class="table nowrap table-hover table-sm table-responsive " style="width:100%">
                         <!-- <table id="basic-data-table" class="table nowrap transactions" style="width:100%"> -->
                             
                         </table>
@@ -65,13 +67,14 @@
 
 function loadData(initial_date, finale_date) {
     $('#transactions_table').DataTable( {
+        
         serverSide: true,
         paging: true,
         processing: true,
         stateSave: true,
         'lengthMenu': [10, 25, 50, 100, 150, 200, 300, 500],
         searching: true,
-        sort: false,
+        sort: true,
         ajax: {
             url : "{% url 'askia_admin:ajax_transaction_list' %}",
             type: 'POST',

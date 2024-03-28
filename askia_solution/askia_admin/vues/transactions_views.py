@@ -67,7 +67,7 @@ def transaction_list(request):
         date_from = request.POST.get('from_date', None)
         date_to = request.POST.get('to_date', None)
 
-        filtered_transactions = Versement.objects.all().order_by('date_versement')
+        filtered_transactions = Versement.objects.order_by('-date_versement', '-id')
 
 
         if search:
