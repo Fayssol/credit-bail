@@ -54,7 +54,7 @@ def index(request):
 #view that print client list
 def list_contrat(request):
     contrats=Contrat.objects.all()
-    return render(request,"contrats/list.html",locals())
+    return render(request,"contrats/liste.html",locals())
 #delete client
 def delete():
     pass

@@ -93,7 +93,7 @@ def transaction_list(request):
             "recordsTotal": total_records,
             "recordsFiltered": total_filtered_records,
             "data": [{
-                "id": versement.id,
+                # "id": versement.id,
                 "nom": versement.contrat.client.nom,
                 "contact": versement.contrat.client.contact,
                 "date_versement": versement.date_versement,

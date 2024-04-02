@@ -98,7 +98,7 @@
         </div>
         
           <div class="col-md-6">
-            <label for="note" class="form-label">Note</label>
+            <label for="note" class="form-label">Note <span class="text-success">(optionnel)</span></label>
             <div class="input-group mb-2">
                 <div class="input-group-prepend">
                     <div class="input-group-text"><img src="{%static 'img/note.svg' %}" alt=""></div>
@@ -132,6 +132,7 @@ $('#transactionBtn').click(function() {
     const contrat = $("#contrat").val();
     const date = $("#date").val();
     const form = $("#transactionForm");
+    const alert = $("#myAlert");
     
     // Vérification du montant
    const v1 = montant_validation(montant);
@@ -144,6 +145,7 @@ $('#transactionBtn').click(function() {
   if (v1 && v2 && v3) {
     console.log('form valid');
     form.submit();
+    alert.html("")
     
   }
  

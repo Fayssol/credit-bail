@@ -8,6 +8,11 @@
 <link href="{% static '/css/datatables.bootstrap4.min.css' %}" rel='stylesheet'>
 <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
 
+<!--  -->
+<link href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css">
+<link href="https://cdn.datatables.net/rowreorder/1.5.0/css/rowReorder.dataTables.css">
+<link href="https://cdn.datatables.net/responsive/3.0.1/css/responsive.dataTables.css">
+
   
 {%endblock%}
 
@@ -29,7 +34,7 @@
 				<div class="basic-data-table">
                     <form id="date_filter" class="ms-auto mb-4" method="POST">
                         {% csrf_token %}
-                        <!-- <input type="hidden" name="csrfmiddlewaretoken"> -->
+                         <input type="hidden" name="csrfmiddlewaretoken"> 
                         <div class="row ">
                             <div class="col">
                                 <input name="from_date" id="from_date" required class="form-control" type="date"
@@ -45,10 +50,20 @@
                         </div>
                     </form>
 
-                        <table id="transactions_table" class="table nowrap table-hover table-sm table-responsive " style="width:100%">
-                        <!-- <table id="basic-data-table" class="table nowrap transactions" style="width:100%"> -->
+                        <!-- <table id="transactions_table" class="display nowrap " style="width:100%">
+                        
                             
+                        </table> -->
+
+                        <!-- example -->
+                        <table id="transactions_table" class="display nowrap" style="width:100%">
+                          
                         </table>
+
+
+
+
+
 
                 </div>
 </div>
@@ -59,22 +74,122 @@
 {%block footer_js%}
 <script src="{%static '/js/jquery.datatables.min.js' %}"></script>
 <script src="{% static '/js/datatables.bootstrap4.min.js' %}"></script>
-
 <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+<!--  -->
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/rowreorder/1.5.0/js/dataTables.rowReorder.js"></script>
+<script src="https://cdn.datatables.net/rowreorder/1.5.0/js/rowReorder.dataTables.js"></script>
+<script src="https://cdn.datatables.net/responsive/3.0.1/js/dataTables.responsive.js"></script>
+<script src="https://cdn.datatables.net/responsive/3.0.1/js/responsive.dataTables.js"></script>
 
 <script>
+var TOKEN = $('input[name="csrfmiddlewaretoken"]').val();
+function loadData(initial_date, finale_date) {
+
+    new DataTable('#transactions_table', {
+    responsive: true,
+    // rowReorder: true,
+    // rowReorder: {
+    //     selector: 'td:nth-child(2)'
+    // },
+    
+    serverSide: true,
+    paging: true,
+    processing: true,
+    stateSave: true,
+    'lengthMenu': [10, 25, 50, 100, 150, 200, 300, 500],
+    searching: true,
+    sort: true,
+    ajax: {
+            url : "{% url 'askia_admin:ajax_transaction_list' %}",
+            type: 'POST',
+            headers: {
+            'X-CSRFToken': TOKEN
+            },
+            data: {
+
+            "from_date": initial_date,
+            "to_date": finale_date,
+
+            },
+        
+        },
+        language: {
+             search: "Rechercher:"
+        },
+        columns: [
+            // {data: 'id', visible: false},
+            { data: 'nom', visible: true ,title:"Clients"},
+            { data: 'contact', visible: true, title:"Contacts" },
+            { data: 'date_versement', visible: true,title:"Date Vers." },
+            { data: 'montant_versement', visible: true,title:"Montant Versé" },
+            { data: 'montant_total_paye', visible: true, title:"Total Versé" },
+            { data: 'montant_contrat', visible: true,title:"À Payé" },
+            { data: 'reste', visible: true,title:"Reste" },
+            { data: 'note', visible: true, title:"Notes" }
+        ],
+        columnDefs: [
+            
+             { className: "dt-center", targets: "_all" }, // Centrer tous les contenus de colonnes
+           
+
+
+
+            
+        ],
+     
+});
+
+}
+
+
+
+
+$(document).ready(function () {
+
+loadData()
+
+$('form#date_filter').on('submit', function (e) {
+
+    e.preventDefault();
+
+    var from_date = $('#from_date').val()
+    var to_date = $('#to_date').val()
+    $('#transactions_table').DataTable().destroy()
+    loadData(from_date, to_date)
+
+});
+
+
+
+$('#from_date').on('change', function () {
+
+$('#to_date').removeAttr("readonly")
+$('#to_date').attr("min", $(this).val())
+$('#to_date').val($(this).val())
+
+});
+
+});
+
+</script>
+<!-- <script>
     var TOKEN = $('input[name="csrfmiddlewaretoken"]').val();
 
 function loadData(initial_date, finale_date) {
     $('#transactions_table').DataTable( {
-        
+        responsive: true,
+        rowReorder: {
+            selector: 'td:nth-child(2)'
+        },
         serverSide: true,
-        paging: true,
-        processing: true,
-        stateSave: true,
+        //paging: true,
+        //processing: true,
+        //stateSave: true,
         'lengthMenu': [10, 25, 50, 100, 150, 200, 300, 500],
-        searching: true,
-        sort: true,
+        //searching: true,
+        //sort: true,
         ajax: {
             url : "{% url 'askia_admin:ajax_transaction_list' %}",
             type: 'POST',
@@ -138,6 +253,6 @@ $('#to_date').val($(this).val())
 
 });
 
-</script>    
+</script>     -->
 
 {%endblock%}
