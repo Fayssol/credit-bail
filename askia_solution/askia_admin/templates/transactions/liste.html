@@ -9,9 +9,9 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
 
 <!--  -->
-<link href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css">
+<!-- <link href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css">
 <link href="https://cdn.datatables.net/rowreorder/1.5.0/css/rowReorder.dataTables.css">
-<link href="https://cdn.datatables.net/responsive/3.0.1/css/responsive.dataTables.css">
+<link href="https://cdn.datatables.net/responsive/3.0.1/css/responsive.dataTables.css"> -->
 
   
 {%endblock%}
@@ -26,6 +26,10 @@
 		<div class="card card-default">
 			<div class="card-header card-header-border-bottom d-flex justify-content-between">
 				<h2>Liste des transactions</h2>
+                <!--  -->
+                <button type="button" class="btn btn-primary btn-pill" data-toggle="modal" data-target="#exampleModallarge">
+					New
+				</button>
 
 			</div>
 
@@ -69,6 +73,116 @@
 </div>
 </div>
 </div>
+
+<!-- modal -->
+<div class="modal fade" id="exampleModallarge" tabindex="-1" role="dialog" aria-labelledby="exampleModalLarge" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLarge">Modal Title</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<div class="modal-body" style="height: 400px; overflow-y: auto;">
+				<!-- Modal body text goes here. -->
+
+<form id="transactionForm" action="{% url 'askia_admin:save_transaction' %}" method="post" class="form-control-sm">
+    {% csrf_token %}
+  
+      <fieldset class="form-group border p-3 shadow-sm border border-wihte" >
+          <legend class="w-auto px-2">Transaction</legend>
+          <div class="form-row mb-3">
+            <!--  -->
+            <div class="col-md-6 mb-3 ">
+                <label for="" class="form-label" >Client</label>
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"><img src="{%static 'img/user-solid.svg'%}" alt=""></div>
+                  </div>
+                  
+                  <input id="contrat" class="form-control" name="contrat" list="datalistOptions" id="exampleDataList" placeholder="Chercher un client">
+                  <datalist id="datalistOptions">
+                    
+                    {% for contrat in contrats %}
+                    <option value="{{contrat.client.nom}}">
+                      {%endfor%}
+                      
+                    </datalist>
+                    
+                  </div>
+                  
+                  <span id="contratError" class="error text-danger"></span>
+         
+            </div>
+  
+            <div class="col-md-6 ">
+              <label for="" class="form-label">Montant</label>
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><img src="{%static 'img/piggy-bank-solid.svg' %}" alt=""></div>
+                </div>
+                <input id="montant" type="number" name="montant_versement" class="form-control" placeholder="Enter un montant">
+              </div>
+              <span id="montantError" class="error text-danger"></span>
+             
+            </div>
+        </div>
+    
+        <div class="form-row ">
+          <div class="col-md-6">
+              <label for="" class="form-label">Date</label>
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><img src="{%static 'img/calendar-days-solid.svg' %}" alt=""></div>
+                </div>
+                <!-- <input id="date" type="date" class="form-control" name="date_versement" placeholder="Enter une date"> -->
+                <input id="date" 
+                  type="date" 
+                  class="form-control" 
+                  name="date_versement" 
+                  placeholder="Enter une date" 
+                  max="{{ date_actuelle }}" 
+                  value="{{ date_actuelle }}"
+                  data-date-format="yyyy/mm/dd"
+                >
+  
+              </div>
+              <span id="dateError" class="error text-danger"></span>
+          </div>
+          
+            <div class="col-md-6">
+              <label for="note" class="form-label">Note <span class="text-success">(optionnel)</span></label>
+              <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                      <div class="input-group-text"><img src="{%static 'img/note.svg' %}" alt=""></div>
+                  </div>
+                  <input id="note" type="text" name="note" class="form-control" placeholder="Enter une note">
+              </div>
+              <span id="noteError" class="error text-danger"></span>
+          </div>
+  
+         
+  
+          <!-- <button id="transactionBtn" type="button" class="btn btn-primary mt-4">Enregister</button> -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger btn-pill" data-dismiss="modal">Close</button>
+            <!-- <button type="button" class="btn btn-primary btn-pill">Save Changes</button> -->
+            <button id="transactionBtn" type="button" class="btn btn-primary btn-pill">Enregister</button>
+        </div>
+  
+        </fieldset>
+  
+  </form>
+  
+                <!--  -->
+			</div>
+
+			
+		</div>
+	</div>
+</div>
 {%endblock%}
 
 {%block footer_js%}
@@ -76,14 +190,15 @@
 <script src="{% static '/js/datatables.bootstrap4.min.js' %}"></script>
 <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
 <!--  -->
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
 <script src="https://cdn.datatables.net/rowreorder/1.5.0/js/dataTables.rowReorder.js"></script>
 <script src="https://cdn.datatables.net/rowreorder/1.5.0/js/rowReorder.dataTables.js"></script>
 <script src="https://cdn.datatables.net/responsive/3.0.1/js/dataTables.responsive.js"></script>
-<script src="https://cdn.datatables.net/responsive/3.0.1/js/responsive.dataTables.js"></script>
+<script src="https://cdn.datatables.net/responsive/3.0.1/js/responsive.dataTables.js"></script> -->
 
 <script>
+   
 var TOKEN = $('input[name="csrfmiddlewaretoken"]').val();
 function loadData(initial_date, finale_date) {
 
@@ -116,8 +231,28 @@ function loadData(initial_date, finale_date) {
         
         },
         language: {
-             search: "Rechercher:"
+            processing: "Traitement en cours...",
+            search: "Rechercher&nbsp;:",
+            lengthMenu: "Afficher _MENU_ &eacute;l&eacute;ments",
+            info: "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+            infoEmpty: "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+            infoFiltered: "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+            infoPostFix: "",
+            loadingRecords: "Chargement en cours...",
+            zeroRecords: "Aucun &eacute;l&eacute;ment &agrave; afficher",
+            emptyTable: "Aucune donnée disponible dans le tableau",
+            paginate: {
+                first: "Premier",
+                previous: "Pr&eacute;c&eacute;dent",
+                next: "Suivant",
+                last: "Dernier"
+            },
+            aria: {
+                sortAscending: ": activer pour trier la colonne par ordre croissant",
+                sortDescending: ": activer pour trier la colonne par ordre décroissant"
+            }
         },
+       // langage: langage,
         columns: [
             // {data: 'id', visible: false},
             { data: 'nom', visible: true ,title:"Clients"},
@@ -131,7 +266,8 @@ function loadData(initial_date, finale_date) {
         ],
         columnDefs: [
             
-             { className: "dt-center", targets: "_all" }, // Centrer tous les contenus de colonnes
+            //  { className: "dt-center", targets: "_all" }, // Centrer tous les contenus de colonnes
+             { targets: "_all", className: 'dt-right' }
            
 
 
@@ -174,85 +310,4 @@ $('#to_date').val($(this).val())
 });
 
 </script>
-<!-- <script>
-    var TOKEN = $('input[name="csrfmiddlewaretoken"]').val();
-
-function loadData(initial_date, finale_date) {
-    $('#transactions_table').DataTable( {
-        responsive: true,
-        rowReorder: {
-            selector: 'td:nth-child(2)'
-        },
-        serverSide: true,
-        //paging: true,
-        //processing: true,
-        //stateSave: true,
-        'lengthMenu': [10, 25, 50, 100, 150, 200, 300, 500],
-        //searching: true,
-        //sort: true,
-        ajax: {
-            url : "{% url 'askia_admin:ajax_transaction_list' %}",
-            type: 'POST',
-            headers: {
-            'X-CSRFToken': TOKEN
-            },
-            data: {
-
-            "from_date": initial_date,
-            "to_date": finale_date,
-
-            },
-        
-        },
-        language: {
-             search: "Rechercher:"
-        },
-        columns: [
-            {data: 'id', visible: false},
-            { data: 'nom', visible: true ,title:"Clients"},
-            { data: 'contact', visible: true, title:"Contacts" },
-            { data: 'date_versement', visible: true,title:"Date Vers." },
-            { data: 'montant_versement', visible: true,title:"Montant Versé" },
-            { data: 'montant_total_paye', visible: true, title:"Total Versé" },
-            { data: 'montant_contrat', visible: true,title:"À Payé" },
-            { data: 'reste', visible: true,title:"Reste" },
-            { data: 'note', visible: true, title:"Notes" }
-        ],
-        
-} 
-
-);}
-
-
-
-$(document).ready(function () {
-
-loadData()
-
-$('form#date_filter').on('submit', function (e) {
-
-    e.preventDefault();
-
-    var from_date = $('#from_date').val()
-    var to_date = $('#to_date').val()
-    $('#transactions_table').DataTable().destroy()
-    loadData(from_date, to_date)
-
-});
-
-
-
-$('#from_date').on('change', function () {
-
-$('#to_date').removeAttr("readonly")
-$('#to_date').attr("min", $(this).val())
-$('#to_date').val($(this).val())
-
-});
-
-
-});
-
-</script>     -->
-
 {%endblock%}
