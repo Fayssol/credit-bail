@@ -50,8 +50,11 @@ def transaction_form(request):
     return render(request,"transactions/create.html", locals())
 
 # transactions liste
-def transaction_list(request):
-    return render(request,"transactions/liste.html")
+def transaction_liste(request):
+    date_actuelle = date.today().isoformat()
+    contrats = Contrat.objects.all()
+    msg = 'salut***********'
+    return render(request,"transactions/liste.html", {"date_actuelle":date_actuelle, "contrats":contrats})
 
 
 

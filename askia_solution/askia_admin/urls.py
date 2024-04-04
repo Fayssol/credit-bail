@@ -14,7 +14,7 @@ urlpatterns = [
     #transaction
     path('transaction/', views.save_transaction, name="save_transaction"),
     path('transaction_form/', views.transaction_form, name="transaction_form"),
-    path('transaction_list',views.transaction_list, name="transaction_list"),
+    path('transaction_list',views.transaction_liste, name="transaction_liste"),
     path('', views.welcome, name="welcome"),
     path('ajax_transaction_list', views.transaction_list, name="ajax_transaction_list"),
     path('transaction_list/',views.transaction_list, name="transaction_list"),
