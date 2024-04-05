@@ -2,6 +2,7 @@ from ..models import Versement,Client,Temoin,Contrat
 from django.shortcuts import redirect, render,get_object_or_404,HttpResponse
 # formulaire de création d'un contrat#
 def contrat_form(request):
+   
     return render(request,'contrats/create.html')
 
 # def client_liste(request):

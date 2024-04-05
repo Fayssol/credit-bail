@@ -34,8 +34,7 @@
 			</div>
 
 			<div class="card-body">
-        <p>ffr</p>
-        {{msg}}
+
 				<div class="basic-data-table">
                     <form id="date_filter" class="ms-auto mb-4" method="POST">
                         {% csrf_token %}
@@ -89,7 +88,7 @@
 			<div class="modal-body" style="height: 400px; overflow-y: auto;">
 				<!-- Modal body text goes here. -->
 
-<form id="transactionForm" action="{% url 'askia_admin:save_transaction' %}" method="post" class="form-control-sm">
+<form id="transactionForm" action="{% url 'askia_admin:transaction_modal' %}" method="post" class="form-control-sm">
     {% csrf_token %}
   
       <fieldset class="form-group border p-3 shadow-sm border border-wihte" >
@@ -97,7 +96,7 @@
           <div class="form-row mb-3">
             <!--  -->
             <div class="col-md-6 mb-3 ">
-              {{msg}}
+            
                 <label for="" class="form-label" >Client</label>
                 <div class="input-group mb-2">
                   <div class="input-group-prepend">
