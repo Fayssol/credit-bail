@@ -67,6 +67,7 @@
    
     <fieldset  class="form-group border p-3 shadow-sm border border-dark">
       <legend class="w-auto px-2"> Contrat Info</legend>
+      
       <div class="form-row">
         <div class="col-md-4">
           <label for="montant" class="form-label">Montant</label>
@@ -132,19 +133,22 @@
             </div>
           </div>
           <div class="col-md-12 text-right">
-            <button type="button" class="btn btn-primary btn-sm add-temoin">Add temoin</button>
-            <button type="button" class="btn btn-danger btn-sm remove-temoin" style="display:none;">Remove temoin</button>
+            <span class=" add-temoin "><i class="bi bi-plus-lg text-success"></i></span>
+
+            <button type="button" class="btn btn-sm remove-temoin" style="display:none;"><i class="bi bi-x-lg text-danger"></i></button>
             
           </div>
         </div>
       </div>
     <div>
-      <button type="submit" class="btn btn-success btn-sm btn-save">Save</button>
-
+     
     </div>
     </fieldset>
 
+
     <div id="errorMessages"></div>
+
+    <button type="submit" class="btn btn-primary ">Enregister</button>
 
   </form>
 </div>

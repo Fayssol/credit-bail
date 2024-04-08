@@ -2,6 +2,7 @@ from ..models import Versement,Client,Temoin,Contrat
 from django.shortcuts import redirect, render,get_object_or_404,HttpResponse
 # formulaire de création d'un contrat#
 def contrat_form(request):
+   
     return render(request,'contrats/create.html')
 
 # def client_liste(request):
@@ -54,7 +55,7 @@ def index(request):
 #view that print client list
 def list_contrat(request):
     contrats=Contrat.objects.all()
-    return render(request,"contrats/list.html",locals())
+    return render(request,"contrats/liste.html",locals())
 #delete client
 def delete():
     pass
