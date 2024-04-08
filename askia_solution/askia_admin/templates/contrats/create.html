@@ -14,7 +14,7 @@
 {%block body%}
 <div class="content-fluid">
 
-  <form action="{% url 'askia_admin:save_contrat' %}" class="mx-4 mt-4" method="post">
+  <form id="idForm" action="{% url 'askia_admin:save_contrat' %}" class="mx-4 mt-4" method="post">
     {% csrf_token %}
 
     <fieldset class="form-group border p-3 shadow-sm border border-dark" >
@@ -32,27 +32,25 @@
             <!-- <input type="text" class="form-control " placeholder="Full Name"> -->
         </div>
         <div class="col-md-6 ">
-          <label for="" class="form-label">Contact</label>
+          <label for="contact" class="form-label">Contact</label>
           <div class="input-group mb-2">
             <div class="input-group-prepend">
               <div class="input-group-text"><img src="{%static 'img/phone-solid.svg' %}" alt=""></div>
             </div>
             <input id="contact" type="text" class="form-control" placeholder="+228" name="contact">
           </div>
-          <!-- <input type="text" class="form-control" placeholder="+228"> -->
         </div>
     </div>
 
     <div class="form-row ">
       <div class="col-md-6">
-          <label for="" class="form-label">Address</label>
+          <label for="adress" class="form-label">Address</label>
           <div class="input-group mb-2">
             <div class="input-group-prepend">
               <div class="input-group-text"><img src="{%static 'img/house-solid.svg' %}" alt=""></div>
             </div>
-            <input type="text" id="address" class="form-control" placeholder="Address" name="adresse">
+            <input id="adress" type="text" id="address" class="form-control" placeholder="Address" name="adresse">
           </div>
-          <!-- <input type="text" class="form-control mb-3" placeholder="Address"> -->
       </div>
       <div class="col-md-6 ">
         <label for="" class="form-label">Date Naiss</label>
@@ -60,7 +58,7 @@
           <div class="input-group-prepend">
             <div class="input-group-text"><img src="{% static 'img/calendar-days-solid.svg' %}" alt=""></div>
           </div>
-          <input type="date" class="form-control" placeholder="Date Naiss" name="date_naissance">
+          <input id="dateNaiss" type="date" class="form-control" placeholder="Date Naiss" name="date_naissance">
         </div>
       </div>
 
@@ -71,35 +69,32 @@
       <legend class="w-auto px-2"> Contrat Info</legend>
       <div class="form-row">
         <div class="col-md-4">
-          <label for="" class="form-label">Montant</label>
+          <label for="montant" class="form-label">Montant</label>
           <div class="input-group mb-2">
             <div class="input-group-prepend">
               <div class="input-group-text"><img src="{%static 'img/piggy-bank-solid.svg' %}" alt=""></div>
             </div>
-            <input type="number" class="form-control" placeholder="En FCFA" name="montant">
+            <input type="number"  id="montant" class="form-control" placeholder="En FCFA" name="montant">
           </div>
-          <!-- <input type="integer" class="form-control mb-3" placeholder="En FCFA"> -->
         </div>
         <div class="col-md-4">
-          <label for="" class="form-label">Durée</label>
+          <label for="duree" class="form-label">Durée</label>
           <div class="input-group mb-2">
             <div class="input-group-prepend">
               <div class="input-group-text"><img src="{%static 'img/clock-solid.svg' %}" alt=""></div>
             </div>
-            <input type="number" class="form-control" placeholder="En mois" name="duree">
+            <input id="duree" type="number" class="form-control" placeholder="En mois" name="duree">
           </div>
-          <!-- <input type="integer" class="form-control mb-3" placeholder="En mois"> -->
         </div>
 
         <div class="col-md-4">
-          <label for="" class="form-label">Date Signature</label>
+          <label for="dateSign" class="form-label">Date Signature</label>
           <div class="input-group mb-2">
             <div class="input-group-prepend">
               <div class="input-group-text"><img src="{%static 'img/calendar-days-solid.svg' %}" alt=""></div>
             </div>
-            <input type="date" class="form-control" placeholder="" name="date_sgnture">
+            <input id="dateSign" type="date" class="form-control" placeholder="" name="date_sgnture">
           </div>
-          <!-- <input type="date" class="form-control"> -->
         </div>
 
       </div>
@@ -110,12 +105,12 @@
       <div id="temoins">
         <div class="temoin form-row">
           <div class="col-md-4">
-            <label for="" class="form-label">Full Name</label>
+            <label for="nomTemoin" class="form-label">Full Name</label>
             <div class="input-group mb-2">
               <div class="input-group-prepend">
                 <div class="input-group-text"><img src="{%static 'img/user-solid.svg' %}" alt=""></div>
               </div>
-              <input id="inpu-id" type="text" class="form-control" placeholder="Full Name" name="nomTemoin">
+              <input id="" type="text" class="form-control nomTemoin" placeholder="Full Name" name="nomTemoin">
             </div>
           </div>
           <div class="col-md-4">
@@ -124,7 +119,7 @@
               <div class="input-group-prepend">
                 <div class="input-group-text"><img src="{%static 'img/phone-solid.svg' %}" alt=""></div>
               </div>
-              <input type="text" class="form-control" placeholder="+228" name="contactTemoin">
+              <input id="" type="text" class="form-control contactTmn" placeholder="+228" name="contactTemoin">
             </div>
           </div>
           <div class="col-md-4">
@@ -133,7 +128,7 @@
               <div class="input-group-prepend">
                 <div class="input-group-text"><img src="{%static 'img/house-solid.svg' %}" alt=""></div>
               </div>
-              <input type="text" class="form-control" placeholder="Address" name="adresseTemoin">
+              <input id="" type="text" class="form-control adressTmn" placeholder="Address" name="adresseTemoin">
             </div>
           </div>
           <div class="col-md-12 text-right">
@@ -149,6 +144,7 @@
     </div>
     </fieldset>
 
+    <div id="errorMessages"></div>
 
   </form>
 </div>
@@ -184,38 +180,49 @@ $(document).ready(function () {
 
 
 
-  //recuperer la valeur de l'id nomclient 
-  $(".btn-save").click(function(){
-    //regex
+  
+  /*$("#idForm").submit(function(event){
+    event.preventDefault(); // Empêche le formulaire de se soumettre normalement
+    //recuperation des valeurs des champs
+    const nomclient=$("#nomClt").val();
+    const adresse=$("#adress").val();
+    const contactClt=$("#contact").val();
+    const date_naiss=$("#dateNaiss").val();
+    ///info contrat
+    const montant=$("#montant").val();
+    const duree=$("#duree").val();
+    const dateSign=$('#dateSign').val();
+    //validation des champs
+    let errors=[];
+    if(nomclient.trim()==''){
+      errors.push("Nom du client est obligatoire");
+    }
 
-    //const re1=/[a-z]/;
-    let nom=$("#inpu-id" ).val() ;
-    console.log(nom);
     
-    //alert(nom);
-    let contact=$("#contact").val();
-   // alert(contact);
-  });
+    // temoins
+    const elements = $('.nomTemoin');
+    // Initialisez un tableau pour stocker les valeurs
+    let list_temoin = [];
+    // Parcourez chaque élément et ajoutez sa valeur au tableau
+    elements.each(function() {
+        var value = $(this).val(); // Récupère la valeur de l'élément en cours
+        list_temoin.push(value); // Ajoute la valeur au tableau
+    });
+    
+    // Affichez le tableau de valeurs
+    console.log("Liste de valeurs : ", list_temoin);
+    
+
+    if(errors.lenght > 0){
+      $('#errorMessages').html('<ul><li>'+errors.join('</li><li>')+ '</li></ul>');
+    }
+  });*/
 
   
   
+//fin read
 });
 </script>
 
-<script>
-  //recuperer la valeur de l'id nomclient 
-  // $(".btn-save").click(function(){
-  //   //regex
 
-  //   const re1=/[a-z]/;
-  //   let nom=$("#nomClt" ).val() ;
-  //   if(){
-      
-  //   }
-    
-  //   alert(nom);
-  //   let contact=$("#contact").val();
-  //   alert(contact);
-  // });
-</script>
 {%endblock%}
