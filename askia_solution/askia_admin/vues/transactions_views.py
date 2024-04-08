@@ -13,8 +13,10 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 def save_transaction(request):
-    msg = False  # Initialiser msg en dehors du bloc try
+    msg = False 
     if request.method == "POST":
+        submission_url = request.path
+        print(submission_url)
         try:
             montant_versement = request.POST["montant_versement"]
             date_versement = request.POST["date_versement"]
@@ -22,17 +24,18 @@ def save_transaction(request):
             note = request.POST["note"]  
             contrat_obj = Contrat.objects.get(client=Client.objects.get(nom=contrat))
             Versement.objects.create(montant_versement=montant_versement, date_versement=date_versement, contrat=contrat_obj, note=note)
+            print("*************oui")
             msg = True  # Définir msg à True si la transaction est réussie
-            # Passer toutes les données nécessaires au formulaire
-           # return render(request,'transactions/create.html', {"msg": msg, "montant_versement": montant_versement, "client": contrat_obj.client.nom})
-            return HttpResponseRedirect(reverse("askia_admin:transaction_form"), locals())
+            if submission_url == '/transaction_modal/':
+                return HttpResponseRedirect(reverse("askia_admin:transaction_modal"), locals())
+            HttpResponseRedirect(reverse("askia_admin:transaction_form"), locals())
+            
         except Contrat.DoesNotExist:
             print("Contrat does not exist")
         except Exception as e:
             print("Error:", e)
-
-    # Handle GET request or any other scenario where POST method isn't used
-    return HttpResponseRedirect(reverse("askia_admin:transaction_form"), {"msg": msg})
+    print("*********Non")
+    return HttpResponseRedirect(reverse("askia_admin:transaction_form"))
 
 
 
@@ -51,12 +54,12 @@ def transaction_form(request):
     return render(request,"transactions/create.html", locals())
 
 # transactions liste
-def transaction_list(request):
-    return render(request,"transactions/liste.html")
+def transaction_index(request):
+    date_actuelle = date.today().isoformat()
+    contrats = Contrat.objects.all()
 
+    return render(request,"transactions/liste.html",{'contrats': contrats, 'date_actuelle': date_actuelle})
 
-
-from django.db.models import Q
 
 @csrf_protect
 def transaction_list(request):
@@ -68,7 +71,8 @@ def transaction_list(request):
         date_from = request.POST.get('from_date', None)
         date_to = request.POST.get('to_date', None)
 
-        filtered_transactions = Versement.objects.all()
+        filtered_transactions = Versement.objects.order_by('-date_versement', '-id')
+
 
         if search:
             filtered_transactions = filtered_transactions.filter(
@@ -80,10 +84,9 @@ def transaction_list(request):
                 Q(contrat__client__nom__icontains=search) |  
                 Q(contrat__client__contact__icontains=search) 
             )
-
         if date_from and date_to:
             filtered_transactions = filtered_transactions.filter(
-                date_versement__range=[date_from + " 00:00:00", date_to + " 23:59:59"]
+                date_versement__range=[date_from , date_to ]
             )
 
         total_records = Versement.objects.count()
@@ -94,7 +97,7 @@ def transaction_list(request):
             "recordsTotal": total_records,
             "recordsFiltered": total_filtered_records,
             "data": [{
-                "id": versement.id,
+                # "id": versement.id,
                 "nom": versement.contrat.client.nom,
                 "contact": versement.contrat.client.contact,
                 "date_versement": versement.date_versement,
@@ -103,8 +106,10 @@ def transaction_list(request):
                 "montant_contrat": versement.contrat.montant_contrat,
                 "reste": f"{versement.contrat.montant_contrat - versement.montant_total_paye}",
                 "note": versement.note,
-            } for versement in filtered_transactions[start:start + length]]
+            } for versement in filtered_transactions[start:start + length]],
+            
         }
+        
 
         return JsonResponse(data)
 
