@@ -1,41 +1,17 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Sleek Dashboard - Free Bootstrap 4 Admin Dashboard Template and UI Kit. It is very powerful bootstrap admin dashboard, which allows you to build products like admin panels, content management systems and CRMs etc.">
-  
-    <!-- theme meta -->
-    <meta name="theme-name" content="sleek" />
-    
-    <title>Askia solution</title>
-    
-    <!-- GOOGLE FONTS -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Poppins:400,500,600,700|Roboto:400,500" rel="stylesheet" />
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
 
-    <link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
-  
-    <!-- PLUGINS CSS STYLE -->
-    <link href="{%static '/css/simplebar.css' %}" rel="stylesheet" />
-    <link href="{%static '/css/nprogress.css' %}" rel="stylesheet" />
-  
-    <!-- No Extra plugin used -->
-    <link href="{% static '/css/jquery-jvectormap-2.0.3.css' %}" rel='stylesheet'>
-    <link href="{%static '/css/daterangepicker.css' %}" rel='stylesheet'>
-    
-    
-    <!-- <link href="{%static '/css/toastr.min.css' %}" rel='stylesheet'> -->
-    
-    <!-- SLEEK CSS -->
-    <link rel="stylesheet" href="{% static '/css/sleek.css' %}" />
-  
-    <!-- FAVICON -->
-    <link href="{% static 'img/favicon.png' %}" rel="shortcut icon" />
-    <!-- les alerts -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>:: My-Task:: Employee Dashboard </title>
+    <link rel="icon" href=" {% static '/img/favicon.ico' % }" type="image/x-icon"> <!-- Favicon-->
+    <!-- project css file  -->
+    <link rel="stylesheet" href="{% static '/css/my-task.style.min.css' %}">
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
   <style>
     /* Custom style to set icon size */
@@ -44,101 +20,54 @@
       line-height: 1;
     }
     </style>
-    {%block style%}
+    {% block style %}
 
+    {% endblock %}
 
-  
-    {%endblock%}
-  
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- <script src="{%static '/js/nprogress.js' %}"></script> -->
-    {%block header_js%}
+     {% block head_js %}
 
+     {% endblock %}
+</head>
+<body>
+
+<div id="mytask-layout" class="theme-indigo">
     
-    {%endblock%}
-  </head>
-
-  <body class="header-fixed sidebar-fixed sidebar-dark header-light" id="body">
-    <!-- <script>
-      NProgress.configure({ showSpinner: false });
-      NProgress.start();
-    </script> -->
-
-    <div id="toaster"></div>
-
-    <!-- ====================================
-    ——— WRAPPER
-    ===================================== -->
-    <div class="wrapper">
-
-    
-
-        <!-- ====================================
-          ——— LEFT SIDEBAR WITH OUT FOOTER
-        ===================================== -->
-       {% include 'fragments/sidebar.html' %}
-
-          <!-- ====================================
-        ——— PAGE WRAPPER
-        ===================================== -->
-        <div class="page-wrapper">
-          
-          <!-- Header -->
-         {% include 'fragments/header.html' %}
-
-          
-          <!-- ====================================
-          ——— CONTENT WRAPPER
-          ===================================== -->
-          <div class="content-wrapper">
-                {% block body%}
-
-                {%endblock%}
-         </div> <!-- End Content Wrapper -->
-    
-    
-    <!-- Footer -->
-   {% include 'fragments/footer.html' %}
-
-    </div> <!-- End Page Wrapper -->
-  </div> <!-- End Wrapper -->
-
-
-  
-    <script src="{%static '/js/jquery.min.js' %}"></script>
-    <script src="{%static '/js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{%static '/js/simplebar.min.js' %}"></script>
+    <!-- sidebar -->
+   {% include 'fragments/sidebar.html' %}
  
-    <script src="{%static '/js/Chart.min.js' %}"></script>
-    <script src="{%static '/js/chart.js' %}"></script>
+    <!-- main body area -->
+    <div class="main px-lg-4 px-md-4">
 
-    
-    
+        <!-- Body: Header -->
+        {% include 'fragments/header.html' %}
 
-    <script src="{% static '/js/jquery-jvectormap-2.0.3.min.js' %}"></script>
-    <script src="{%static '/js/jquery-jvectormap-world-mill.js' %}"></script>
-    <script src="{% static '/js/vector-map.js' %}"></script>
+        <!-- Body: Body -->
+     {% block body %}
 
-    <script src="{%static '/js/moment.min.js' %}"></script>
-    <script src="{% static '/js/daterangepicker.js' %}"></script>
-    <script src="{%static '/js/date-range.js' %}"></script>
+     {% endblock %}
 
-  
+        <!-- Modal Members-->
+        {% block modals %}
 
-    
+        {% endblock %}
+    </div>
+</div>
+ 
+<!-- Jquery Core Js -->
+<script src=" {% static '/js/libscripts.bundle.js' %}"></script>
 
-    
-    <script src="{% static '/js/sleek.js' %}"></script>
-  <link href="{% static '/css/optionswitch.css' %}" rel="stylesheet">
-<script src="{% static '/js/optionswitcher.js' %}"></script>
+<!-- Plugin Js-->
+<script src=" {% static '/js/apexcharts.bundle.js' %}"></script>
 
+<!-- Jquery Page Js -->
+<script src=" {% static '/js/template.js' %}"></script>
+<script src=" {% static '/js/hr.js' %}"></script>
 <script src="{% static '/js/validations_fonctions.js' %}"></script>
 <script src="{% static '/js/vider_champs.js' %}"></script>
 <script src="{% static '/js/trans_form_validations.js' %}"></script>
 {% block footer_js %}
 
-
 {% endblock %}
-</body>
-</html>
 
+</body>
+</html> 

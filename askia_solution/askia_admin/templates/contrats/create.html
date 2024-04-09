@@ -7,151 +7,146 @@
 {%endblock%}
 
 
-{%block header_js%}
+{%block head_js%}
 
 {%endblock%}
 
 {%block body%}
-<div class="content-fluid">
+<div class="container-fluid">
 
-  <form id="idForm" action="{% url 'askia_admin:save_contrat' %}" class="mx-4 mt-4" method="post">
+  <form action="{% url 'askia_admin:save_contrat' %}" class="mx-4 mt-4" method="post">
     {% csrf_token %}
 
-    <fieldset class="form-group border p-3 shadow-sm border border-dark" >
+    <fieldset class="border p-3 shadow border-dark">
       <legend class="w-auto px-2">Client Info</legend>
-      <div class="form-row mb-3">
-        <div class="col-md-6 mb-3 ">
-            <label for="" class="form-label" >Full Name</label>
-            <div class="input-group mb-2">
-              <div class="input-group-prepend">
-                <div class="input-group-text"><img src="{%static 'img/user-solid.svg'%}" alt=""></div>
-              </div>
-              <input type="text" 
-             id="nomClt" class="form-control" placeholder="Full Name"  name="nom" >
-            </div>
-            <!-- <input type="text" class="form-control " placeholder="Full Name"> -->
+      <div class="row g-3">
+        <div class="col-md-6 mb-3">
+          <label for="nomClt" class="form-label">Full Name</label>
+          <div class="input-group">
+            <span class="input-group-text"><img src="{% static 'img/user-solid.svg' %}" alt=""></span>
+            <input type="text" id="nomClt" class="form-control" placeholder="Full Name" name="nom">
+          </div>
         </div>
-        <div class="col-md-6 ">
+        <div class="col-md-6 mb-3">
           <label for="contact" class="form-label">Contact</label>
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <div class="input-group-text"><img src="{%static 'img/phone-solid.svg' %}" alt=""></div>
-            </div>
+          <div class="input-group">
+            <span class="input-group-text"><img src="{% static 'img/phone-solid.svg' %}" alt=""></span>
             <input id="contact" type="text" class="form-control" placeholder="+228" name="contact">
           </div>
         </div>
-    </div>
-
-    <div class="form-row ">
-      <div class="col-md-6">
-          <label for="adress" class="form-label">Address</label>
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <div class="input-group-text"><img src="{%static 'img/house-solid.svg' %}" alt=""></div>
-            </div>
-            <input id="adress" type="text" id="address" class="form-control" placeholder="Address" name="adresse">
-          </div>
       </div>
-      <div class="col-md-6 ">
-        <label for="" class="form-label">Date Naiss</label>
-        <div class="input-group mb-2">
-          <div class="input-group-prepend">
-            <div class="input-group-text"><img src="{% static 'img/calendar-days-solid.svg' %}" alt=""></div>
+
+      <div class="row g-3">
+        <div class="col-md-6 mb-3">
+          <label for="address" class="form-label">Address</label>
+          <div class="input-group">
+            <span class="input-group-text"><img src="{% static 'img/house-solid.svg' %}" alt=""></span>
+            <input type="text" id="address" class="form-control" placeholder="Address" name="adresse">
           </div>
-          <input id="dateNaiss" type="date" class="form-control" placeholder="Date Naiss" name="date_naissance">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="date_naissance" class="form-label">Date Naiss</label>
+          <div class="input-group">
+            <span class="input-group-text"><img src="{% static 'img/calendar-days-solid.svg' %}" alt=""></span>
+            <input type="date" class="form-control" placeholder="Date Naiss" name="date_naissance">
+          </div>
         </div>
       </div>
 
     </fieldset>
-    
-   
-    <fieldset  class="form-group border p-3 shadow-sm border border-dark">
+
+    <fieldset class="border p-3 shadow border-dark">
       <legend class="w-auto px-2"> Contrat Info</legend>
-      
-      <div class="form-row">
-        <div class="col-md-4">
+
+      <div class="row g-3">
+        <div class="col-md-4 mb-3">
           <label for="montant" class="form-label">Montant</label>
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <div class="input-group-text"><img src="{%static 'img/piggy-bank-solid.svg' %}" alt=""></div>
-            </div>
-            <input type="number"  id="montant" class="form-control" placeholder="En FCFA" name="montant">
+          <div class="input-group">
+            <span class="input-group-text"><img src="{% static 'img/piggy-bank-solid.svg' %}" alt=""></span>
+            <input type="number" class="form-control" placeholder="En FCFA" name="montant">
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 mb-3">
           <label for="duree" class="form-label">Durée</label>
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <div class="input-group-text"><img src="{%static 'img/clock-solid.svg' %}" alt=""></div>
-            </div>
-            <input id="duree" type="number" class="form-control" placeholder="En mois" name="duree">
+          <div class="input-group">
+            <span class="input-group-text"><img src="{% static 'img/clock-solid.svg' %}" alt=""></span>
+            <input type="number" class="form-control" placeholder="En mois" name="duree">
           </div>
         </div>
-
-        <div class="col-md-4">
-          <label for="dateSign" class="form-label">Date Signature</label>
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <div class="input-group-text"><img src="{%static 'img/calendar-days-solid.svg' %}" alt=""></div>
-            </div>
-            <input id="dateSign" type="date" class="form-control" placeholder="" name="date_sgnture">
+        <div class="col-md-4 mb-3">
+          <label for="date_sgnture" class="form-label">Date Signature</label>
+          <div class="input-group">
+            <span class="input-group-text"><img src="{% static 'img/calendar-days-solid.svg' %}" alt=""></span>
+            <input type="date" class="form-control" placeholder="" name="date_sgnture">
           </div>
         </div>
-
       </div>
-    </fieldset>
 
-    <fieldset class="form-group border p-3 shadow-sm border border-dark">
+    </fieldset>
+    <!--  -->
+    <fieldset class="border p-3 shadow border-dark">
       <legend class="w-auto px-2">Témoins Info</legend>
       <div id="temoins">
         <div class="temoin form-row">
-          <div class="col-md-4">
-            <label for="nomTemoin" class="form-label">Full Name</label>
-            <div class="input-group mb-2">
-              <div class="input-group-prepend">
-                <div class="input-group-text"><img src="{%static 'img/user-solid.svg' %}" alt=""></div>
+          <div class="col-md-12">
+            <div class="  row g-3">
+              <div class="col-md-4">
+                <label for="nomTemoin" class="form-label">Full Name</label>
+                <div class="input-group">
+                  <span class="input-group-text"><img src="{% static 'img/user-solid.svg' %}" alt=""></span>
+                  <input id="inpu-id" type="text" class="form-control" placeholder="Full Name" name="nomTemoin">
+                </div>
               </div>
-              <input id="" type="text" class="form-control nomTemoin" placeholder="Full Name" name="nomTemoin">
-            </div>
-          </div>
-          <div class="col-md-4">
-            <label for="" class="form-label">Telephone</label>
-            <div class="input-group mb-2">
-              <div class="input-group-prepend">
-                <div class="input-group-text"><img src="{%static 'img/phone-solid.svg' %}" alt=""></div>
+              <div class="col-md-4">
+                <label for="contactTemoin" class="form-label">Telephone</label>
+                <div class="input-group">
+                  <span class="input-group-text"><img src="{% static 'img/phone-solid.svg' %}" alt=""></span>
+                  <input type="text" class="form-control" placeholder="+228" name="contactTemoin">
+                </div>
               </div>
-              <input id="" type="text" class="form-control contactTmn" placeholder="+228" name="contactTemoin">
-            </div>
-          </div>
-          <div class="col-md-4">
-            <label for="" class="form-label">Address</label>
-            <div class="input-group mb-2">
-              <div class="input-group-prepend">
-                <div class="input-group-text"><img src="{%static 'img/house-solid.svg' %}" alt=""></div>
+              <div class="col-md-4">
+                <label for="adresseTemoin" class="form-label">Address</label>
+                <div class="input-group">
+                  <span class="input-group-text"><img src="{% static 'img/house-solid.svg' %}" alt=""></span>
+                  <input type="text" class="form-control" placeholder="Address" name="adresseTemoin">
+                </div>
               </div>
-              <input id="" type="text" class="form-control adressTmn" placeholder="Address" name="adresseTemoin">
             </div>
-          </div>
-          <div class="col-md-12 text-right">
-            <span class=" add-temoin "><i class="bi bi-plus-lg text-success"></i></span>
-
-            <button type="button" class="btn btn-sm remove-temoin" style="display:none;"><i class="bi bi-x-lg text-danger"></i></button>
-            
+            <!--  -->
+            <!-- <div class="col-md-12 text-right">
+              <span class="add-temoin"><i class="bi bi-plus-lg text-success"></i></span>
+              <button type="button" class="btn btn-sm remove-temoin " style="display:none;"><i class="bi bi-x-lg text-danger"></i></button>
+            </div> -->
+            <!--  -->
+             <!-- Boutons Add et Remove -->
+            <div class="col-md-12 text-right mt-3">
+              <span class="add-temoin"><i class="bi bi-plus-lg text-success"></i> Add</span>
+              <button type="button" class="btn btn-sm remove-temoin" style="display:none;"><i class="bi bi-x-lg text-danger"></i> Remove</button>
+            </div>
+        <!-- Fin Boutons Add et Remove -->
+      </div>
           </div>
         </div>
       </div>
-    <div>
-     
-    </div>
+      
     </fieldset>
-
+    
 
     <div id="errorMessages"></div>
 
     <button type="submit" class="btn btn-primary ">Enregister</button>
 
+    <div class="row justify-content-center">
+      <div class="col-md-4 text-center"> 
+        <button type="submit" class="btn btn-primary mt-4 w-100 mx-auto">Enregistrer</button>
+
+      </div>
+    </div>
+
+   
   </form>
 </div>
+
 
 {%endblock%}
 
@@ -165,15 +160,16 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
+  
 $(document).ready(function () {
 
 
   // Add temoin
   $(".add-temoin").click(function () {
-    var clone = $("#temoins .temoin:first").clone(true);
-    clone.find("input").val(""); // Clear input values in the cloned row
-    clone.find(".add-temoin").remove(); // Remove remove button in the cloned row
-    clone.find(".remove-temoin").show(); // Show remove button in the cloned row
+    var clone = $(".temoin:first").clone(true);
+    clone.find("input").val(""); 
+    clone.find(".add-temoin").remove(); 
+    clone.find(".remove-temoin").show();
     $("#temoins").append(clone);
   });
 
@@ -182,51 +178,24 @@ $(document).ready(function () {
     $(this).closest(".temoin").remove();
   });
 
-
-
-  
-  /*$("#idForm").submit(function(event){
-    event.preventDefault(); // Empêche le formulaire de se soumettre normalement
-    //recuperation des valeurs des champs
-    const nomclient=$("#nomClt").val();
-    const adresse=$("#adress").val();
-    const contactClt=$("#contact").val();
-    const date_naiss=$("#dateNaiss").val();
-    ///info contrat
-    const montant=$("#montant").val();
-    const duree=$("#duree").val();
-    const dateSign=$('#dateSign').val();
-    //validation des champs
-    let errors=[];
-    if(nomclient.trim()==''){
-      errors.push("Nom du client est obligatoire");
-    }
-
-    
-    // temoins
-    const elements = $('.nomTemoin');
-    // Initialisez un tableau pour stocker les valeurs
-    let list_temoin = [];
-    // Parcourez chaque élément et ajoutez sa valeur au tableau
-    elements.each(function() {
-        var value = $(this).val(); // Récupère la valeur de l'élément en cours
-        list_temoin.push(value); // Ajoute la valeur au tableau
-    });
-    
-    // Affichez le tableau de valeurs
-    console.log("Liste de valeurs : ", list_temoin);
-    
-
-    if(errors.lenght > 0){
-      $('#errorMessages').html('<ul><li>'+errors.join('</li><li>')+ '</li></ul>');
-    }
-  });*/
-
-  
-  
-//fin read
 });
+
 </script>
 
+<script>
+  //recuperer la valeur de l'id nomclient 
+  // $(".btn-save").click(function(){
+  //   //regex
 
+  //   const re1=/[a-z]/;
+  //   let nom=$("#nomClt" ).val() ;
+  //   if(){
+      
+  //   }
+    
+  //   alert(nom);
+  //   let contact=$("#contact").val();
+  //   alert(contact);
+  // });
+</script>
 {%endblock%}

@@ -1,5 +1,5 @@
 {%extends 'layouts/base.html' %}
-{% load static%}
+{% load static %}
 
 
 {%block style%}
@@ -7,7 +7,7 @@
 {%endblock%}
 
 
-{%block header_js%}
+{%block head_js%}
 
 {%endblock%}
 
@@ -32,14 +32,82 @@
 
 
 {% endif %}
-
 <form id="transactionForm" action="{% url 'askia_admin:save_transaction' %}" method="post" class="form-control-sm">
+  {% csrf_token %}
+
+  <fieldset class="border p-3 shadow border-light">
+    <legend class="w-auto px-2">Transaction</legend>
+    <div class="row mb-3">
+      <div class="col-md-6 mb-3">
+        <label for="contrat" class="form-label">Client</label>
+        <div class="input-group">
+          <span class="input-group-text"><img src="{% static 'img/user-solid.svg' %}" alt=""></span>
+          <input id="contrat" class="form-control" name="contrat" list="datalistOptions" id="exampleDataList" placeholder="Chercher un client">
+          <datalist id="datalistOptions">
+            {% for contrat in contrats %}
+            <option value="{{ contrat.client.nom }}">
+            {% endfor %}
+          </datalist>
+        </div>
+        <span id="contratError" class="error text-danger"></span>
+      </div>
+
+      <div class="col-md-6">
+        <label for="montant" class="form-label">Montant</label>
+        <div class="input-group">
+          <span class="input-group-text"><img src="{% static 'img/piggy-bank-solid.svg' %}" alt=""></span>
+          <input id="montant" type="number" name="montant_versement" class="form-control" placeholder="Entrez un montant">
+        </div>
+        <span id="montantError" class="error text-danger"></span>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="date" class="form-label">Date</label>
+        <div class="input-group">
+          <span class="input-group-text"><img src="{% static 'img/calendar-days-solid.svg' %}" alt=""></span>
+          <input id="date" type="date" class="form-control" name="date_versement" placeholder="Entrez une date" max="{{ date_actuelle }}" value="{{ date_actuelle }}" data-date-format="yyyy/mm/dd">
+        </div>
+        <span id="dateError" class="error text-danger"></span>
+      </div>
+
+      <div class="col-md-6">
+        <label for="note" class="form-label">Note <span class="text-success">(optionnel)</span></label>
+        <div class="input-group">
+          <span class="input-group-text"><img src="{% static 'img/note.svg' %}" alt=""></span>
+          <input id="note" type="text" name="note" class="form-control" placeholder="Entrez une note">
+        </div>
+        <span id="noteError" class="error text-danger"></span>
+      </div>
+    </div>
+
+    <!-- <div class="d-grid gap-2 col-6 mx-auto">
+      <button id="transactionBtn" type="button" class="btn btn-primary btn-lg mt-4 w-100">Enregistrer</button>
+    </div> -->
+
+  
+    <div class="row justify-content-center">
+      <div class="col-md-4 text-center"> 
+        <button id="transactionBtn" type="button" class="btn btn-primary btn-lg mt-4 w-100">Enregistrer</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
+
+
+
+
+
+
+
+<!-- <form id="transactionForm" action="{% url 'askia_admin:save_transaction' %}" method="post" class="form-control-sm">
   {% csrf_token %}
 
     <fieldset class="form-group border p-3 shadow-sm border border-wihte" >
         <legend class="w-auto px-2">Transaction</legend>
         <div class="form-row mb-3">
-          <!--  -->
+
           <div class="col-md-6 mb-3 ">
               <label for="" class="form-label" >Client</label>
               <div class="input-group mb-2">
@@ -82,7 +150,7 @@
               <div class="input-group-prepend">
                 <div class="input-group-text"><img src="{%static 'img/calendar-days-solid.svg' %}" alt=""></div>
               </div>
-              <!-- <input id="date" type="date" class="form-control" name="date_versement" placeholder="Enter une date"> -->
+             
               <input id="date" 
                 type="date" 
                 class="form-control" 
@@ -114,7 +182,7 @@
 
       </fieldset>
 
-</form>
+</form> -->
 
 
 {%endblock%}
