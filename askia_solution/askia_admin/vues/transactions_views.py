@@ -24,17 +24,18 @@ def save_transaction(request):
             note = request.POST["note"]  
             contrat_obj = Contrat.objects.get(client=Client.objects.get(nom=contrat))
             Versement.objects.create(montant_versement=montant_versement, date_versement=date_versement, contrat=contrat_obj, note=note)
-            print("*************oui")
+
             msg = True  # Définir msg à True si la transaction est réussie
             if submission_url == '/transaction_modal/':
-                return HttpResponseRedirect(reverse("askia_admin:transaction_modal"), locals())
+                return HttpResponseRedirect(reverse("askia_admin:transaction_index"), locals())
+            
             HttpResponseRedirect(reverse("askia_admin:transaction_form"), locals())
             
         except Contrat.DoesNotExist:
             print("Contrat does not exist")
         except Exception as e:
             print("Error:", e)
-    print("*********Non")
+   
     return HttpResponseRedirect(reverse("askia_admin:transaction_form"))
 
 
@@ -92,26 +93,26 @@ def transaction_list(request):
         total_records = Versement.objects.count()
         total_filtered_records = filtered_transactions.count()
 
+
         data = {
             "draw": draw,
             "recordsTotal": total_records,
             "recordsFiltered": total_filtered_records,
             "data": [{
-                # "id": versement.id,
                 "nom": versement.contrat.client.nom,
                 "contact": versement.contrat.client.contact,
-                "date_versement": versement.date_versement,
-                "montant_versement": versement.montant_versement,
-                "montant_total_paye": versement.montant_total_paye,
-                "montant_contrat": versement.contrat.montant_contrat,
-                "reste": f"{versement.contrat.montant_contrat - versement.montant_total_paye}",
+                "date_versement": versement.date_versement.strftime('%Y-%m-%d'),  
+                "montant_versement": '{:,.0f}'.format(versement.montant_versement).replace(',', ' '), 
+                "montant_total_paye": '{:,.0f}'.format(versement.montant_total_paye).replace(',', ' '),
+                "montant_contrat": '{:,.0f}'.format(versement.contrat.montant_contrat).replace(',', ' '),
+                "reste": '{:,.0f}'.format(versement.contrat.montant_contrat - versement.montant_total_paye).replace(',', ' '),
                 "note": versement.note,
             } for versement in filtered_transactions[start:start + length]],
             
         }
-        
 
         return JsonResponse(data)
+    
 
     return render(request, 'transactions/liste.html')
 

@@ -28,9 +28,16 @@
 	<div class="col-12">
 		<div class="card card-default">
 			<div class="card-header card-header-border-bottom d-flex justify-content-between">
-				<h2>Liste des transactions</h2>
+				
                 <!--  -->
-                <button type="button" class="btn btn-secondary " data-bs-toggle="modal" data-bs-target="#exampleModalLg">Ajouter</button>
+                <div class="d-grid gap-2 d-md-block">
+                  <button type="button" class="btn btn-outline-secondary mx-4">PDF</button>
+                  <button type="button" class="btn btn-outline-secondary">EXCEL</button>
+                </div>
+               
+                <button type="button" class="btn btn-secondary btn-pill" data-bs-toggle="modal" data-bs-target="#exampleModalLg">
+                  <span class="add-temoin"><i class="bi bi-plus-lg"></i></span>
+                  Ajouter</button>
           
 
 			</div>
@@ -63,6 +70,7 @@
 
                         <!-- example -->
                         <table id="transactions_table" class="table table-hover align-middle mb-0" style="width:100%">
+                          <h4>Liste des transactions</h4>
                           
                         </table>
 
@@ -81,94 +89,73 @@
   <div class="modal-dialog modal-lg">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title h4" id="exampleModalLgLabel">Large modal</h5>
+              <h5 class="modal-title h4" id="exampleModalLgLabel">Enregister Transaction</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
               <!-- ... -->
 
-<form id="transactionForm" action="{% url 'askia_admin:save_transaction' %}" method="post" class="form-control-sm">
-  {% csrf_token %}
+              <form id="transactionForm" action="{% url 'askia_admin:transaction_modal' %}" method="post" class="form-control-sm">
+                {% csrf_token %}
+              
+                <fieldset class="border p-3 shadow border-light">
+                  <!-- <legend class="w-auto px-2">Transaction</legend> -->
+                  <div class="row mb-3">
+                    <div class="col-md-6 mb-3">
+                      <label for="contrat" class="form-label">Client</label>
+                      <div class="input-group">
+                        <span class="input-group-text"><img src="{% static 'img/user-solid.svg' %}" alt=""></span>
+                        <input id="contrat" class="form-control" name="contrat" list="datalistOptions" id="exampleDataList" placeholder="Chercher un client">
+                        <datalist id="datalistOptions">
+                          {% for contrat in contrats %}
+                          <option value="{{ contrat.client.nom }}">
+                          {% endfor %}
+                        </datalist>
+                      </div>
+                      <span id="contratError" class="error text-danger"></span>
+                    </div>
+              
+                    <div class="col-md-6">
+                      <label for="montant" class="form-label">Montant</label>
+                      <div class="input-group">
+                        <span class="input-group-text"><img src="{% static 'img/piggy-bank-solid.svg' %}" alt=""></span>
+                        <input id="montant" type="number" name="montant_versement" class="form-control" placeholder="Entrez un montant">
+                      </div>
+                      <span id="montantError" class="error text-danger"></span>
+                    </div>
+                  </div>
+              
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label for="date" class="form-label">Date</label>
+                      <div class="input-group">
+                        <span class="input-group-text"><img src="{% static 'img/calendar-days-solid.svg' %}" alt=""></span>
+                        <input id="date" type="date" class="form-control" name="date_versement" placeholder="Entrez une date" max="{{ date_actuelle }}" value="{{ date_actuelle }}" data-date-format="yyyy/mm/dd">
+                      </div>
+                      <span id="dateError" class="error text-danger"></span>
+                    </div>
+              
+                    <div class="col-md-6">
+                      <label for="note" class="form-label">Note <span class="text-success">(optionnel)</span></label>
+                      <div class="input-group">
+                        <span class="input-group-text"><img src="{% static 'img/note.svg' %}" alt=""></span>
+                        <input id="note" type="text" name="note" class="form-control" placeholder="Entrez une note">
+                      </div>
+                      <span id="noteError" class="error text-danger"></span>
+                    </div>
+                  </div>
 
-    <fieldset class="form-group border p-3 shadow-sm border border-wihte" >
-        <legend class="w-auto px-2">Transaction</legend>
-        <div class="form-row mb-3">
-          <!--  -->
-          <div class="col-md-6 mb-3 ">
-              <label for="" class="form-label" >Client</label>
-              <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                  <div class="input-group-text"><img src="{%static 'img/user-solid.svg'%}" alt=""></div>
-                </div>
-                
-                <input id="contrat" class="form-control" name="contrat" list="datalistOptions" id="exampleDataList" placeholder="Chercher un client">
-                <datalist id="datalistOptions">
+                  <div class="row justify-content-center">
+                    <div class="col-md-6 text-center">
+                      <button id="transactionBtn" type="button" class="btn btn-primary mt-4 w-100 mx-auto">Enregistrer</button>
+                    </div>
+                  </div>
                   
-                  {% for contrat in contrats %}
-                  <option value="{{contrat.client.nom}}">
-                    {%endfor%}
-                    
-                  </datalist>
-                  
-                </div>
-                
-                <span id="contratError" class="error text-danger"></span>
-       
-          </div>
-
-          <div class="col-md-6 ">
-            <label for="" class="form-label">Montant</label>
-            <div class="input-group mb-2">
-              <div class="input-group-prepend">
-                <div class="input-group-text"><img src="{%static 'img/piggy-bank-solid.svg' %}" alt=""></div>
-              </div>
-              <input id="montant" type="number" name="montant_versement" class="form-control" placeholder="Enter un montant">
-            </div>
-            <span id="montantError" class="error text-danger"></span>
-           
-          </div>
-      </div>
-  
-      <div class="form-row ">
-        <div class="col-md-6">
-            <label for="" class="form-label">Date</label>
-            <div class="input-group mb-2">
-              <div class="input-group-prepend">
-                <div class="input-group-text"><img src="{%static 'img/calendar-days-solid.svg' %}" alt=""></div>
-              </div>
-              <!-- <input id="date" type="date" class="form-control" name="date_versement" placeholder="Enter une date"> -->
-              <input id="date" 
-                type="date" 
-                class="form-control" 
-                name="date_versement" 
-                placeholder="Enter une date" 
-                max="{{ date_actuelle }}" 
-                value="{{ date_actuelle }}"
-                data-date-format="yyyy/mm/dd"
-              >
-
-            </div>
-            <span id="dateError" class="error text-danger"></span>
-        </div>
-        
-          <div class="col-md-6">
-            <label for="note" class="form-label">Note <span class="text-success">(optionnel)</span></label>
-            <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                    <div class="input-group-text"><img src="{%static 'img/note.svg' %}" alt=""></div>
-                </div>
-                <input id="note" type="text" name="note" class="form-control" placeholder="Enter une note">
-            </div>
-            <span id="noteError" class="error text-danger"></span>
-        </div>
-
-       
-
-        <button id="transactionBtn" type="button" class="btn btn-primary mt-4">Enregister</button>
-
-      </fieldset>
-
-</form>
+              
+                  <!-- <button id="transactionBtn" type="button" class="btn btn-primary mt-4 w-50 mx-auto">Enregistrer</button> -->
+                </fieldset>
+              </form>
+              
 
 
           </div>
