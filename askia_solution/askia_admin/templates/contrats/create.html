@@ -77,7 +77,7 @@
           <label for="date_sgnture" class="form-label">Date Signature</label>
           <div class="input-group">
             <span class="input-group-text"><img src="{% static 'img/calendar-days-solid.svg' %}" alt=""></span>
-            <input type="date" class="form-control" placeholder="" name="date_sgnture">
+            <input type="date" class="form-control" placeholder="" name="date_sgnture" value="{{date_actuelle}}" max="{{date_actuelle}}">
           </div>
         </div>
       </div>
@@ -131,6 +131,10 @@
       
     </fieldset>
     
+
+    <div id="errorMessages"></div>
+
+    <button type="submit" class="btn btn-primary ">Enregister</button>
 
     <div class="row justify-content-center">
       <div class="col-md-4 text-center"> 
