@@ -1,6 +1,20 @@
 from ..models import Versement,Client,Temoin,Contrat
 from django.shortcuts import redirect, render,get_object_or_404,HttpResponse
 from datetime import date
+from django.http import JsonResponse
+from django.urls import reverse
+from ..models import Versement, Contrat,Client
+from django.http import HttpResponseRedirect
+from django.shortcuts import render,HttpResponse
+from django.views.decorators.csrf import csrf_protect
+from django.db.models import Q
+
+from datetime import date
+
+from django.shortcuts import render
+
+
+
 # formulaire de création d'un contrat#
 def contrat_form(request):
     date_actuelle = date.today().isoformat()
@@ -44,7 +58,7 @@ def save_contrat(request):
 
 
         ## save et validator##
-        return redirect("/base")
+        return redirect("/contrats")
     else:
         return render(request,'contrats/create.html')
       
@@ -55,8 +69,10 @@ def index(request):
 
 #view that print client list
 def list_contrat(request):
-    contrats=Contrat.objects.all()
-    return render(request,"contrats/liste.html",locals())
+    #contrats=Contrat.objects.all()
+    
+    
+    return render(request,"contrats/list.html",locals())
 #delete client
 def delete():
     pass
@@ -99,3 +115,61 @@ def update_contrat(request,id):
         return HttpResponse("ok")
 
 
+def detail_contrat(request):
+    return render(request,"contrats/detail_contrat.html")
+
+@csrf_protect
+def contrat_view(request):
+    if request.method == "POST":
+        draw = int(request.POST.get('draw'))
+        start = int(request.POST.get('start'))
+        length = int(request.POST.get('length'))
+        search = request.POST.get('search[value]')
+        date_from = request.POST.get('from_date', None)
+        date_to = request.POST.get('to_date', None)
+        
+        filtered_contrat=Contrat.objects.order_by('-date_contrat','-id')
+        if search :
+            filtered_contrat = filtered_contrat.filter(
+                Q(montant_contrat__icontains=search)|
+                Q(duree__icontains=search)|
+                Q(date_contrat__icontains=search)|
+                Q(client__nom_icontains=search)|
+                Q(status_icontains=search)|
+                Q(etat_icontains=search)
+                
+            )
+        ##recherche entre deux dates
+        if date_from and date_to:
+            filtered_contrat=filtered_contrat.filter(
+                date_contrat__range=[date_from, date_to]
+                
+            )
+        #nbre total d'objets 
+        total_records=Contrat.objects.count()
+        ##nbre total d'objets filtrés
+        total_filtered_records=filtered_contrat.count()
+        
+        data={
+             "draw": draw,
+            "recordsTotal": total_records,
+            "recordsFiltered": total_filtered_records,
+            "data":[{
+                "date_contrat":contrat.date_contrat,
+                "montant_contrat":'{:,.0f}'.format(contrat.montant_contrat).replace(',',' '),
+                "duree":contrat.duree,
+                "client":contrat.client.nom,
+                "status":contrat.status,
+                "etat":contrat.etat,
+                
+                
+                
+            } for contrat in filtered_contrat[start:start+length]
+            ],
+        }
+        return JsonResponse(data)
+    return render(request,'contrats/list.html')
+        
+            
+        
+        
