@@ -1,9 +1,10 @@
 from ..models import Versement,Client,Temoin,Contrat
 from django.shortcuts import redirect, render,get_object_or_404,HttpResponse
+from datetime import date
 # formulaire de création d'un contrat#
 def contrat_form(request):
-   
-    return render(request,'contrats/create.html')
+    date_actuelle = date.today().isoformat()
+    return render(request,'contrats/create.html', locals())
 
 # def client_liste(request):
 #     return render(request,'clients/liste.html')
