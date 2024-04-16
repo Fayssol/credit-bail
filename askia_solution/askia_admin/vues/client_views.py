@@ -43,7 +43,7 @@ def save_contrat(request):
 
 
         ## save et validator##
-        return redirect("/base")
+        return redirect("/contrats")
     else:
         return render(request,'contrats/create.html')
       
@@ -55,7 +55,7 @@ def index(request):
 #view that print client list
 def list_contrat(request):
     contrats=Contrat.objects.all()
-    return render(request,"contrats/liste.html",locals())
+    return render(request,"contrats/list.html",locals())
 #delete client
 def delete():
     pass
@@ -98,3 +98,5 @@ def update_contrat(request,id):
         return HttpResponse("ok")
 
 
+def detail_contrat(request):
+    return render(request,"contrats/detail_contrat.html")

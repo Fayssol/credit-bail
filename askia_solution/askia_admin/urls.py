@@ -25,7 +25,7 @@ urlpatterns = [
     path('save/', views.save_contrat, name="save_contrat"),
     path('update/<int:id>/', views.update_contrat, name="update_contrat"),
     path('edit/<int:id>/', views.edit_contrat, name="edit_contrat"),
-    
+    path('detail_contrat/', views.detail_contrat,name='detail_contrat'),
 
 
 ]

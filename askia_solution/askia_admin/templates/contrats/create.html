@@ -134,8 +134,7 @@
 
     <div id="errorMessages"></div>
 
-    <button type="submit" class="btn btn-primary ">Enregister</button>
-
+    
     <div class="row justify-content-center">
       <div class="col-md-4 text-center"> 
         <button type="submit" class="btn btn-primary mt-4 w-100 mx-auto">Enregistrer</button>
@@ -178,24 +177,44 @@ $(document).ready(function () {
     $(this).closest(".temoin").remove();
   });
 
+
+
+  //recuperer la valeur de l'id nomclient 
+  $("#idForm").submit(function(event){
+    event.preventDefault();
+    const nomclient=$("#nomClt").val();
+    const adresse=$("#adress").val();
+    const contactClt=$("#contact").val();
+    const date_naiss=$("#dateNaiss").val();
+    ///info contrat
+    const montant=$("#montant").val();
+    const duree=$("#duree").val();
+    const dateSign=$('#dateSign').val();
+    ///temoins
+
+    var elements = $('.nomTemoin');
+    
+    // Initialisez un tableau pour stocker les valeurs
+    var values = [];
+    
+    // Parcourez chaque élément et ajoutez sa valeur au tableau
+    elements.each(function() {
+        var value = $(this).val(); // Récupère la valeur de l'élément en cours
+        values.push(value); // Ajoute la valeur au tableau
+    });
+    
+    // Affichez le tableau de valeurs
+    console.log("Liste de valeurs : ", values);
+    console.log(nomclient);
+    console.log(adresse);
+  });
+
+
 });
 
+
+
 </script>
 
-<script>
-  //recuperer la valeur de l'id nomclient 
-  // $(".btn-save").click(function(){
-  //   //regex
 
-  //   const re1=/[a-z]/;
-  //   let nom=$("#nomClt" ).val() ;
-  //   if(){
-      
-  //   }
-    
-  //   alert(nom);
-  //   let contact=$("#contact").val();
-  //   alert(contact);
-  // });
-</script>
 {%endblock%}
