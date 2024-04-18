@@ -77,7 +77,7 @@
           <label for="date_sgnture" class="form-label">Date Signature</label>
           <div class="input-group">
             <span class="input-group-text"><img src="{% static 'img/calendar-days-solid.svg' %}" alt=""></span>
-            <input type="date" class="form-control" placeholder="" name="date_sgnture">
+            <input type="date" class="form-control" placeholder="" name="date_sgnture" value="{{date_actuelle}}" max="{{date_actuelle}}">
           </div>
         </div>
       </div>
@@ -135,7 +135,12 @@
     <div id="errorMessages"></div>
 
     
+<<<<<<< HEAD
     <div class="row justify-content-center">
+=======
+
+    <div class="row justify-content-center mb-4">
+>>>>>>> d7d61d8a029cdcdaf8117131ad5c9ed75330f9e2
       <div class="col-md-4 text-center"> 
         <button type="submit" class="btn btn-primary mt-4 w-100 mx-auto">Enregistrer</button>
 
@@ -196,6 +201,7 @@ $(document).ready(function () {
     
     // Initialisez un tableau pour stocker les valeurs
     var values = [];
+<<<<<<< HEAD
     
     // Parcourez chaque élément et ajoutez sa valeur au tableau
     elements.each(function() {
@@ -203,6 +209,15 @@ $(document).ready(function () {
         values.push(value); // Ajoute la valeur au tableau
     });
     
+=======
+    
+    // Parcourez chaque élément et ajoutez sa valeur au tableau
+    elements.each(function() {
+        var value = $(this).val(); // Récupère la valeur de l'élément en cours
+        values.push(value); // Ajoute la valeur au tableau
+    });
+    
+>>>>>>> d7d61d8a029cdcdaf8117131ad5c9ed75330f9e2
     // Affichez le tableau de valeurs
     console.log("Liste de valeurs : ", values);
     console.log(nomclient);

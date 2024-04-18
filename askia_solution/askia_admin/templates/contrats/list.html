@@ -1,8 +1,8 @@
 {%extends 'layouts/base.html' %}
 {% load static%}
 
-
 {%block style%}
+
 
 {%endblock%}
 
@@ -12,20 +12,68 @@
 {%endblock%}
 
 {%block body%}
-<table class="table table-hover">
-    <tr>
-      <th>Date contrat</th>
-      <th>Montant</th>
-      <th>Client</th>
-    </tr>
-    {% for c in contrats %}
-    <tr>
-      <td>{{c.date_contrat}}</td>
-      <td>{{c.montant_contrat}}</td>
-      <td>{{c.client.nom}}</td>
-    </tr>
-    {% endfor %}
-</table>
 
+
+<div class="row">
+	<div class="col-12">
+		<div class="card card-default">
+			<div class="card-header card-header-border-bottom d-flex justify-content-between">
+				
+                <!--  -->
+                <div class="d-grid gap-2 d-md-block">
+                  <button type="button" class="btn btn-outline-secondary mx-4">PDF</button>
+                  <button type="button" class="btn btn-outline-secondary">EXCEL</button>
+                </div>
+               
+                <button type="button" class="btn btn-secondary btn-pill" data-bs-toggle="modal" data-bs-target="#exampleModalLg">
+                  <span class="add-temoin"><i class="bi bi-plus-lg"></i></span>
+                  Ajouter</button>
+          
+
+			</div>
+
+			<div class="card-body">
+
+				<div class="basic-data-table">
+                    <form id="date_filter" class="ms-auto mb-4" method="POST">
+                        {% csrf_token %}
+                         <input type="hidden" name="csrfmiddlewaretoken"> 
+                        <div class="row ">
+                            <div class="col">
+                                <input name="from_date" id="from_date" required class="form-control" type="date"
+                                       data-date-format="YYYY-MM-DD HH:MM:SS">
+                            </div>
+                            <div class="col">
+                                <input name="to_date" readonly id="to_date" required class="form-control"
+                                       type="date" data-date-format="YYYY-MM-DD HH:MM:SS">
+                            </div>
+                            <div class="col d-flex align-self-center">
+                                <button style="font-size: small" class="btn btn-primary">Filtrer</button>
+                            </div>
+                        </div>
+                    </form>
+
+                        <table id="contrats_table" class="table table-hover align-middle mb-0" style="width:100%">
+                          <h4>Liste des Contrats</h4>
+                          
+                        </table>
+
+
+
+
+
+
+                </div>
+</div>
+</div>
+</div>
+
+
+
+{%endblock%}
+
+
+{%block footer_js%}
+<script src="{% static '/js/ajax_contrat.js' %}"></script>
 
 {%endblock%}

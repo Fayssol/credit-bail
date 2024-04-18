@@ -9,23 +9,23 @@
                   <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
               </svg>
           </span>
-          <span class="logo-text">My-Task</span>
+          <span class="logo-text">Askia Admin</span>
       </a>
       <!-- Menu: main ul -->
 
       <ul class="menu-list flex-grow-1 mt-3">
           <li class="collapsed">
               <a class="m-link active" data-bs-toggle="collapse" data-bs-target="#dashboard-Components" href="#">
-                  <i class="icofont-home fs-5"></i> <span>Dashboard</span> <span class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+                  <i class="icofont-home fs-5 bi bi-house-fill"></i> <span>Dashboard</span> <span class="arrow icofont-dotted-down ms-auto text-end fs-5 bi bi-chevron-down"></span></a>
               <!-- Menu: Sub menu ul -->
-              <!-- <ul class="sub-menu collapse show" id="dashboard-Components">
-                  <li><a class="ms-link active" href="#"> <span>Hr Dashboard</span></a></li>
-                  <li><a class="ms-link" href="#"> <span>Project Dashboard</span></a></li>
-              </ul> -->
+              <ul class="sub-menu collapse show" id="dashboard-Components">
+                  <li><a class="ms-link active" href="/"> <span>Home</span></a></li>
+                  <!-- <li><a class="ms-link" href="#"> <span>P</span></a></li> -->
+              </ul>
           </li>
           <li  class="collapsed">
               <a class="m-link"  data-bs-toggle="collapse" data-bs-target="#project-Components" href="#">
-                  <i class="icofont-briefcase"></i><span>TRANSACTIONS</span> <span class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+                  <i class="icofont-briefcase bi bi-people-fill bi bi-piggy-bank-fill"></i><span>TRANSACTIONS</span> <span class="arrow icofont-dotted-down ms-auto text-end fs-5 bi bi-chevron-down"></span></a>
               <!-- Menu: Sub menu ul -->
               <ul class="sub-menu collapse" id="project-Components">
                   <li><a class="ms-link" href="{% url 'askia_admin:transaction_form' %}"><span>Enreg. Transaction</span></a></li>
@@ -36,7 +36,7 @@
           
           <li class="collapsed">
               <a class="m-link" data-bs-toggle="collapse" data-bs-target="#tikit-Components" href="#"><i
-                      class="icofont-ticket"></i> <span>CONTRATS</span> <span class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+                      class="icofont-ticket bi bi-people-fill"></i> <span>CONTRATS</span> <span class="arrow icofont-dotted-down ms-auto text-end fs-5 bi bi-chevron-down"></span></a>
               <!-- Menu: Sub menu ul -->
               <ul class="sub-menu collapse" id="tikit-Components">
                   <li><a class="ms-link" href="{% url 'askia_admin:contrat_form' %}"> <span>Enreg. Contrat</span></a></li>
