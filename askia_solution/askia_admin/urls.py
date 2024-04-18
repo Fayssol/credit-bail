@@ -26,10 +26,9 @@ urlpatterns = [
     path('update/<int:id>/', views.update_contrat, name="update_contrat"),  
     path('edit/<int:id>/', views.edit_contrat, name="edit_contrat"),
     path('detail_contrat/', views.detail_contrat,name='detail_contrat'),
-<<<<<<< HEAD
-=======
+
     path('ajax_contrat_list', views.contrat_view, name="ajax_contrat_list"),
->>>>>>> d7d61d8a029cdcdaf8117131ad5c9ed75330f9e2
+
 
 
 ]
