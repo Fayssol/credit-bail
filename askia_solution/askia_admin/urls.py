@@ -26,7 +26,9 @@ urlpatterns = [
     path('update/<int:id>/', views.update_contrat, name="update_contrat"),  
     path('edit/<int:id>/', views.edit_contrat, name="edit_contrat"),
     path('detail_contrat/', views.detail_contrat,name='detail_contrat'),
+
     path('ajax_contrat_list', views.contrat_view, name="ajax_contrat_list"),
+
 
 
 ]

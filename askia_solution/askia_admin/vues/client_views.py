@@ -69,9 +69,8 @@ def index(request):
 
 #view that print client list
 def list_contrat(request):
+
     #contrats=Contrat.objects.all()
-    
-    
     return render(request,"contrats/list.html",locals())
 #delete client
 def delete():
@@ -116,6 +115,7 @@ def update_contrat(request,id):
 
 
 def detail_contrat(request):
+
     return render(request,"contrats/detail_contrat.html")
 
 @csrf_protect
@@ -171,5 +171,4 @@ def contrat_view(request):
     return render(request,'contrats/list.html')
         
             
-        
-        
+
