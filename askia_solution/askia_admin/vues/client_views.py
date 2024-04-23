@@ -29,6 +29,7 @@ def save_contrat(request):
     if request.method=='POST':
         #validator
         #client infos
+        print("POST")
         nom=request.POST.get('nom')
         contact=request.POST.get('contact')
         adress=request.POST.get('adresse')
@@ -37,7 +38,7 @@ def save_contrat(request):
         clt=Client(nom=nom,contact=contact,adresse=adress,date_naissance=date_naiss)
         clt.save()
         ####contrat infos
-        montant=request.POST.get('montant')
+        montant=request.POST.get('montantC')
         duree=request.POST.get('duree')
         date=request.POST.get('date_sgnture')
         #instance

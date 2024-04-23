@@ -85,6 +85,20 @@ function adresseT_validation(add){
         return true
     }
 }
+
+
+function montant_validation2(montant) {
+    if (isNaN(montant) || montant <= 0) {
+        $("#montantError2").html("Le montant doit être un nombre supérieur à zéro.");
+        //alert('0000000');
+        return;
+    } else {
+        $("#montantError2").empty(); // Efface le message d'erreur s'il est valide
+        return true;
+    }
+    
+ }
+ 
  
 
 //vider les champs

@@ -50,7 +50,7 @@
         </div>
 
         <div class="col-md-6 mb-3">
-          <label for="date_naissance" class="form-label">Date Naiss</label>
+          <label for="date_naissance" class="form-label">Date Naissance</label>
           <div class="input-group">
             <span class="input-group-text"><img src="{% static 'img/calendar-days-solid.svg' %}" alt=""></span>
             <input type="date" id="dateN" class="form-control" placeholder="Date Naiss" name="date_naissance">
@@ -69,9 +69,9 @@
           <label for="montant" class="form-label">Montant</label>
           <div class="input-group">
             <span class="input-group-text"><img src="{% static 'img/piggy-bank-solid.svg' %}" alt=""></span>
-            <input type="number" id="montantC" class="form-control" placeholder="En FCFA" name="montant">
+            <input type="number" id="montantC" class="form-control" placeholder="En FCFA" name="montantC">
           </div>
-          <span id="montantError" class="error text-danger"></span>
+          <span id="montantError2" class="error text-danger"></span>
         </div>
 
         <div class="col-md-4 mb-3">
@@ -175,58 +175,78 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
+  $(document).ready(function () {
+      // Add temoin
+      $(".add-temoin").click(function () {
+          if (validateTemoin()) {
+              var clone = $(".temoin:first").clone(true);
+              clone.find("input").val(""); 
+              clone.find(".add-temoin").remove(); 
+              clone.find(".remove-temoin").show();
+              $("#temoins").append(clone);
+          }
+      });
+
+      // Remove temoin
+      $("#temoins").on("click", ".remove-temoin", function () {
+          $(this).closest(".temoin").remove();
+      });
+
+      // Validation function
+      function validateTemoin() {
+          var isValid = true;
+          $(".temoin").each(function () {
+              var fullname = $(this).find("input[name='nomTemoin']").val();
+              var telephone = $(this).find("input[name='contactTemoin']").val();
+              var address = $(this).find("input[name='adresseTemoin']").val();
+
+              if (fullname == "") {
+                  $(this).find("#nametError").text("Le nom est requis");
+                  isValid = false;
+              } else {
+                  $(this).find("#nametError").text("");
+              }
+
+              if (telephone == "") {
+                  $(this).find("#phoneError").text("Le phone est requis");
+                  isValid = false;
+              } else {
+                  $(this).find("#phoneError").text("");
+              }
+
+              if (address == "") {
+                  $(this).find("#adressetError").text("L'adresse est requise");
+                  isValid = false;
+              } else {
+                  $(this).find("#adressetError").text("");
+              }
+          });
+          return isValid;
+      }
+  });
+</script>
+<!--  -->
+<script>
   
-$(document).ready(function () {
+// $(document).ready(function () {
 
 
-  // Add temoin
-  $(".add-temoin").click(function () {
-    var clone = $(".temoin:first").clone(true);
-    clone.find("input").val(""); 
-    clone.find(".add-temoin").remove(); 
-    clone.find(".remove-temoin").show();
-    $("#temoins").append(clone);
-  });
+//   // Add temoin
+//   $(".add-temoin").click(function () {
+//     var clone = $(".temoin:first").clone(true);
+//     clone.find("input").val(""); 
+//     clone.find(".add-temoin").remove(); 
+//     clone.find(".remove-temoin").show();
+//     $("#temoins").append(clone);
+//   });
 
-  // Remove temoin
-  $("#temoins").on("click", ".remove-temoin", function () {
-    $(this).closest(".temoin").remove();
-  });
-
-
-
-  //recuperer la valeur de l'id nomclient 
-  // $("#idForm").submit(function(event){
-  //   event.preventDefault();
-  //   const nomclient=$("#nomClt").val();
-  //   const adresse=$("#adress").val();
-  //   const contactClt=$("#contact").val();
-  //   const date_naiss=$("#dateNaiss").val();
-  //   ///info contrat
-  //   const montant=$("#montant").val();
-  //   const duree=$("#duree").val();
-  //   const dateSign=$('#dateSign').val();
-  //   ///temoins
-
-  //   var elements = $('.nomTemoin');
-    
-  //   // Initialisez un tableau pour stocker les valeurs
-  //   var values = [];
-    
-  //   // Parcourez chaque élément et ajoutez sa valeur au tableau
-  //   elements.each(function() {
-  //       var value = $(this).val(); // Récupère la valeur de l'élément en cours
-  //       values.push(value); // Ajoute la valeur au tableau
-  //   });
-    
-  //   // Affichez le tableau de valeurs
-  //   console.log("Liste de valeurs : ", values);
-  //   console.log(nomclient);
-  //   console.log(adresse);
-  // });
+//   // Remove temoin
+//   $("#temoins").on("click", ".remove-temoin", function () {
+//     $(this).closest(".temoin").remove();
+//   });
 
 
-});
+// });
 
 
 

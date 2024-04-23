@@ -5,6 +5,11 @@ $(document).ready(function() {
         $("#montantError").empty(); 
     });
 
+    $("#montantC").on("input", function() {
+        $("#montantError2").empty(); 
+    });
+
+
     $("#contrat").on("input", function() {
         console.log('dsfs');
         $("#contratError").empty(); 
@@ -50,19 +55,19 @@ $(document).ready(function() {
         $("#dateSgnError").empty(); 
     });
 
-    $("#nameT").on("input", function() {
+    $("#nameT:first").on("input", function() {
         console.log('dsfs');
-        $("#nametError").empty(); 
+        $("#nametError:first").empty(); 
     });
 
-    $("#phone").on("input", function() {
+    $("#phone:first").on("input", function() {
         console.log('dsfs');
-        $("#phoneError").empty(); 
+        $("#phoneError:first").empty(); 
     });
 
-    $("#adresseT").on("input", function() {
+    $("#adresseT:first").on("input", function() {
         console.log('dsfs');
-        $("#adressetError").empty(); 
+        $("#adressetError:first").empty(); 
     });
 
 
