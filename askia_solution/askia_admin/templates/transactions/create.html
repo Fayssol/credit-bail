@@ -39,7 +39,7 @@
     <legend class="w-auto px-2">Transaction</legend>
     <div class="row mb-3">
       <div class="col-md-6 mb-3">
-        <label for="contrat" class="form-label">Client</label>
+        <label for="contrat" class="form-label fs-5">Client</label>
         <div class="input-group">
           <span class="input-group-text"><img src="{% static 'img/user-solid.svg' %}" alt=""></span>
           <input id="contrat" class="form-control" name="contrat" list="datalistOptions" id="exampleDataList" placeholder="Chercher un client">
@@ -53,7 +53,7 @@
       </div>
 
       <div class="col-md-6">
-        <label for="montant" class="form-label">Montant</label>
+        <label for="montant" class="form-label fs-5">Montant</label>
         <div class="input-group">
           <span class="input-group-text"><img src="{% static 'img/piggy-bank-solid.svg' %}" alt=""></span>
           <input id="montant" type="number" name="montant_versement" class="form-control" placeholder="Entrez un montant">
@@ -64,16 +64,16 @@
 
     <div class="row mb-3">
       <div class="col-md-6">
-        <label for="date" class="form-label">Date</label>
+        <label for="date" class="form-label fs-5">Date</label>
         <div class="input-group">
-          <span class="input-group-text"><img src="{% static 'img/calendar-days-solid.svg' %}" alt=""></span>
+          <!-- <span class="input-group-text"><img src="{% static 'img/calendar-days-solid.svg' %}" alt=""></span> -->
           <input id="date" type="date" class="form-control" name="date_versement" placeholder="Entrez une date" max="{{ date_actuelle }}" value="{{ date_actuelle }}" data-date-format="yyyy/mm/dd">
         </div>
         <span id="dateError" class="error text-danger"></span>
       </div>
 
       <div class="col-md-6">
-        <label for="note" class="form-label">Note <span class="text-success">(optionnel)</span></label>
+        <label for="note" class="form-label fs-5">Note <span class="text-success">(optionnel)</span></label>
         <div class="input-group">
           <span class="input-group-text"><img src="{% static 'img/note.svg' %}" alt=""></span>
           <input id="note" type="text" name="note" class="form-control" placeholder="Entrez une note">
@@ -89,7 +89,7 @@
   
     <div class="row justify-content-center">
       <div class="col-md-4 text-center"> 
-        <button id="transactionBtn" type="button" class="btn btn-primary btn-lg mt-4 w-100">Enregistrer</button>
+        <button id="transactionBtn" type="button" class="btn btn-primary btn-lg mt-4 w-100 fs-5">Enregistrer</button>
       </div>
     </div>
   </fieldset>

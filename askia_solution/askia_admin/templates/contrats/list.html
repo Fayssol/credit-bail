@@ -12,18 +12,18 @@
 {%endblock%}
 
 {%block body%}
-<div class="row">
-	<div class="col-12">
+<div class="row mt-4 shadow ">
+	<div class="col-12 ">
 		<div class="card card-default">
 			<div class="card-header card-header-border-bottom d-flex justify-content-between">
 				
                 <!--  -->
                 <div class="d-grid gap-2 d-md-block">
-                  <button type="button" class="btn btn-outline-secondary mx-4">PDF</button>
-                  <button type="button" class="btn btn-outline-secondary">EXCEL</button>
+                  <button type="button" class="btn btn-outline-secondary mx-4 fw-bold fs-6 shadow">PDF</button>
+                  <button type="button" class="btn btn-outline-secondary fw-bold fs-6 shadow">EXCEL</button>
                 </div>
                <a href="{% url 'askia_admin:contrat_form' %}">
-                <button type="button" class="btn btn-secondary btn-pill" data-bs-toggle="modal" data-bs-target="#exampleModalLg">
+                <button type="button" class="btn btn-primary btn-pill fw-bold fs-6 shadow" data-bs-toggle="modal" data-bs-target="#exampleModalLg">
                   <span class="add-temoin"><i class="bi bi-plus-lg"></i></span>
                   Ajouter</button>
                </a>
@@ -48,7 +48,7 @@
                                        type="date" data-date-format="YYYY-MM-DD HH:MM:SS">
                             </div>
                             <div class="col d-flex align-self-center">
-                                <button style="font-size: small" class="btn btn-primary">Filtrer</button>
+                                <button style="font-size: small" class="btn btn-secondary fw-bold fs-6 shadow">Filtrer</button>
                             </div>
                         </div>
                     </form>

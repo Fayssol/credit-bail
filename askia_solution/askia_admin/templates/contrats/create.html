@@ -17,20 +17,20 @@
   <form id="contratForms" action="{% url 'askia_admin:save_contrat' %}" class="mx-4 mt-4" method="post">
     {% csrf_token %}
 
-    <fieldset class="border p-3 shadow border-dark">
-      <legend class="w-auto px-2">Client Info</legend>
+    <fieldset class="border p-3 shadow-sm  border-dark">
+      <legend class="w-auto px-2 fs-6 shadow text-secondary fw-bold">Client Info</legend>
       <div class="row g-3">
         <div class="col-md-6 mb-3">
-          <label for="nomClt" class="form-label">Full Name</label>
+          <label for="nomClt" class="form-label fs-5">Nom & Prénoms</label>
           <div class="input-group">
             <span class="input-group-text"><img src="{% static 'img/user-solid.svg' %}" alt=""></span>
-            <input type="text" id="contrat" class="form-control" placeholder="Full Name" name="nom">
+            <input type="text" id="contrat" class="form-control" placeholder="Nom & Prénoms" name="nom">
           </div>
           <span id="contratError" class="error text-danger"></span>
         </div>
 
         <div class="col-md-6 mb-3">
-          <label for="contact" class="form-label">Contact</label>
+          <label for="contact" class="form-label fs-5">Contact</label>
           <div class="input-group">
             <span class="input-group-text"><img src="{% static 'img/phone-solid.svg' %}" alt=""></span>
             <input id="contact" type="text" class="form-control" placeholder="+228" name="contact">
@@ -41,7 +41,7 @@
 
       <div class="row g-3">
         <div class="col-md-6 mb-3">
-          <label for="address" class="form-label">Address</label>
+          <label for="address" class="form-label fs-5">Address</label>
           <div class="input-group">
             <span class="input-group-text"><img src="{% static 'img/house-solid.svg' %}" alt=""></span>
             <input type="text" id="address" class="form-control" placeholder="Address" name="adresse">
@@ -50,9 +50,9 @@
         </div>
 
         <div class="col-md-6 mb-3">
-          <label for="date_naissance" class="form-label">Date Naissance</label>
+          <label for="date_naissance" class="form-label fs-5">Date Naissance</label>
           <div class="input-group">
-            <span class="input-group-text"><img src="{% static 'img/calendar-days-solid.svg' %}" alt=""></span>
+            <!-- <span class="input-group-text"><img src="{% static 'img/calendar-days-solid.svg' %}" alt=""></span> -->
             <input type="date" id="dateN" class="form-control" placeholder="Date Naiss" name="date_naissance">
           </div>
           <span id="dnError" class="error text-danger"></span>
@@ -61,12 +61,12 @@
 
     </fieldset>
 
-    <fieldset class="border p-3 shadow border-dark">
-      <legend class="w-auto px-2"> Contrat Info</legend>
+    <fieldset class="border p-3 shadow-sm  border-dark">
+      <legend class="w-auto px-2 fs-6 shadow text-secondary fw-bold"> Contrat Info</legend>
 
       <div class="row g-3">
         <div class="col-md-4 mb-3">
-          <label for="montant" class="form-label">Montant</label>
+          <label for="montant" class="form-label fs-5">Montant</label>
           <div class="input-group">
             <span class="input-group-text"><img src="{% static 'img/piggy-bank-solid.svg' %}" alt=""></span>
             <input type="number" id="montantC" class="form-control" placeholder="En FCFA" name="montantC">
@@ -75,7 +75,7 @@
         </div>
 
         <div class="col-md-4 mb-3">
-          <label for="duree" class="form-label">Durée</label>
+          <label for="duree" class="form-label fs-5">Durée</label>
           <div class="input-group">
             <span class="input-group-text"><img src="{% static 'img/clock-solid.svg' %}" alt=""></span>
             <input type="number" id="dureeC" class="form-control" placeholder="En mois" name="duree">
@@ -84,9 +84,9 @@
         </div>
 
         <div class="col-md-4 mb-3">
-          <label for="date_sgnture" class="form-label">Date Signature</label>
+          <label for="date_sgnture" class="form-label fs-5">Date Signature</label>
           <div class="input-group">
-            <span class="input-group-text"><img src="{% static 'img/calendar-days-solid.svg' %}" alt=""></span>
+            <!-- <span class="input-group-text"><img src="{% static 'img/calendar-days-solid.svg' %}" alt=""></span> -->
             <input type="date" id="dateS" class="form-control" placeholder="" name="date_sgnture" value="{{date_actuelle}}" max="{{date_actuelle}}">
           </div>
           <span id="dateSgnError" class="error text-danger"></span>
@@ -95,23 +95,23 @@
 
     </fieldset>
     <!--  -->
-    <fieldset class="border p-3 shadow border-dark">
-      <legend class="w-auto px-2">Témoins Info</legend>
+    <fieldset class="border p-3 shadow-sm  border-dark">
+      <legend class="w-auto px-2 fs-6 shadow text-secondary fw-bold">Témoins Info</legend>
       <div id="temoins">
         <div class="temoin form-row">
           <div class="col-md-12">
             <div class="  row g-3">
               <div class="col-md-4">
-                <label for="nomTemoin" class="form-label">Full Name</label>
+                <label for="nomTemoin" class="form-label fs-5">Nom & Prénoms</label>
                 <div class="input-group">
                   <span class="input-group-text"><img src="{% static 'img/user-solid.svg' %}" alt=""></span>
-                  <input id="nameT" type="text" class="form-control" placeholder="Full Name" name="nomTemoin">
+                  <input id="nameT" type="text" class="form-control" placeholder="Nom & Prénoms" name="nomTemoin">
                 </div>
                 <span id="nametError" class="error text-danger"></span>
               </div>
 
               <div class="col-md-4">
-                <label for="contactTemoin" class="form-label">Telephone</label>
+                <label for="contactTemoin" class="form-label fs-5">Telephone</label>
                 <div class="input-group">
                   <span class="input-group-text"><img src="{% static 'img/phone-solid.svg' %}" alt=""></span>
                   <input type="text" id="phone" class="form-control" placeholder="+228" name="contactTemoin">
@@ -119,7 +119,7 @@
                 <span id="phoneError" class="error text-danger"></span>
               </div>
               <div class="col-md-4">
-                <label for="adresseTemoin" class="form-label">Address</label>
+                <label for="adresseTemoin" class="form-label fs-5">Address</label>
                 <div class="input-group">
                   <span class="input-group-text"><img src="{% static 'img/house-solid.svg' %}" alt=""></span>
                   <input type="text" id="adresseT" class="form-control" placeholder="Address" name="adresseTemoin">
@@ -135,8 +135,8 @@
             <!--  -->
              <!-- Boutons Add et Remove -->
             <div class="col-md-12 text-right mt-3">
-              <span class="add-temoin"><i class="bi bi-plus-lg text-success"></i> Add</span>
-              <button type="button" class="btn btn-sm remove-temoin" style="display:none;"><i class="bi bi-x-lg text-danger"></i> Remove</button>
+              <span class="add-temoin fw-bold"><i class="bi bi-plus-lg text-success "></i> Add</span>
+              <button type="button" class="btn btn-sm remove-temoin fw-bold" style="display:none;"><i class="bi bi-x-lg text-danger"></i> Remove</button>
             </div>
         <!-- Fin Boutons Add et Remove -->
       </div>
@@ -153,7 +153,7 @@
 
     <div class="row justify-content-center mb-4">
       <div class="col-md-4 text-center"> 
-        <button type="button" id="contratBtn" class="btn btn-primary mt-4 w-100 mx-auto">Enregistrer</button>
+        <button type="button" id="contratBtn" class="btn btn-primary mt-4 w-100 mx-auto fw-bold fs-6 shadow-sm">Enregistrer</button>
 
       </div>
     </div>
