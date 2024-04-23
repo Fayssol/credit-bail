@@ -14,7 +14,7 @@
 {%block body%}
 <div class="container-fluid">
 
-  <form action="{% url 'askia_admin:save_contrat' %}" class="mx-4 mt-4" method="post">
+  <form id="contratForms" action="{% url 'askia_admin:save_contrat' %}" class="mx-4 mt-4" method="post">
     {% csrf_token %}
 
     <fieldset class="border p-3 shadow border-dark">
@@ -24,15 +24,18 @@
           <label for="nomClt" class="form-label">Full Name</label>
           <div class="input-group">
             <span class="input-group-text"><img src="{% static 'img/user-solid.svg' %}" alt=""></span>
-            <input type="text" id="nomClt" class="form-control" placeholder="Full Name" name="nom">
+            <input type="text" id="contrat" class="form-control" placeholder="Full Name" name="nom">
           </div>
+          <span id="contratError" class="error text-danger"></span>
         </div>
+
         <div class="col-md-6 mb-3">
           <label for="contact" class="form-label">Contact</label>
           <div class="input-group">
             <span class="input-group-text"><img src="{% static 'img/phone-solid.svg' %}" alt=""></span>
             <input id="contact" type="text" class="form-control" placeholder="+228" name="contact">
           </div>
+          <span id="contactError" class="error text-danger"></span>
         </div>
       </div>
 
@@ -43,13 +46,16 @@
             <span class="input-group-text"><img src="{% static 'img/house-solid.svg' %}" alt=""></span>
             <input type="text" id="address" class="form-control" placeholder="Address" name="adresse">
           </div>
+          <span id="adresseError" class="error text-danger"></span>
         </div>
+
         <div class="col-md-6 mb-3">
           <label for="date_naissance" class="form-label">Date Naiss</label>
           <div class="input-group">
             <span class="input-group-text"><img src="{% static 'img/calendar-days-solid.svg' %}" alt=""></span>
-            <input type="date" class="form-control" placeholder="Date Naiss" name="date_naissance">
+            <input type="date" id="dateN" class="form-control" placeholder="Date Naiss" name="date_naissance">
           </div>
+          <span id="dnError" class="error text-danger"></span>
         </div>
       </div>
 
@@ -63,22 +69,27 @@
           <label for="montant" class="form-label">Montant</label>
           <div class="input-group">
             <span class="input-group-text"><img src="{% static 'img/piggy-bank-solid.svg' %}" alt=""></span>
-            <input type="number" class="form-control" placeholder="En FCFA" name="montant">
+            <input type="number" id="montantC" class="form-control" placeholder="En FCFA" name="montant">
           </div>
+          <span id="montantError" class="error text-danger"></span>
         </div>
+
         <div class="col-md-4 mb-3">
           <label for="duree" class="form-label">Durée</label>
           <div class="input-group">
             <span class="input-group-text"><img src="{% static 'img/clock-solid.svg' %}" alt=""></span>
-            <input type="number" class="form-control" placeholder="En mois" name="duree">
+            <input type="number" id="dureeC" class="form-control" placeholder="En mois" name="duree">
           </div>
+          <span id="dureeError" class="error text-danger"></span>
         </div>
+
         <div class="col-md-4 mb-3">
           <label for="date_sgnture" class="form-label">Date Signature</label>
           <div class="input-group">
             <span class="input-group-text"><img src="{% static 'img/calendar-days-solid.svg' %}" alt=""></span>
-            <input type="date" class="form-control" placeholder="" name="date_sgnture" value="{{date_actuelle}}" max="{{date_actuelle}}">
+            <input type="date" id="dateS" class="form-control" placeholder="" name="date_sgnture" value="{{date_actuelle}}" max="{{date_actuelle}}">
           </div>
+          <span id="dateSgnError" class="error text-danger"></span>
         </div>
       </div>
 
@@ -94,22 +105,26 @@
                 <label for="nomTemoin" class="form-label">Full Name</label>
                 <div class="input-group">
                   <span class="input-group-text"><img src="{% static 'img/user-solid.svg' %}" alt=""></span>
-                  <input id="inpu-id" type="text" class="form-control" placeholder="Full Name" name="nomTemoin">
+                  <input id="nameT" type="text" class="form-control" placeholder="Full Name" name="nomTemoin">
                 </div>
+                <span id="nametError" class="error text-danger"></span>
               </div>
+
               <div class="col-md-4">
                 <label for="contactTemoin" class="form-label">Telephone</label>
                 <div class="input-group">
                   <span class="input-group-text"><img src="{% static 'img/phone-solid.svg' %}" alt=""></span>
-                  <input type="text" class="form-control" placeholder="+228" name="contactTemoin">
+                  <input type="text" id="phone" class="form-control" placeholder="+228" name="contactTemoin">
                 </div>
+                <span id="phoneError" class="error text-danger"></span>
               </div>
               <div class="col-md-4">
                 <label for="adresseTemoin" class="form-label">Address</label>
                 <div class="input-group">
                   <span class="input-group-text"><img src="{% static 'img/house-solid.svg' %}" alt=""></span>
-                  <input type="text" class="form-control" placeholder="Address" name="adresseTemoin">
+                  <input type="text" id="adresseT" class="form-control" placeholder="Address" name="adresseTemoin">
                 </div>
+                <span id="adressetError" class="error text-danger"></span>
               </div>
             </div>
             <!--  -->
@@ -138,7 +153,7 @@
 
     <div class="row justify-content-center mb-4">
       <div class="col-md-4 text-center"> 
-        <button type="submit" class="btn btn-primary mt-4 w-100 mx-auto">Enregistrer</button>
+        <button type="button" id="contratBtn" class="btn btn-primary mt-4 w-100 mx-auto">Enregistrer</button>
 
       </div>
     </div>
@@ -181,34 +196,34 @@ $(document).ready(function () {
 
 
   //recuperer la valeur de l'id nomclient 
-  $("#idForm").submit(function(event){
-    event.preventDefault();
-    const nomclient=$("#nomClt").val();
-    const adresse=$("#adress").val();
-    const contactClt=$("#contact").val();
-    const date_naiss=$("#dateNaiss").val();
-    ///info contrat
-    const montant=$("#montant").val();
-    const duree=$("#duree").val();
-    const dateSign=$('#dateSign').val();
-    ///temoins
+  // $("#idForm").submit(function(event){
+  //   event.preventDefault();
+  //   const nomclient=$("#nomClt").val();
+  //   const adresse=$("#adress").val();
+  //   const contactClt=$("#contact").val();
+  //   const date_naiss=$("#dateNaiss").val();
+  //   ///info contrat
+  //   const montant=$("#montant").val();
+  //   const duree=$("#duree").val();
+  //   const dateSign=$('#dateSign').val();
+  //   ///temoins
 
-    var elements = $('.nomTemoin');
+  //   var elements = $('.nomTemoin');
     
-    // Initialisez un tableau pour stocker les valeurs
-    var values = [];
+  //   // Initialisez un tableau pour stocker les valeurs
+  //   var values = [];
     
-    // Parcourez chaque élément et ajoutez sa valeur au tableau
-    elements.each(function() {
-        var value = $(this).val(); // Récupère la valeur de l'élément en cours
-        values.push(value); // Ajoute la valeur au tableau
-    });
+  //   // Parcourez chaque élément et ajoutez sa valeur au tableau
+  //   elements.each(function() {
+  //       var value = $(this).val(); // Récupère la valeur de l'élément en cours
+  //       values.push(value); // Ajoute la valeur au tableau
+  //   });
     
-    // Affichez le tableau de valeurs
-    console.log("Liste de valeurs : ", values);
-    console.log(nomclient);
-    console.log(adresse);
-  });
+  //   // Affichez le tableau de valeurs
+  //   console.log("Liste de valeurs : ", values);
+  //   console.log(nomclient);
+  //   console.log(adresse);
+  // });
 
 
 });
@@ -216,6 +231,6 @@ $(document).ready(function () {
 
 
 </script>
-
+<script src="{% static '/js/contrat_form_validation.js' %}"></script>
 
 {%endblock%}
