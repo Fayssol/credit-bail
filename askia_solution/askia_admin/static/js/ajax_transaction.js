@@ -67,19 +67,53 @@ function loadData(initial_date, finale_date) {
        // langage: langage,
         columns: [
             // {data: 'id', visible: false},
-            { data: 'nom', visible: true ,title:"Clients"},
-            { data: 'contact', visible: true, title:"Contacts" },
+            { data: 'nom', visible: true ,title:"Clients",
+            render: function ( data, type, row ) {
+                return '<div class="input-group text-center p-2">' +
+                    '<img src="/static/img/user-solid.svg" alt="">' +
+                    '<span class="fw-bolder">'+row.nom+'</span>' +
+                    '</div>';
+                }
+            },
+
+            { data: 'contact', visible: true, title:"Contacts",
+            render: function ( data, type, row ) {
+                return '<div class="input-group text-center p-2">' +
+                    '<img src="/static/img/phone-solid.svg" alt="">' +
+                    '<span">'+row.contact+'</span>' +
+                    '</div>';
+                }
+            },
             { data: 'date_versement', visible: true,title:"Date Vers." },
             { data: 'montant_versement', visible: true,title:"Montant Versé" },
-            { data: 'montant_total_paye', visible: true, title:"Total Versé" },
-            { data: 'montant_contrat', visible: true,title:"À Payé" },
-            { data: 'reste', visible: true,title:"Reste" },
+
+            { data: 'montant_total_paye',
+                visible: true, 
+                title:"Total Versé",
+                render: function ( data, type, row ) {
+                   
+                        return '<span class="text-secondary">'+row.montant_total_paye+'</span>';
+                   
+                }
+            },
+
+            { data: 'montant_contrat', visible: true,title:"À Payé", },
+
+            { data: 'reste', visible: true,title:"Reste",
+                render: function ( data, type, row ) {
+                    
+                    return '<span class="text-primary">'+row.reste+'</span>';
+            
+                 }
+             },
+
+
             { data: 'note', visible: true, title:"Notes" }
         ],
         columnDefs: [
             
             //  { className: "dt-center", targets: "_all" }, // Centrer tous les contenus de colonnes
-             { targets: "_all", className: 'dt-right' }
+             { targets: "_all", className: 'dt-right' },
            
 
 
