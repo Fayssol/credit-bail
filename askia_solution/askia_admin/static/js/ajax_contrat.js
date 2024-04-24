@@ -67,12 +67,46 @@ $(document).ready(function() {
           // langage: langage,
            columns: [
                // {data: 'id', visible: false},
+               { data: 'client', visible: true, title:"Nom du Client",
+               render: function ( data, type, row ) {
+                return '<div class="input-group text-center p-2">' +
+                    '<img src="/static/img/user-solid.svg" alt="">' +
+                    '<span class="fw-bolder">'+row.client+'</span>' +
+                    '</div>';
+                }
+            },
                { data: 'date_contrat', visible: true ,title:"Date Sign."},
-               { data: 'client', visible: true, title:"Nom du Client" },
-               { data: 'montant_contrat', visible: true,title:"Montant A Payer" },
+               { data: 'montant_contrat', visible: true,title:"Montant A Payer",
+                    render: function ( data, type, row ) {
+                            
+                        return '<span class="text-primary">'+row.montant_contrat+'</span>';
+                
+                    }
+                },
                { data: 'duree', visible: true,title:"Durée (mois)" },
-               { data: 'status', visible: true, title:"Status" },
+               { data: 'status', visible: true, title:"Status",
+                    render:function(data, type, row){
+                        if(row.status == "A_JOUR"){
+                            return '<span class="alert alert-success fw-bolder p-1 rounded-pill ">'+'okay'+'</span>';
+                        }
+                    }
+                },
+
                { data: 'etat', visible: true,title:"Etat" },
+
+               {data:'actions', visible:true, title:'Actions',
+                        render: function(data, type, row){
+                            return '<div class="dropdown">'+
+                            ' <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">'+
+                            ' <i class="bi bi-three-dots"></i>'+
+                            ' </button>'+
+                            ' <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">'+
+                            '<li><a class="dropdown-item active" href="#">Action</a></li>'+
+                            '<li><a class="dropdown-item" href="#">Another action</a></li>'+
+                            ' </ul>'+
+                            '</div>';
+                        }
+                }
                
            ],
            columnDefs: [

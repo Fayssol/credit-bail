@@ -135,9 +135,9 @@ def contrat_view(request):
                 Q(montant_contrat__icontains=search)|
                 Q(duree__icontains=search)|
                 Q(date_contrat__icontains=search)|
-                Q(client__nom_icontains=search)|
-                Q(status_icontains=search)|
-                Q(etat_icontains=search)
+                Q(client__nom__icontains=search)|
+                Q(status__icontains=search)|
+                Q(etat__icontains=search)
                 
             )
         ##recherche entre deux dates

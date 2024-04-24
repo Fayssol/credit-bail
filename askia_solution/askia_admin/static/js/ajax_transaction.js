@@ -76,14 +76,7 @@ function loadData(initial_date, finale_date) {
                 }
             },
 
-            { data: 'contact', visible: true, title:"Contacts",
-            render: function ( data, type, row ) {
-                return '<div class="input-group text-center p-2">' +
-                    '<img src="/static/img/phone-solid.svg" alt="">' +
-                    '<span">'+row.contact+'</span>' +
-                    '</div>';
-                }
-            },
+            { data: 'contact', visible: true, title:"Contacts"},
             { data: 'date_versement', visible: true,title:"Date Vers." },
             { data: 'montant_versement', visible: true,title:"Montant Versé" },
 
