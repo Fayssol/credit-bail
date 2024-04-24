@@ -1,163 +1,84 @@
 {% load static %}
-<aside class="left-sidebar bg-sidebar">
-    <div id="sidebar" class="sidebar sidebar-with-footer">
-      <!-- Aplication Brand -->
-      <div class="app-brand">
-        <a href="#" title="Sleek Dashboard">
+<div class="sidebar px-4 py-4 py-md-5 me-0">
+  <div class="d-flex flex-column h-100">
+      <a href="#" class="mb-0 brand-icon">
+          <span class="logo-icon">
+              <svg  width="35" height="35" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                  <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+              </svg>
+          </span>
+          <span class="logo-text">Askia Admin</span>
+      </a>
+      <!-- Menu: main ul -->
+
+      <ul class="menu-list flex-grow-1 mt-3">
+          <li class="collapsed">
+              <a class="m-link active" data-bs-toggle="collapse" data-bs-target="#dashboard-Components" href="#">
+                  <i class="icofont-home fs-5 bi bi-house-fill"></i> <span>Dashboard</span> <span class="arrow icofont-dotted-down ms-auto text-end fs-5 bi bi-chevron-down"></span></a>
+              <!-- Menu: Sub menu ul -->
+              <ul class="sub-menu collapse show" id="dashboard-Components">
+                  <li><a class="ms-link active" href="/"> <span>Home</span></a></li>
+                  <!-- <li><a class="ms-link" href="#"> <span>P</span></a></li> -->
+              </ul>
+          </li>
+          <li  class="collapsed">
+              <a class="m-link"  data-bs-toggle="collapse" data-bs-target="#project-Components" href="#">
+                  <i class="icofont-briefcase bi bi-people-fill bi bi-piggy-bank-fill"></i><span>TRANSACTIONS</span> <span class="arrow icofont-dotted-down ms-auto text-end fs-5 bi bi-chevron-down"></span></a>
+              <!-- Menu: Sub menu ul -->
+              <ul class="sub-menu collapse" id="project-Components">
+                  <li><a class="ms-link" href="{% url 'askia_admin:transaction_form' %}"><span>Enreg. Transaction</span></a></li>
+                  <li><a class="ms-link" href="{% url 'askia_admin:transaction_index' %}"><span>Liste Transactions</span></a></li>
+                 
+              </ul>
+          </li>
           
-          <img src="{% static '/img/favicon.png' %}" class="img-responsive w-40" alt="">
-          <span class="brand-name text-truncate"> Dashboard</span>
-        </a>
-      </div>
-
-      <!-- begin sidebar scrollbar -->
-      <div class="" data-simplebar style="height: 100%;">
-        <!-- sidebar menu -->
-        <ul class="nav sidebar-inner" id="sidebar-menu">
-          <li class="has-sub active expand">
-            <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#dashboard"
-              aria-expanded="false" aria-controls="dashboard">
-              <i class="mdi mdi-view-dashboard-outline"></i>
-              <span class="nav-text">Dashboard</span> <b class="caret"></b>
-            </a>
-
-            <ul class="collapse show" id="dashboard" data-parent="#sidebar-menu">
-              <div class="sub-menu">
-                <li class="active">
-                  <a class="sidenav-item-link" href="index.html">
-                    <span class="nav-text">Ecommerce</span>
-                  </a>
-                </li>
-
-                <li class="">
-                  <a class="sidenav-item-link" href="analytics.html">
-                    <span class="nav-text">Analytics</span>
-                    <span class="badge badge-success">new</span>
-                  </a>
-                </li>
-              </div>
-            </ul>
+          <li class="collapsed">
+              <a class="m-link" data-bs-toggle="collapse" data-bs-target="#tikit-Components" href="#">
+                <i class="icofont-ticket bi bi-people-fill "></i> <span>CONTRATS</span> <span class="arrow icofont-dotted-down ms-auto text-end fs-5 bi bi-chevron-down"></span></a>
+              <!-- Menu: Sub menu ul -->
+              <ul class="sub-menu collapse" id="tikit-Components">
+                  <li><a class="ms-link" href="{% url 'askia_admin:contrat_form' %}"> <span>Enreg. Contrat</span></a></li>
+                  <li><a class="ms-link" href="{% url 'askia_admin:list_contrat' %}"> <span>Liste Contrats</span></a></li>
+              </ul>
           </li>
-
-          <li class="has-sub ">
-            <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#app"
-              aria-expanded="false" aria-controls="app">
-              <i class="mdi mdi-pencil-box-multiple"></i>
-              <span class="nav-text">App</span> <b class="caret"></b>
-            </a>
-
-            <ul class="collapse " id="app" data-parent="#sidebar-menu">
-              <div class="sub-menu">
-                <li class="">
-                  <a class="sidenav-item-link" href="chat.html">
-                    <span class="nav-text">Chat</span>
-                  </a>
-                </li>
-
-                <li class="">
-                  <a class="sidenav-item-link" href="contacts.html">
-                    <span class="nav-text">Contacts</span>
-                  </a>
-                </li>
-
-                <li class="">
-                  <a class="sidenav-item-link" href="team.html">
-                    <span class="nav-text">Team</span>
-                  </a>
-                </li>
-
-                <li class="">
-                  <a class="sidenav-item-link" href="calendar.html">
-                    <span class="nav-text">Calendar</span>
-                  </a>
-                </li>
-              </div>
-            </ul>
-          </li>
-
-          <!-- <li class="section-title">
-            UI Elements
-          </li> -->
 
         
-
-
-
-          <li class="has-sub ">
-            <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#tables"
-              aria-expanded="false" aria-controls="tables">
-              <i class="mdi mdi-table"></i>
-              <span class="nav-text">Tables</span> <b class="caret"></b>
-            </a>
-
-            <ul class="collapse " id="tables" data-parent="#sidebar-menu">
-              <div class="sub-menu">
-                <li class="">
-                  <a class="sidenav-item-link" href="basic-tables.html">
-                    <span class="nav-text">Basic Tables</span>
-                  </a>
-                </li>
-
-                <li class="has-sub ">
-                  <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#data-tables"
-                    aria-expanded="false" aria-controls="data-tables">
-                    <span class="nav-text">Data Tables</span> <b class="caret"></b>
-                  </a>
-
-                  <ul class="collapse " id="data-tables">
-                    <div class="sub-menu">
-                      <li class="">
-                        <a href="#">Basic Data Table</a>
-                      </li>
-
-                     <li class="">
-                        <a href="#">Responsive Data Table</a>
-                      </li>
-
-                     <li class="">
-                        <a href="#">Hoverable Data Table</a>
-                      </li>
-
-                     <li class="">
-                        <a href="#">Expendable Data Table</a>
-                      </li>
-                    </div>
-                  </ul>
-                </li>
-              </div>
-            </ul>
-          </li>
-
-
+        
+         
+         
        
+       
+      </ul>
+
+      <!-- Theme: Switch Theme -->
+      <ul class="list-unstyled mb-0">
+          <li class="d-flex align-items-center justify-content-center">
+              <div class="form-check form-switch theme-switch">
+                  <input class="form-check-input" type="checkbox" id="theme-switch">
+                  <label class="form-check-label" for="theme-switch">Enable Dark Mode!</label>
+              </div>
+          </li>
+          <li class="d-flex align-items-center justify-content-center">
+              <div class="form-check form-switch theme-rtl">
+                  <input class="form-check-input" type="checkbox" id="theme-rtl">
+                  <label class="form-check-label" for="theme-rtl">Enable RTL Mode!</label>
+              </div>
+          </li>
+      </ul>
+      
+      <!-- Menu: menu collepce btn -->
+      <button type="button" class="btn btn-link sidebar-mini-btn text-light">
+          <span class="ms-2"><i class="icofont-bubble-right"></i></span>
+      </button>
+  </div>
+</div>
 
 
 
-          <!-- <li class="section-title">
-            Documentation
-          </li> -->
-        </ul>
-      </div>
 
-      <!-- <div class="sidebar-footer">
-        <hr class="separator mb-0" />
-        <div class="sidebar-footer-content">
-          <h6 class="text-uppercase">
-            Cpu Uses <span class="float-right">40%</span>
-          </h6>
 
-          <div class="progress progress-xs">
-            <div class="progress-bar active" style="width: 40%;" role="progressbar"></div>
-          </div>
 
-          <h6 class="text-uppercase">
-            Memory Uses <span class="float-right">65%</span>
-          </h6>
 
-          <div class="progress progress-xs">
-            <div class="progress-bar progress-bar-warning" style="width: 65%;" role="progressbar"></div>
-          </div>
-        </div>
-      </div> -->
-    </div>
-  </aside>
+

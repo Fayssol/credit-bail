@@ -1,0 +1,153 @@
+{%extends 'layouts/base.html' %}
+{% load static%}
+
+
+{%block style%}
+
+{%endblock%}
+
+{%block head_js%}
+    
+{%endblock%}
+
+{%block body%}
+<div class="row shadow mt-4">
+	<div class="col-12">
+		<div class="card card-default">
+			<div class="card-header card-header-border-bottom d-flex justify-content-between">
+				
+                <!--  -->
+                <div class="d-grid gap-2 d-md-block">
+                  <button type="button" class="btn btn-outline-secondary mx-4  fs-6 shadow">PDF</button>
+                  <button type="button" class="btn btn-outline-secondary fs-6 shadow">EXCEL</button>
+                </div>
+               
+                <button type="button" class="btn btn-primary btn-pill fw-bold fs-6 shadow" data-bs-toggle="modal" data-bs-target="#exampleModalLg">
+                  <span class="add-temoin"><i class="bi bi-plus-lg"></i></span>
+                  Ajouter</button>
+          
+
+			</div>
+
+			<div class="card-body">
+
+				<div class="basic-data-table">
+                    <form id="date_filter" class="ms-auto mb-4" method="POST">
+                        {% csrf_token %}
+                         <input type="hidden" name="csrfmiddlewaretoken"> 
+                        <div class="row ">
+                            <div class="col">
+                                <input name="from_date" id="from_date" required class="form-control" type="date"
+                                       data-date-format="YYYY-MM-DD HH:MM:SS">
+                            </div>
+                            <div class="col">
+                                <input name="to_date" readonly id="to_date" required class="form-control"
+                                       type="date" data-date-format="YYYY-MM-DD HH:MM:SS">
+                            </div>
+                            <div class="col d-flex align-self-center">
+                                <button style="font-size: small" class="btn btn-secondary fw-bold fs-6 shadow">Filtrer</button>
+                            </div>
+                        </div>
+                    </form>
+
+                        
+                        <table id="transactions_table" class="table table-hover align-middle mb-0" style="width:100%">
+                          <h4>Liste des transactions</h4>
+                          
+                        </table>
+
+
+
+
+
+
+                </div>
+</div>
+</div>
+</div>
+
+<!-- modal -->
+<div class="modal fade" id="exampleModalLg" tabindex="-1" aria-labelledby="exampleModalLgLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title h4" id="exampleModalLgLabel">Enregister Transaction</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <!-- ... -->
+
+              <form id="transactionForm" action="{% url 'askia_admin:transaction_modal' %}" method="post" class="form-control-sm">
+                {% csrf_token %}
+              
+                <fieldset class="border p-3 shadow border-light">
+                  <!-- <legend class="w-auto px-2">Transaction</legend> -->
+                  <div class="row mb-3">
+                    <div class="col-md-6 mb-3">
+                      <label for="contrat" class="form-label fs-5">Client</label>
+                      <div class="input-group">
+                        <span class="input-group-text"><img src="{% static 'img/user-solid.svg' %}" alt=""></span>
+                        <input id="contrat" class="form-control" name="contrat" list="datalistOptions" id="exampleDataList" placeholder="Chercher un client">
+                        <datalist id="datalistOptions">
+                          {% for contrat in contrats %}
+                          <option value="{{ contrat.client.nom }}">
+                          {% endfor %}
+                        </datalist>
+                      </div>
+                      <span id="contratError" class="error text-danger"></span>
+                    </div>
+              
+                    <div class="col-md-6">
+                      <label for="montant" class="form-label fs-5">Montant</label>
+                      <div class="input-group">
+                        <span class="input-group-text"><img src="{% static 'img/piggy-bank-solid.svg' %}" alt=""></span>
+                        <input id="montant" type="number" name="montant_versement" class="form-control" placeholder="Entrez un montant">
+                      </div>
+                      <span id="montantError" class="error text-danger"></span>
+                    </div>
+                  </div>
+              
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label for="date" class="form-label fs-5">Date</label>
+                      <div class="input-group">
+                        <!-- <span class="input-group-text"><img src="{% static 'img/calendar-days-solid.svg' %}" alt=""></span> -->
+                        <input id="date" type="date" class="form-control" name="date_versement" placeholder="Entrez une date" max="{{ date_actuelle }}" value="{{ date_actuelle }}" data-date-format="yyyy/mm/dd">
+                      </div>
+                      <span id="dateError" class="error text-danger"></span>
+                    </div>
+              
+                    <div class="col-md-6">
+                      <label for="note" class="form-label fs-5">Note <span class="text-success">(optionnel)</span></label>
+                      <div class="input-group">
+                        <span class="input-group-text"><img src="{% static 'img/note.svg' %}" alt=""></span>
+                        <input id="note" type="text" name="note" class="form-control" placeholder="Entrez une note">
+                      </div>
+                      <span id="noteError" class="error text-danger"></span>
+                    </div>
+                  </div>
+
+                  <div class="row justify-content-center">
+                    <div class="col-md-6 text-center">
+                      <button id="transactionBtn" type="button" class="btn btn-primary mt-4 w-100 mx-auto fs-5">Enregistrer</button>
+                    </div>
+                  </div>
+                  
+              
+        
+                </fieldset>
+              </form>
+              
+
+
+          </div>
+      </div>
+  </div>
+</div>
+{%endblock%}
+
+{%block footer_js%}
+<!-- script chargement des data -->
+<script src="{% static '/js/ajax_transaction.js' %}"></script>
+
+{%endblock%}

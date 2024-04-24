@@ -1,4 +1,9 @@
 from django.shortcuts import render,HttpResponse
+from .vues.transactions_views import *
+from .vues.client_views import *
+
+
+
 
 # Create your views here.
 
@@ -6,8 +11,9 @@ from django.shortcuts import render,HttpResponse
 def base(request):
     return render(request,'layouts/base.html')
 
-def create(request):
-    return render(request,'clients/create.html')
 
-def index(request):
-    return HttpResponse("Welcome")
+
+def welcome(request):
+    return render(request, 'pages/index.html')
+
+

@@ -1,16 +1,15 @@
-import uuid
+
 from django.db import models
 
 # Create your models here.
 class Personne(models.Model):
     nom=models.CharField(max_length=50)
-    prenom=models.CharField(max_length=50)
     adresse=models.CharField(max_length=50)
-    date_naissance=models.DateField(auto_now_add=True)
+    date_naissance=models.DateField(null=True)
     contact=models.CharField(max_length=15)
     
     def __str__(self):
-        return self.nom + " " + self.prenom + " " + self.date_naissance + " " + self.contact
+        return self.nom + " " + self.adresse + " " + self.contact
     
     class Meta:
         abstract = True
@@ -20,28 +19,49 @@ class Client(Personne):
 
 
 class Contrat(models.Model):
-    id = models.BigAutoField(primary_key=True,default=0)
-    parent= models.OneToOneField("self", on_delete=models.PROTECT, null=True, blank=True, related_name="contrats")
+    id = models.BigAutoField(primary_key=True)
+    contrat_parent= models.OneToOneField("self", on_delete=models.PROTECT, null=True,blank=True, related_name="contrats_enfants")
     montant_contrat=models.IntegerField()
-    duree=models.IntegerField()    
-    etat=models.CharField(max_length=50)
-    status=models.CharField(max_length=50)
+    duree=models.IntegerField()  
+
+    Etat = models.TextChoices("Etat", "EN_COURS ANNULE TERMINE")
+
+    etat = models.CharField(max_length=10, choices=Etat.choices, default=Etat.EN_COURS)
+
+    Status = models.TextChoices("Status", "A_JOUR EN_RETARD")
+
+    status = models.CharField(max_length=10, choices=Status.choices, default=Status.A_JOUR)
     date_contrat=models.DateField()
-    fichier=models.CharField(max_length=50)
+
+    #fichier=models.FileField(max_length=50)
     client=models.OneToOneField(Client,on_delete=models.CASCADE,null=True)
     
     
 class Temoin(Personne):
-    contrat=models.ForeignKey(Contrat,on_delete=models.CASCADE,default=0)
+    contrat=models.ForeignKey(Contrat,on_delete=models.CASCADE)
     
-    
-        
+
 class Versement(models.Model):
-    montant_versement=models.IntegerField()
-    date_versement=models.DateField()
-    montant_total_paye=models.IntegerField()
-    contrat=models.ForeignKey(Contrat, on_delete=models.CASCADE,default=0)
+    montant_versement = models.IntegerField()
+    date_versement = models.DateField()
+    montant_total_paye = models.IntegerField(default=0) 
+    contrat = models.ForeignKey(Contrat, on_delete=models.CASCADE)
+    note = models.CharField(max_length=50)
+        
     
+    def save(self, *args, **kwargs):
+        try:
+            dernier_versement = Versement.objects.filter(contrat=self.contrat).latest('id')
+        except:  
+            dernier_versement = None  
+
+        if dernier_versement != None:
+            print('dernier ' , dernier_versement.montant_total_paye)
+            self.montant_total_paye = dernier_versement.montant_total_paye +  int(self.montant_versement)
+           
+        else:
+             self.montant_total_paye = int(self.montant_versement)
+        super().save(*args, **kwargs)  # Appeler la méthode save() du modèle parent     
     
 class Vaque(models.Model):
     date_arrivee=models.DateField()

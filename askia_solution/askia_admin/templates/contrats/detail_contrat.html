@@ -1,0 +1,375 @@
+{%extends 'layouts/base.html' %}
+{% load static%}
+{%block style%}
+
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Poppins:400,500,600,700|Roboto:400,500" rel="stylesheet" />
+<link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
+<link href="{% static '/css/datatables.bootstrap4.min.css' %}" rel='stylesheet'>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
+
+<link rel="stylesheet" href="{% static '/css/responsive.dataTables.min.css' %}">
+<link rel="stylesheet" href="{% static '/css/dataTables.bootstrap5.min.css' %}">
+{%endblock%}
+
+{%block head_js%}
+    
+{%endblock%}
+
+{%block body%}
+
+  <!-- Body: Body -->
+  <div class="body d-flex py-lg-3 py-md-2">
+    <div class="container-xxl">
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <div class="card border-0 mb-4 no-bg">
+                    <div class="card-header py-3 px-0 d-flex align-items-center  justify-content-between border-bottom">
+                        <h3 class=" fw-bold flex-fill mb-0">Détails Contrat</h3>
+                    </div>
+                </div>
+            </div>
+        </div><!-- Row End -->
+        <div class="row g-3">
+            <div class="col-xl-8 col-lg-12 col-md-12">
+                <div class="card teacher-card  mb-3">
+                    <div class="card-body d-flex teacher-fulldeatil">
+                        <div class="profile-teacher pe-xl-4 pe-md-2 pe-sm-4 pe-4 text-center w220">
+                            <a href="#">
+                                <img src="{% static '/img/xs/avatar3.jpg' %}" alt="" class="avatar xl rounded-circle img-thumbnail shadow-sm">
+                            </a>
+                            <div class="about-info d-flex align-items-center mt-3 justify-content-center flex-column">
+                                <h6 class="mb-0 fw-bold d-block fs-6">Nom complet</h6>
+                                <span class="text-muted small">CLIENT ID : PXL-0001</span>
+                            </div>
+                        </div>
+                        <div class="teacher-info border-start ps-xl-4 ps-md-4 ps-sm-4 ps-4 w-100">
+                            <h6  class="mb-0 mt-2  fw-bold d-block fs-6">Client</h6>
+                            {% comment %} <span class="py-1 fw-bold small-11 mb-0 mt-1 text-muted">Ryan Ogden</span> {% endcomment %}
+                           
+                            <div class="row g-2 pt-2">
+
+
+                                <div class="col-xl-5">
+                                    <div class="d-flex align-items-center">
+                                        <i class="icofont-adress"></i>
+                                        <span class="ms-2 small">Adresse</span>
+                                    </div>
+                                </div>
+                                 
+                                <div class="col-xl-5">
+                                    <div class="d-flex align-items-center">
+                                        <i class="icofont-adress"></i>
+                                        <span class="ms-2 small">adresse</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-5">
+                                    <div class="d-flex align-items-center">
+                                        <i class="icofont-birthday-cake"></i>
+                                        <span class="ms-2 small">Date Naissance</span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-5">
+                                    <div class="d-flex align-items-center">
+                                        <i class="icofont-birthday-cake"></i>
+                                        <span class="ms-2 small">date Naissance</span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-5">
+                                    <div class="d-flex align-items-center">
+                                        <i class="icofont-address-book"></i>
+                                        <span class="ms-2 small">Contact</span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-5">
+                                    <div class="d-flex align-items-center">
+                                        <i class="icofont-address-book"></i>
+                                        <span class="ms-2 small">Contact</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="fw-bold  py-3 mb-3">Contrat Rédéfini</h6>
+                <div class="teachercourse-list mb-3">
+                    <div class="row g-3 gy-5 pt-3 row-deck">
+                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center justify-content-between mt-5">
+                                        <div class="lesson_name">
+                                            <div class="project-block light-info-bg">
+                                                <i class="icofont-paint"></i>
+                                            </div>
+                                            <span class="small text-muted project_name fw-bold"> CN </span>
+                                            <h6 class="mb-0 fw-bold  fs-6  mb-2">Client </h6>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-list avatar-list-stacked pt-2">
+                                            <img class="avatar rounded-circle sm" src="{% static '/img/xs/avatar9.jpg' %}" alt="">
+                                            </div> 
+                                    </div>
+                                    <div class="row g-2 pt-4">
+                                        <div class="col-6">
+                                            <div class="d-flex align-items-center">
+                                                <i class="icofont-paper-clip"></i>
+                                                <span class="ms-2">5 Attach</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="d-flex align-items-center">
+                                                <i class="icofont-sand-clock"></i>
+                                                <span class="ms-2">4 Month</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="d-flex align-items-center">
+                                                <i class="icofont-group-students "></i>
+                                                <span class="ms-2">5 Members</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="d-flex align-items-center">
+                                                <i class="icofont-ui-text-chat"></i>
+                                                <span class="ms-2">10</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dividers-block"></div>
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <h4 class="small fw-bold mb-0">Progress</h4>
+                                        <span class="small light-danger-bg  p-1 rounded"><i class="icofont-ui-clock"></i> 35 Days Left</span>
+                                    </div>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar bg-secondary" role="progressbar" style="width: 25%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-secondary ms-1" role="progressbar" style="width: 25%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-secondary ms-1" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                                <div class="info-header">
+                                    <h6 class="mb-0 fw-bold ">Liste des anciens versements</h6>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <table id="myProjectTable" class="table table-hover align-middle mb-0" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>NO</th>
+                                            <th>Project</th>
+                                            <th>Date Start</th>
+                                            <th>Date End</th>
+                                            <th>Amount</th>
+                                            <th>status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><a href="invoices.html" class="fw-bold text-secondary">#00001</a></td>
+                                            <td><a href="projects.html">Social Geek Made</a></td>
+                                            <td>10-01-2021</td>
+                                            <td>10-02-2021</td>
+                                            <td>$3250</td>
+                                            <td><span class="badge bg-warning">Pending</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="invoices.html" class="fw-bold text-secondary">#00002</a></td>
+                                            <td><a href="projects.html">Practice to Perfect</a></td>
+                                            <td>12-02-2021</td>
+                                            <td>10-04-2021</td>
+                                            <td>$1578</td>
+                                            <td><span class="badge bg-success">Paid</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="invoices.html" class="fw-bold text-secondary">#00003</a></td>
+                                            <td><a href="projects.html">Rhinestone</a></td>
+                                            <td>18-02-2021</td>
+                                            <td>20-04-2021</td>
+                                            <td>$1978</td>
+                                            <td><span class="badge bg-lavender-purple">Draf</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="invoices.html" class="fw-bold text-secondary">#00004</a></td>
+                                            <td><a href="projects.html">Box of Crayons</a></td>
+                                            <td>28-02-2021</td>
+                                            <td>30-04-2021</td>
+                                            <td>$1978</td>
+                                            <td><span class="badge bg-lavender-purple">Draf</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- Row End -->
+            </div>
+            <div class="col-xl-4 col-lg-12 col-md-12">
+                <div class="card mb-3">
+                    <div class="card-header py-3">
+                        <h6 class="mb-0 fw-bold ">Client Task</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center justify-content-between mt-5">
+                                            <div class="lesson_name">
+                                                <div class="project-block bg-lightgreen">
+                                                    <i class="icofont-vector-path"></i>
+                                                </div>
+                                                <span class="small text-muted project_name fw-bold"> Practice to Perfect </span>
+                                                <h6 class="mb-0 fw-bold  fs-6  mb-2">Nouveau Contrat</h6>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                
+                                        </div>
+                                        <div class="row g-2 pt-4">
+                                            <div class="col-6">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="icofont-paper-clip"></i>
+                                                    <span class="ms-2">4 Attach</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="icofont-sand-clock"></i>
+                                                    <span class="ms-2">1 Month</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="icofont-group-students "></i>
+                                                    <span class="ms-2">4 Members</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="icofont-ui-text-chat"></i>
+                                                    <span class="ms-2">3</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="dividers-block"></div>
+                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                            <h4 class="small fw-bold mb-0">Progress</h4>
+                                            <span class="small light-danger-bg  p-1 rounded"><i class="icofont-ui-clock"></i> 15 Days Left</span>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar bg-secondary" role="progressbar" style="width: 25%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar bg-secondary ms-1" role="progressbar" style="width: 25%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar bg-secondary ms-1" role="progressbar" style="width: 39%" aria-valuenow="39" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           </div>
+                    
+                    <div class="row">
+
+                        <div class='col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12' >
+
+                            <ul class="list-unstyled res-set">
+                                <li class="card mb-2">
+                                    <div class="card-body">
+                                        <div class="d-flex mb-3 pb-3 border-bottom">
+                                            <img class="avatar rounded-circle" src="{% static '/img/xs/avatar3.jpg' %}" alt="">
+                                            <div class="flex-fill ms-3 text-truncate">
+                                                <h6 class="mb-0"><span>Nellie Maxwell</span> <span class="text-muted small">posted a status</span></h6>
+                                                <span class="text-muted">3 hours ago</span>
+                                            </div>
+                                        </div>
+                                        {% comment %} <div class="timeline-item-post">
+                                            <h6>Internet Not Working for Last 2 Days</h6>
+                                            <p>On the other hand, if the Internet doesn't work on other devices too, then the problem is most likely with the router or the Internet connection itself</p>
+                                            <div class="mb-2 mt-4">
+                                                <a class="me-lg-4 me-2 text-primary" href="#"><i class="icofont-speech-comments"></i> Comment (2)</a>
+                                            </div>
+                                            <div>
+                                                <div class="d-flex mt-3 pt-3 border-top">
+                                                    <img class="avatar rounded-circle" src="assets/images/xs/avatar2.jpg" alt="">
+                                                    <div class="flex-fill ms-3 text-truncate">
+                                                        <p class="mb-0"><span>Zoe Wright</span> <small class="msg-time">1 hour ago</small></p>
+                                                        <span class="text-muted">One good way to fix the router is to restart it.</span>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex mt-3 pt-3 border-top">
+                                                    <img class="avatar rounded-circle" src="assets/images/xs/avatar3.jpg" alt="">
+                                                    <div class="flex-fill ms-3 text-truncate">
+                                                        <p class="mb-0"><span>Diane Fisher</span> <small class="msg-time">1 hour ago</small></p>
+                                                        <span class="text-muted">Turn on the modem and one minute later turn on the router. Wait for a few minutes and check”</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-4">
+                                            <textarea class="form-control" placeholder="Replay"></textarea>
+                                        </div> {% endcomment %}
+                                    </div>
+                                </li> 
+                                
+    
+                                <li class="dd-item">
+                                    <ul class="list-unstyled res-set">
+                                        <li class="card mb-2">
+                                            <div class="card-body">
+                                                <div class="d-flex mb-3 pb-3 border-bottom">
+                                                    <img class="avatar rounded-circle" src="{% static '/img/xs/avatar3.jpg' %}" alt="">
+                                                    <div class="flex-fill ms-3 text-truncate">
+                                                        <h6 class="mb-0"><span>Nellie Maxwell</span> <span class="text-muted small">posted a status</span></h6>
+                                                        <span class="text-muted">3 hours ago</span>
+                                                    </div>
+                                                </div>
+                                              
+                                            </div>
+                                        </li> 
+                                        
+                                        
+                                
+                            </ul>
+
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- Row End -->
+    </div>
+</div>
+{%endblock%}
+
+{%block footer_js%}
+<!-- Jquery Core Js -->
+<script src="{% static '/bundles/libscripts.bundle.js' %}"></script>
+
+<!-- Plugin Js-->
+<script src="{% static '/bundles/dataTables.bundle.js' %}"></script>
+
+<!-- Jquery Page Js -->
+<script src="{% static '/js/template.js' %}"></script>
+<script>
+     // project data table
+     $(document).ready(function() {
+        $('#myProjectTable')
+        .addClass( 'nowrap' )
+        .dataTable( {
+            responsive: true,
+            columnDefs: [
+                { targets: [-1, -3], className: 'dt-body-right' }
+            ]
+        });
+    });
+</script>
+
+{%endblock%}
