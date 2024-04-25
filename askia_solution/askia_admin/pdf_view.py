@@ -15,7 +15,7 @@ def get_pdf_from_http(request,model, context, pdf_type):
     success_message = None
     error_message = None
     try:
-        templae_dir = model+"/"
+        templae_dir = model+"/"+pdf_type+"/"
         pdf_name = pdf_type +".pdf" 
         generer(context, pdf_name,templae_dir)        
         success_message = 'Suxxes !!!'
