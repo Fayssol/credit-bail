@@ -10,3 +10,5 @@
 **/*.pdf
 **/*.fdb_latexmk
 **/*.fls
+**/*.bak
+ifnti/
