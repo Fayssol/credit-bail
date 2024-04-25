@@ -11,14 +11,14 @@ from .templating_latex.controlleur import generate_pdf as generer
     
     
 
-def get_pdf_from_http(request,model, context, pdf_type):
+def get_pdf_from_http(request,model:str, context:str, pdf_type:str):
     success_message = None
     error_message = None
     try:
-        templae_dir = model+"/"+pdf_type+"/"
-        pdf_name = pdf_type +".pdf" 
+        templae_dir:str = model+"/"+pdf_type+"/"
+        pdf_name:str = pdf_type +".pdf" 
         generer(context, pdf_name,templae_dir)        
-        success_message = 'Suxxes !!!'
+        success_message = 'Succes !!!'
         messages.success(request, success_message)     
       
         with open( dirname(abspath(__file__))+ "/jinja_template/out/menageOut.pdf", "rb") as my_file:
