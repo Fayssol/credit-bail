@@ -1,25 +1,25 @@
 
  // Vérification du montant
  function montant_validation(montant) {
-    if (isNaN(montant) || montant <= 0) {
+    if (isNaN(montant) || montant <= 0 || typeof montant === 'string') {
         $("#montantError").html("Le montant doit être un nombre supérieur à zéro.");
-        //alert('0000000');
-        return;
+        return false;
     } else {
         $("#montantError").empty(); // Efface le message d'erreur s'il est valide
         return true;
     }
-    
- }
+}
+
  
  // Vérification du contrat
  function contrat_validation(contrat, id) {
     const contratRegex = /^[A-Za-z\s\-']+$/;
     if (!contratRegex.test(contrat) || contrat.length < 3) {
         $(id).html("Le nom ne doit contenir que des lettres et au moins 3 caractères.");
+        return false;
     } else {
         //$("#contratError").empty(); // Efface le message d'erreur s'il est valide
-        console.log('54654548');
+       
         return true;
     }
  }
@@ -28,10 +28,12 @@
 function date_validation(date,id) {
     if (date.trim() === "") {
         $(id).html("La date est requise.");
+        return false;
     } else {
         var parsedDate = new Date(date);
         if (isNaN(parsedDate)) {
             $(id).html("Format de date invalide.");
+            return false;
         } else {
             $(id).empty(); // Efface le message d'erreur s'il est valide
             return true;
@@ -42,6 +44,7 @@ function date_validation(date,id) {
 function adresse_validation(adresse, id){
     if(adresse.trim() === ""){
         $(id).html("L' adresse est requise.");
+        return false;
     }else{
         return true
     }
@@ -50,36 +53,52 @@ function adresse_validation(adresse, id){
 function contact_validation(contact){
     if(contact.trim() === ""){
         $("#contactError").html("Le contact est requis.");
-    }else{
-        return true
+        return false;
+    } else if(contact.trim().length !== 8 ) {
+        $("#contactError").html("Le contact doit contenir exactement 8 caractères.");
+        return false;
+    } else {
+        return true;
     }
 }
+
 
 function duree_validation(duree){
-    if(duree.trim() === ""){
+    if(duree.trim() === "" || typeof duree == "string"){
         $("#dureeError").html("La durée est requise.");
+        return false;
     }else{
         return true
     }
 }
 
+//
 function nameT_validation(name){
+    const contratRegex = /^[A-Za-z\s\-']+$/;
     if(name.trim() === ""){
         $("#nametError").html("Le nom est requis.");
+        return false;
+    }else if(!contratRegex.test(name) || name.length < 3){
+        $("#nametError").html("Le nom ne doit contenir que des lettres et au moins 3 caractères.");
+        return false;
     }else{
         return true
     }
-}
+} 
+//
 function phone_validation(phone){
     if(phone.trim() === ""){
         $("#phoneError").html("Le phone est requis.");
-    }else{
-        return true
+    } else if(phone.trim().length !== 8 || typeof phone == "string") {
+        $("#contactError").html("Le phone doit contenir exactement 8 caractères.");
+        return false;
+    } else {
+        return true;
     }
 }
 
 function adresseT_validation(add){
-    if(add.trim() === ""){
+    if(add.trim() === "" || typeof add == "number"){
         $("#adressetError").html("L'adresse est requise.");
     }else{
         return true
@@ -88,10 +107,10 @@ function adresseT_validation(add){
 
 
 function montant_validation2(montant) {
-    if (isNaN(montant) || montant <= 0) {
+    if (isNaN(montant) || montant <= 0 || typeof montant === 'string') {
         $("#montantError2").html("Le montant doit être un nombre supérieur à zéro.");
         //alert('0000000');
-        return;
+        return false;
     } else {
         $("#montantError2").empty(); // Efface le message d'erreur s'il est valide
         return true;
