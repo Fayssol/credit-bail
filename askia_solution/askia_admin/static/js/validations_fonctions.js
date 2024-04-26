@@ -51,10 +51,11 @@ function adresse_validation(adresse, id){
 }
 
 function contact_validation(contact){
-    if(contact.trim() === ""){
+   
+    if(isNaN(contact)){
         $("#contactError").html("Le contact est requis.");
         return false;
-    } else if(contact.trim().length !== 8 ) {
+    } else if(Number.isInteger(contact) && contact.toString().length !== 8 ) {
         $("#contactError").html("Le contact doit contenir exactement 8 caractères.");
         return false;
     } else {

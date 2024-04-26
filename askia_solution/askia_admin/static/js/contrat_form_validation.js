@@ -3,7 +3,8 @@ $('#contratBtn').click(function() {
 
     // client
     const client = $("#contrat").val();
-    const contact = $("#contact").val();
+    const contact = parseInt($("#contact").val());
+
     const address = $("#address").val();
     const dateN = $("#dateN").val();
     // contrat
@@ -20,6 +21,7 @@ $('#contratBtn').click(function() {
     const v3 = date_validation(dateN, "#dnError");
     const v4 = date_validation(dateS, "#dateSgnError");
     const v5 = adresse_validation(address, '#adresseError');
+    // alert(contact);
     const v6 = contact_validation(contact);
     const v7 = duree_validation(dureeC);
 
