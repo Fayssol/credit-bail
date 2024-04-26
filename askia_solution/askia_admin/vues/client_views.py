@@ -115,9 +115,10 @@ def update_contrat(request,id):
         return HttpResponse("ok")
 
 
-def detail_contrat(request):
+def detail_contrat(request,id):
+    contrat=Contrat.objects.get(pk=id)
 
-    return render(request,"contrats/detail_contrat.html")
+    return render(request,"contrats/detail_contrat.html",{"contrat":contrat})
 
 @csrf_protect
 def contrat_view(request):
@@ -156,6 +157,7 @@ def contrat_view(request):
             "recordsTotal": total_records,
             "recordsFiltered": total_filtered_records,
             "data":[{
+                "id":contrat.id,
                 "date_contrat":contrat.date_contrat,
                 "montant_contrat":'{:,.0f}'.format(contrat.montant_contrat).replace(',',' '),
                 "duree":contrat.duree,
