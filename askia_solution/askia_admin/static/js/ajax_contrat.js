@@ -108,7 +108,8 @@ $(document).ready(function() {
                             ' </button>'+
                             ' <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">'+
                             '<li><a class="dropdown-item active" href="#">Action</a></li>'+
-                            '<li><a class="dropdown-item" href="#">Another action</a></li>'+
+                            `<li><a class="dropdown-item" href="/detail_contrat/${row.id}">Détail</a></li>`+
+                            '<li><a class="dropdown-item" href="#">Edit</a></li>'+
                             ' </ul>'+
                             '</div>';
                         }

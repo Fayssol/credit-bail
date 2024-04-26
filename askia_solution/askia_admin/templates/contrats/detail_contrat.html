@@ -38,8 +38,8 @@
                                 <img src="{% static '/img/xs/avatar3.jpg' %}" alt="" class="avatar xl rounded-circle img-thumbnail shadow-sm">
                             </a>
                             <div class="about-info d-flex align-items-center mt-3 justify-content-center flex-column">
-                                <h6 class="mb-0 fw-bold d-block fs-6">Nom complet</h6>
-                                <span class="text-muted small">CLIENT ID : PXL-0001</span>
+                                <h6 class="mb-0 fw-bold d-block fs-6">{{contrat.client.nom}}</h6>
+                              
                             </div>
                         </div>
                         <div class="teacher-info border-start ps-xl-4 ps-md-4 ps-sm-4 ps-4 w-100">
@@ -59,7 +59,7 @@
                                 <div class="col-xl-5">
                                     <div class="d-flex align-items-center">
                                         <i class="icofont-adress"></i>
-                                        <span class="ms-2 small">adresse</span>
+                                        <span class="ms-2 small">{{contrat.client.adresse}}</span>
                                     </div>
                                 </div>
 
@@ -72,7 +72,7 @@
                                 <div class="col-xl-5">
                                     <div class="d-flex align-items-center">
                                         <i class="icofont-birthday-cake"></i>
-                                        <span class="ms-2 small">date Naissance</span>
+                                        <span class="ms-2 small">{{contrat.client.date_naissance}}</span>
                                     </div>
                                 </div>
                                 <div class="col-xl-5">
@@ -84,13 +84,14 @@
                                 <div class="col-xl-5">
                                     <div class="d-flex align-items-center">
                                         <i class="icofont-address-book"></i>
-                                        <span class="ms-2 small">Contact</span>
+                                        <span class="ms-2 small">{{contrat.client.contact}}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {% if  contrat.contrat_parent %}
                 <h6 class="fw-bold  py-3 mb-3">Contrat Rédéfini</h6>
                 <div class="teachercourse-list mb-3">
                     <div class="row g-3 gy-5 pt-3 row-deck">
@@ -153,12 +154,13 @@
                     
                     </div>
                 </div>
+                {% endif %}
                 <div class="row g-3">
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header py-3 d-flex justify-content-between align-items-center">
                                 <div class="info-header">
-                                    <h6 class="mb-0 fw-bold ">Liste des anciens versements</h6>
+                                    <h6 class="mb-0 fw-bold ">Liste des versements</h6>
                                 </div>
                             </div>
                             <div class="card-body">
