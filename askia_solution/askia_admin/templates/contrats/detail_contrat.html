@@ -22,16 +22,16 @@
     <div class="container-xxl">
         <div class="row clearfix">
             <div class="col-md-12">
-                <div class="card border-0 mb-4 no-bg">
+                <div class="card border-0 mb-4 no-bg shadow">
                     <div class="card-header py-3 px-0 d-flex align-items-center  justify-content-between border-bottom">
-                        <h3 class=" fw-bold flex-fill mb-0">Détails Contrat</h3>
+                        <h3 class=" fw-bold flex-fill mb-0 text-center">Détails Contrat</h3>
                     </div>
                 </div>
             </div>
         </div><!-- Row End -->
         <div class="row g-3">
             <div class="col-xl-8 col-lg-12 col-md-12">
-                <div class="card teacher-card  mb-3">
+                <div class="card teacher-card  mb-3 shadow">
                     <div class="card-body d-flex teacher-fulldeatil">
                         <div class="profile-teacher pe-xl-4 pe-md-2 pe-sm-4 pe-4 text-center w220">
                             <a href="#">
@@ -40,7 +40,7 @@
 
                             </a>
                             <div class="about-info d-flex align-items-center mt-3 justify-content-center flex-column">
-                                <h6 class="mb-0 fw-bold d-block fs-5">{{contrat.client.nom}}</h6>
+                                <h6 class="mb-0 fw-bold d-block fs-6">{{contrat.client.nom|upper}}</h6>
                               
                             </div>
                         </div>
@@ -54,39 +54,39 @@
                                 <div class="col-xl-5">
                                     <div class="d-flex align-items-center">
                                         <!-- <i class="icofont-adress"></i> -->
-                                        <span class="ms-2 small fs-5">Adresse</span>
+                                        <span class="ms-2 small fs-6 ">Adresse</span>
                                     </div>
                                 </div>
                                  
                                 <div class="col-xl-5">
                                     <div class="d-flex align-items-center">
                                         <!-- <i class="icofont-adress"></i> -->
-                                        <span class="ms-2 small fs-5">{{contrat.client.adresse}}</span>
+                                        <span class="ms-2 small fs-6">{{contrat.client.adresse}}</span>
                                     </div>
                                 </div>
 
                                 <div class="col-xl-5">
                                     <div class="d-flex align-items-center">
                                         <!-- <i class="icofont-birthday-cake"></i> -->
-                                        <span class="ms-2 small fs-5">Date Naissance</span>
+                                        <span class="ms-2 small fs-6">Date Naiss.</span>
                                     </div>
                                 </div>
                                 <div class="col-xl-5">
                                     <div class="d-flex align-items-center">
                                         <!-- <i class="icofont-birthday-cake"></i> -->
-                                        <span class="ms-2 small fs-5">{{contrat.client.date_naissance|date}}</span>
+                                        <span class="ms-2 small fs-6">{{contrat.client.date_naissance|date}}</span>
                                     </div>
                                 </div>
                                 <div class="col-xl-5">
                                     <div class="d-flex align-items-center">
                                         <!-- <i class="icofont-address-book"></i> -->
-                                        <span class="ms-2 small fs-5">Contact</span>
+                                        <span class="ms-2 small fs-6">Contact</span>
                                     </div>
                                 </div>
                                 <div class="col-xl-5">
                                     <div class="d-flex align-items-center">
                                         <!-- <i class="icofont-address-book"></i> -->
-                                        <span class="ms-2 small fs-5">{{contrat.client.contact}}</span>
+                                        <span class="ms-2 small fs-6">{{contrat.client.contact}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -98,7 +98,7 @@
                 <div class="teachercourse-list mb-3">
                     <div class="row g-3 gy-5 pt-3 row-deck">
                         <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                            <div class="card">
+                            <div class="card shadow">
                                 <div class="card-body">
                                     <table id="" class="table table-hover align-middle mb-0" style="width:100%">
                                         <h6 class="fw-bold ">Résumer ancien contrat</h6>
@@ -133,13 +133,13 @@
                {% endif %}
                 <div class="row g-3">
                     <div class="col-md-12">
-                        <div class="card">
+                        <div class="card shadow">
                             <div class="card-header py-3 d-flex justify-content-between align-items-center">
                                 <div class="d-grid gap-2 d-md-block">
-                                    <button type="button" class="btn btn-outline-secondary mx-4  fs-6 shadow">PDF</button>
-                                    <button type="button" class="btn btn-outline-secondary fs-6 shadow">EXCEL</button>
+                                    <button type="button" class="btn btn-outline-secondary mx-4  fs-6 shadow-sm">PDF</button>
+                                    <button type="button" class="btn btn-outline-secondary fs-6 shadow-sm">EXCEL</button>
                                   </div>
-                                  <button type="button" class="btn btn-primary btn-pill fw-bold fs-6 shadow" data-bs-toggle="modal" data-bs-target="#exampleModalLg">
+                                  <button type="button" class="btn btn-primary btn-pill fw-bold fs-6 shadow-sm" data-bs-toggle="modal" data-bs-target="#exampleModalLg">
                                     <span class="add-temoin"><i class="bi bi-plus-lg"></i></span>
                                     Ajouter</button>
                             </div>
@@ -158,7 +158,7 @@
                                                    type="date" data-date-format="YYYY-MM-DD HH:MM:SS">
                                         </div>
                                         <div class="col d-flex align-self-center">
-                                            <button style="font-size: small" class="btn btn-secondary fw-bold fs-6 shadow">Filtrer</button>
+                                            <button style="font-size: small" class="btn btn-secondary fw-bold fs-6 shadow-sm">Filtrer</button>
                                         </div>
                                     </div>
                                 </form>
@@ -216,14 +216,14 @@
             </div>
 <!-- cote droit -->
             <div class="col-xl-4 col-lg-12 col-md-12">
-                <div class="card mb-3">
+                <div class="card mb-3 shadow">
                     <div class="card-header py-3">
                         <h6 class="mb-0 fw-bold ">Résumer contrat</h6>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                <div class="card">
+                                <div class="card shadow-sm">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center justify-content-between">
                                             <div class="lesson_name">
@@ -236,77 +236,77 @@
                                         <div class="row g-2 pt-4">
                                             <div class="col-6">
                                                 <div class="d-flex align-items-center">
-                                                    <i class="icofont-paper-clip"></i>
+                                                    <!-- <i class="icofont-paper-clip"></i> -->
                                                     <span class="ms-2">Status</span>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="d-flex align-items-center">
-                                                    <i class="icofont-sand-clock"></i>
+                                                    <!-- <i class="icofont-sand-clock"></i> -->
                                                     <span class="ms-2">à jour</span>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="d-flex align-items-center">
-                                                    <i class="icofont-group-students "></i>
+                                                    <!-- <i class="icofont-group-students "></i> -->
                                                     <span class="ms-2">Etat</span>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="d-flex align-items-center">
-                                                    <i class="icofont-ui-text-chat"></i>
+                                                    <!-- <i class="icofont-ui-text-chat"></i> -->
                                                     <span class="ms-2">en cours</span>
                                                 </div>
                                             </div>
 
                                             <div class="col-6">
                                                 <div class="d-flex align-items-center">
-                                                    <i class="icofont-group-students "></i>
+                                                    <!-- <i class="icofont-group-students "></i> -->
                                                     <span class="ms-2">Total Vers.</span>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="d-flex align-items-center">
-                                                    <i class="icofont-ui-text-chat"></i>
+                                                    <!-- <i class="icofont-ui-text-chat"></i> -->
                                                     <span class="ms-2">300</span>
                                                 </div>
                                             </div>
 
                                             <div class="col-6">
                                                 <div class="d-flex align-items-center">
-                                                    <i class="icofont-group-students "></i>
+                                                    <!-- <i class="icofont-group-students "></i> -->
                                                     <span class="ms-2">A Payé</span>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="d-flex align-items-center">
-                                                    <i class="icofont-ui-text-chat"></i>
+                                                    <!-- <i class="icofont-ui-text-chat"></i> -->
                                                     <span class="ms-2">300</span>
                                                 </div>
                                             </div>
 
                                             <div class="col-6">
                                                 <div class="d-flex align-items-center">
-                                                    <i class="icofont-group-students "></i>
+                                                    <!-- <i class="icofont-group-students "></i> -->
                                                     <span class="ms-2">Reste</span>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="d-flex align-items-center">
-                                                    <i class="icofont-ui-text-chat"></i>
+                                                    <!-- <i class="icofont-ui-text-chat"></i> -->
                                                     <span class="ms-2">300</span>
                                                 </div>
                                             </div>
 
                                             <div class="col-6">
                                                 <div class="d-flex align-items-center">
-                                                    <i class="icofont-group-students "></i>
+                                                    <!-- <i class="icofont-group-students "></i> -->
                                                     <span class="ms-2">Date Sign.</span>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="d-flex align-items-center">
-                                                    <i class="icofont-ui-text-chat"></i>
+                                                    <!-- <i class="icofont-ui-text-chat"></i> -->
                                                     <span class="ms-2">2004</span>
                                                 </div>
                                             </div>
@@ -331,7 +331,7 @@
                         <div class='col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-4' >
                             <h6 class="mb-2 fw-bold ">Témoins</h6>
                             <ul class="list-unstyled res-set">
-                                <li class="card mb-2">
+                                <li class="card mb-2 shadow-sm">
                                     <div class="card-body">
                                         <div class="d-flex mb-3 pb-3 border-bottom">
                                             <i class="bi bi-person-fill fs-1 text-dark"></i>
@@ -347,7 +347,7 @@
     
                                 <li class="dd-item">
                                     <ul class="list-unstyled res-set">
-                                        <li class="card mb-2">
+                                        <li class="card mb-2 shadow-sm">
                                             <div class="card-body">
                                                 <div class="d-flex mb-3 pb-3 border-bottom">
                                                     <i class="bi bi-person-fill fs-1 text-dark"></i>
@@ -372,18 +372,18 @@
                         <div class="row">
                             
                             <div class='col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-4' >
-                                <h6 class="mb-2 fw-bold text-danger">Zone Rouge</h6>
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between">
+                                <h6 class="mb-2 fw-bold text-danger mb-3">Zone Rouge</h6>
+                                <!-- <div class="card"> -->
+                                    <!-- <div class="card-body"> -->
+                                        <div class="d-flex justify-content-between ">
                                             <!-- <button type="button" class="btn btn-primary">Editer</button> -->
                                             <button type="button" class="btn btn-secondary">Archver</button>
-                                            <button type="button" class="btn btn-warning">Redéfinir</button>
+                                            <button type="button" class="btn btn-warning mx-2">Redéfinir</button>
                                             <button type="button" class="btn btn-danger">Annuler</button>
 
                                         </div>
-                                    </div>
-                                </div>
+                                    <!-- </div> -->
+                                <!-- </div> -->
                             </div>
                         </div>    
 
