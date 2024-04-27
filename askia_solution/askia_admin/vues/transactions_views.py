@@ -45,7 +45,7 @@ def save_transaction(request):
 def transaction_form(request):
      # Obtenir la date actuelle
     date_actuelle = date.today().isoformat()
-    contrats = Contrat.objects.all()
+    contrats = Contrat.objects.filter(etat="EN_COURS").all()
     # date_actuelle =  date_actuelle,
     # contrats = contrats
     # context = {

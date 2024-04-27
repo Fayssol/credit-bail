@@ -2,7 +2,7 @@
 
 $('#transactionBtn').click(function() {
     const note = $("#note").val();
-    const montant = $("#montant").val();
+    const montant = parseInt($("#montant").val());
     const contrat = $("#contrat").val();
     const date = $("#date").val();
     const form = $("#transactionForm");

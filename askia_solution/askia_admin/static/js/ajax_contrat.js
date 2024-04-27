@@ -87,15 +87,22 @@ $(document).ready(function() {
                { data: 'status', visible: true, title:"Status",
                     render:function(data, type, row){
                         if(row.status == "A_JOUR"){
-                            return '<span class="alert alert-success fw-bolder p-1 rounded-pill ">'+'à jour'+'</span>';
+                            return '<span class="badge bg-success">'+'à jour'+'</span>';
+                        }else if(row.status == "EN_RETARD"){
+                            return '<span class="badge bg-lavender-purple">'+'en retart'+'</span>';
                         }
+                        
                     }
                 },
 
                { data: 'etat', visible: true,title:"Etat" ,
                     render:function(data, type, row){
                         if(row.etat == "EN_COURS"){
-                            return '<span class="alert alert-warning fw-bolder p-1 rounded-pill ">'+'en cours'+'</span>';
+                            return '<span class="badge bg-warning ">'+'en cours'+'</span>';
+                        }else if(row.etat == "TERMINE"){
+                            return '<span class="badge bg-success ">'+'terminé'+'</span>';
+                        }else{
+                            return '<span class="badge bg-danger ">'+'annulé'+'</span>';
                         }
                     }
                 },
