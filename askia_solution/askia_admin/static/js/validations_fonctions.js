@@ -108,8 +108,9 @@ function phone_validation(phone){
 }
 
 function adresseT_validation(add){
-    if(add.trim() === "" || typeof add == "number"){
+    if(add.trim() === "" || Number.isInteger(parseInt(add))){
         $("#adressetError").html("L'adresse est requise.");
+        return false;
     }else{
         return true
     }
