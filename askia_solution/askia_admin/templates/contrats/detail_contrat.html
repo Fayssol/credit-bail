@@ -242,20 +242,28 @@
                                             </div>
                                             <div class="col-6">
                                                 <div class="d-flex align-items-center">
-                                                    <!-- <i class="icofont-sand-clock"></i> -->
-                                                    <span class="ms-2">à jour</span>
+                                                    {% if contrat.status == "A_JOUR" %}
+                                                    <span class="ms-2 badge bg-success">à jour</span>
+                                                    {% else %}
+                                                    <span class="ms-2 badge bg-danger">à jour</span>
+                                                    {% endif %}
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="d-flex align-items-center">
-                                                    <!-- <i class="icofont-group-students "></i> -->
+                                                   
                                                     <span class="ms-2">Etat</span>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="d-flex align-items-center">
-                                                    <!-- <i class="icofont-ui-text-chat"></i> -->
-                                                    <span class="ms-2">en cours</span>
+                                                   {% if contrat.etat == "TERMINE" %}
+                                                    <span class="ms-2 badge bg-success">terminé</span>
+                                                    {% elif contrat.etat == "ANNULE" %}
+                                                    <span class="ms-2 badge bg-danger">annulé</span>
+                                                    {% else %}
+                                                    <span class="ms-2 badge bg-warning">en cours</span>
+                                                    {% endif %}
                                                 </div>
                                             </div>
 
@@ -267,8 +275,12 @@
                                             </div>
                                             <div class="col-6">
                                                 <div class="d-flex align-items-center">
-                                                    <!-- <i class="icofont-ui-text-chat"></i> -->
-                                                    <span class="ms-2">300</span>
+                                                    {% if boolle %}
+                                                    <span class="ms-2">{{ contrat.versement_set.last.montant_total_paye }}</span>
+                                                     {% else %}
+                                                    <span class="ms-2">0.0 CFA</span>
+                                                     {% endif %}
+                                                
                                                 </div>
                                             </div>
 
@@ -280,8 +292,7 @@
                                             </div>
                                             <div class="col-6">
                                                 <div class="d-flex align-items-center">
-                                                    <!-- <i class="icofont-ui-text-chat"></i> -->
-                                                    <span class="ms-2">300</span>
+                                                    <span class="ms-2">{{contrat.montant_contrat}}</span>
                                                 </div>
                                             </div>
 
@@ -294,7 +305,8 @@
                                             <div class="col-6">
                                                 <div class="d-flex align-items-center">
                                                     <!-- <i class="icofont-ui-text-chat"></i> -->
-                                                    <span class="ms-2">300</span>
+                                                    <span class="ms-2">{{ reste }} </span>
+                                                    
                                                 </div>
                                             </div>
 
@@ -307,7 +319,7 @@
                                             <div class="col-6">
                                                 <div class="d-flex align-items-center">
                                                     <!-- <i class="icofont-ui-text-chat"></i> -->
-                                                    <span class="ms-2">2004</span>
+                                                    <span class="ms-2">{{contrat.date_contrat}}</span>
                                                 </div>
                                             </div>
 
@@ -331,36 +343,20 @@
                         <div class='col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-4' >
                             <h6 class="mb-2 fw-bold ">Témoins</h6>
                             <ul class="list-unstyled res-set">
+                                {% for temoin in contrat.temoin_set.all %}
                                 <li class="card mb-2 shadow-sm">
                                     <div class="card-body">
                                         <div class="d-flex mb-3 pb-3 border-bottom">
                                             <i class="bi bi-person-fill fs-1 text-dark"></i>
                                             <div class="flex-fill ms-3 text-truncate">
-                                                <h6 class="mb-0"><span>Nellie Maxwell</span> <span class="text-muted small">posted a status</span></h6>
-                                                <span class="text-muted">3 hours ago</span>
+                                                <h6 class="mb-0"><span>{{ temoin.nom | upper }}</span> <span class="text-muted small">{{temoin.contact}}</span></h6>
+                                                <span class="text-muted">{{temoin.adresse}}</span>
                                             </div>
                                         </div>
                                         
                                     </div>
                                 </li> 
-                                
-    
-                                <li class="dd-item">
-                                    <ul class="list-unstyled res-set">
-                                        <li class="card mb-2 shadow-sm">
-                                            <div class="card-body">
-                                                <div class="d-flex mb-3 pb-3 border-bottom">
-                                                    <i class="bi bi-person-fill fs-1 text-dark"></i>
-                                                    <div class="flex-fill ms-3 text-truncate">
-                                                        <h6 class="mb-0"><span>Nellie Maxwell</span> <span class="text-muted small">posted a status</span></h6>
-                                                        <span class="text-muted">3 hours ago</span>
-                                                    </div>
-                                                </div>
-                                              
-                                            </div>
-                                        </li> 
-                                        
-                                        
+                                {%endfor%}         
                                 
                             </ul>
 
