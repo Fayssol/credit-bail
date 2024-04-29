@@ -117,8 +117,13 @@ def update_contrat(request,id):
 
 def detail_contrat(request,id):
     contrat=Contrat.objects.get(pk=id)
-
-    return render(request,"contrats/detail_contrat.html",{"contrat":contrat})
+    if contrat.versement_set.all().last() is not None:
+        reste = contrat.montant_contrat - contrat.versement_set.all().last().montant_total_paye
+        boolle = True
+    else:
+        reste = contrat.montant_contrat 
+        boolle = False    
+    return render(request,"contrats/detail_contrat.html",{"contrat":contrat, "reste":reste, "boolle":boolle})
 
 @csrf_protect
 def contrat_view(request):
