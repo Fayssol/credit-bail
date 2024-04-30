@@ -180,3 +180,12 @@ def contrat_view(request):
         
             
 
+def annuler_contrat(request):
+    if request.method == "POST":
+        canceled_id = int(request.POST.get('canceled_id'))
+        # print(canceled_id)
+        contrat = Contrat.objects.get(pk=canceled_id)
+        contrat.etat = "ANNULE"
+        contrat.save()
+        return redirect('/contrats')
+        # return render(request,'contrats/list.html')
