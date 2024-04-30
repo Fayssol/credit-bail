@@ -38,12 +38,18 @@ def save_contrat(request):
         clt=Client(nom=nom,contact=contact,adresse=adress,date_naissance=date_naiss)
         clt.save()
         ####contrat infos
-        montant=request.POST.get('montantC')
-        duree=request.POST.get('duree')
-        date=request.POST.get('date_sgnture')
-        #instance
-        contrat=Contrat(montant_contrat=montant,date_contrat=date,duree=duree,client=clt)
-        contrat.save()
+        if request.path == "/reassigner/":
+            id_contrat = int(request.POST.get('contrat_parent'))
+            parent_contrat = Contrat.objects.get(pk=id_contrat)
+
+            montant=request.POST.get('montantC')
+            duree=request.POST.get('duree')
+            date=request.POST.get('date_sgnture')
+            #instance
+            contrat=Contrat(montant_contrat=montant,date_contrat=date,duree=duree,client=clt)
+            contrat.contrat_parent = parent_contrat
+            contrat.etat = "REASSIGNER"
+            contrat.save()
         ###temoin infos
        
         nomsTemoin=request.POST.getlist('nomTemoin')
@@ -65,14 +71,16 @@ def save_contrat(request):
       
 
 
-def index(request):
-    return render(request,"contrats/index.html")
+# def index(request):
+#     date_actuelle = date.today().isoformat()
+
+#     return render(request,"contrats/index.html", locals())
 
 #view that print client list
 def list_contrat(request):
 
-    #contrats=Contrat.objects.all()
-    return render(request,"contrats/list.html",locals())
+   
+    return render(request,"contrats/list.html")
 #delete client
 def delete():
     pass
@@ -116,6 +124,7 @@ def update_contrat(request,id):
 
 
 def detail_contrat(request,id):
+    date_actuelle = date.today().isoformat()
     contrat=Contrat.objects.get(pk=id)
     if contrat.versement_set.all().last() is not None:
         reste = contrat.montant_contrat - contrat.versement_set.all().last().montant_total_paye
@@ -123,7 +132,7 @@ def detail_contrat(request,id):
     else:
         reste = contrat.montant_contrat 
         boolle = False    
-    return render(request,"contrats/detail_contrat.html",{"contrat":contrat, "reste":reste, "boolle":boolle})
+    return render(request,"contrats/detail_contrat.html",{"contrat":contrat, "reste":reste, "boolle":boolle, "date_actuelle":date_actuelle})
 
 @csrf_protect
 def contrat_view(request):
@@ -135,7 +144,9 @@ def contrat_view(request):
         date_from = request.POST.get('from_date', None)
         date_to = request.POST.get('to_date', None)
         
-        filtered_contrat=Contrat.objects.order_by('-date_contrat','-id')
+        # filtered_contrat=Contrat.objects.filter(etat != "REASSIGNER").order_by('-date_contrat','-id')
+        filtered_contrat = Contrat.objects.exclude(etat="REASSIGNER").order_by('-date_contrat', '-id')
+
         if search :
             filtered_contrat = filtered_contrat.filter(
                 Q(montant_contrat__icontains=search)|

@@ -24,7 +24,7 @@ class Contrat(models.Model):
     montant_contrat=models.IntegerField()
     duree=models.IntegerField()  
 
-    Etat = models.TextChoices("Etat", "EN_COURS ANNULE TERMINE")
+    Etat = models.TextChoices("Etat", "EN_COURS ANNULE TERMINE REASSIGNER")
 
     etat = models.CharField(max_length=10, choices=Etat.choices, default=Etat.EN_COURS)
 
