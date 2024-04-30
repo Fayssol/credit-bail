@@ -33,7 +33,7 @@
           <label for="contact" class="form-label fs-5">Contact</label>
           <div class="input-group">
             <span class="input-group-text"><img src="{% static 'img/phone-solid.svg' %}" alt=""></span>
-            <input id="contact" type="text" class="form-control" placeholder="+228" name="contact">
+            <input id="contact" type="tel" class="form-control" placeholder="+228" name="contact">
           </div>
           <span id="contactError" class="error text-danger"></span>
         </div>
@@ -87,7 +87,8 @@
           <label for="date_sgnture" class="form-label fs-5">Date Signature</label>
           <div class="input-group">
             <!-- <span class="input-group-text"><img src="{% static 'img/calendar-days-solid.svg' %}" alt=""></span> -->
-            <input type="date" id="dateS" class="form-control" placeholder="" name="date_sgnture" value="{{date_actuelle}}" max="{{date_actuelle}}">
+            <input type="date" id="dateS" class="form-control" placeholder="" name="date_sgnture"
+              value="{{date_actuelle}}" max="{{date_actuelle}}">
           </div>
           <span id="dateSgnError" class="error text-danger"></span>
         </div>
@@ -133,35 +134,46 @@
               <button type="button" class="btn btn-sm remove-temoin " style="display:none;"><i class="bi bi-x-lg text-danger"></i></button>
             </div> -->
             <!--  -->
-             <!-- Boutons Add et Remove -->
+            <!-- Boutons Add et Remove -->
             <div class="col-md-12 text-right mt-3">
               <span class="add-temoin fw-bold"><i class="bi bi-plus-lg text-success "></i> Add</span>
-              <button type="button" class="btn btn-sm remove-temoin fw-bold" style="display:none;"><i class="bi bi-x-lg text-danger"></i> Remove</button>
+              <button type="button" class="btn btn-sm remove-temoin fw-bold" style="display:none;"><i
+                  class="bi bi-x-lg text-danger"></i> Remove</button>
             </div>
-        <!-- Fin Boutons Add et Remove -->
-      </div>
+            <!-- Fin Boutons Add et Remove -->
           </div>
         </div>
       </div>
-      
-    </fieldset>
+</div>
+
+</fieldset>
+
+
+<div id="errorMessages"></div>
+
+
+
+
+<div class="row justify-content-center mb-4">
+
+  <div class="col-md-4 text-center">
+    <!-- <button type="button" id="contratBtn" class="btn btn-primary mt-4 w-100 mx-auto fw-bold fs-6 shadow-sm">Enregistrer</button> -->
+    <!-- btn text : grow disabled -->
+    <button class="btn btn-primary mt-4 w-100 mx-auto fw-bold fs-6 shadow-sm" type="button" id="contratBtn">
+      <span class="spinner-dr  d-none">
+      <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+      Un instant ...
+    </span>
+    <span class="btn-spinner-test-dr">
+      Enregistrer
+    </span>
     
+    </button>
+  </div>
+</div>
 
-    <div id="errorMessages"></div>
 
-    
-
-
-    <div class="row justify-content-center mb-4">
-
-      <div class="col-md-4 text-center"> 
-        <button type="button" id="contratBtn" class="btn btn-primary mt-4 w-100 mx-auto fw-bold fs-6 shadow-sm">Enregistrer</button>
-
-      </div>
-    </div>
-
-   
-  </form>
+</form>
 </div>
 
 
@@ -170,102 +182,105 @@
 
 
 {%block footer_js%}
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+  integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+  integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
   $(document).ready(function () {
-      // Add temoin
-      $(".add-temoin").click(function () {
-          if (validateTemoin()) {
-              var clone = $(".temoin:first").clone(true);
-              clone.find("input").val(""); 
-              clone.find(".add-temoin").remove(); 
-              clone.find(".remove-temoin").show();
-              $("#temoins").append(clone);
-          }
-      });
-
-      // Remove temoin
-      $("#temoins").on("click", ".remove-temoin", function () {
-          $(this).closest(".temoin").remove();
-      });
-
-      // Validation function
-      function validateTemoin() {
-          var isValid = true;
-          $(".temoin").each(function () {
-              var fullname = $(this).find("input[name='nomTemoin']").val();
-              var telephone = $(this).find("input[name='contactTemoin']").val();
-              var telephone = parseInt(telephone);
-              var address = $(this).find("input[name='adresseTemoin']").val();
-
-              
-
-            const contratRegex = /^[A-Za-z\s\-']+$/;
-              if (fullname == "") {
-                  $(this).find("#nametError").text("Le nom est requis");
-                  isValid = false;
-              } else if(!contratRegex.test(fullname) || fullname.length < 3){
-                    $(this).find("#nametError").text("Le nom ne doit contenir que des lettres et au moins 3 caractères.");
-                    isValid = false;
-              }else {
-                  $(this).find("#nametError").text("");
-              }
-
-              if (isNaN(telephone)) {
-                  $(this).find("#phoneError").text("Le phone est requis");
-                  isValid = false;
-              }else if(Number.isInteger(telephone) && telephone.toString().length !== 8 ) {
-                 $(this).find("#phoneError").text("Le phone doit contenir exactement 8 caractères.");
-                 isValid = false;
-              }else {
-                  $(this).find("#phoneError").text("");
-              }
-
-
-
-
-              if (address == "" || Number.isInteger(parseInt(address))) {
-                  $(this).find("#adressetError").text("L'adresse est requise");
-                  isValid = false;
-              } else {
-                  $(this).find("#adressetError").text("");
-              }
-
-          });
-          return isValid;
+    // Add temoin
+    $(".add-temoin").click(function () {
+      if (validateTemoin()) {
+        var clone = $(".temoin:first").clone(true);
+        clone.find("input").val("");
+        clone.find(".add-temoin").remove();
+        clone.find(".remove-temoin").show();
+        $("#temoins").append(clone);
       }
-      
+    });
+
+    // Remove temoin
+    $("#temoins").on("click", ".remove-temoin", function () {
+      $(this).closest(".temoin").remove();
+    });
+
+    // Validation function
+    function validateTemoin() {
+      var isValid = true;
+      $(".temoin").each(function () {
+        var fullname = $(this).find("input[name='nomTemoin']").val();
+        var telephone = $(this).find("input[name='contactTemoin']").val();
+        var telephone = parseInt(telephone);
+        var address = $(this).find("input[name='adresseTemoin']").val();
+
+
+
+        const contratRegex = /^[A-Za-z\s\-']+$/;
+        if (fullname == "") {
+          $(this).find("#nametError").text("Le nom est requis");
+          isValid = false;
+        } else if (!contratRegex.test(fullname) || fullname.length < 3) {
+          $(this).find("#nametError").text("Le nom ne doit contenir que des lettres et au moins 3 caractères.");
+          isValid = false;
+        } else {
+          $(this).find("#nametError").text("");
+        }
+
+        if (isNaN(telephone)) {
+          $(this).find("#phoneError").text("Le phone est requis");
+          isValid = false;
+        } else if (Number.isInteger(telephone) && telephone.toString().length !== 8) {
+          $(this).find("#phoneError").text("Le phone doit contenir exactement 8 caractères.");
+          isValid = false;
+        } else {
+          $(this).find("#phoneError").text("");
+        }
+
+
+
+
+        if (address == "" || Number.isInteger(parseInt(address))) {
+          $(this).find("#adressetError").text("L'adresse est requise");
+          isValid = false;
+        } else {
+          $(this).find("#adressetError").text("");
+        }
+
+      });
+      return isValid;
+    }
+
   });
 </script>
 <!--  -->
 <script>
-  
-// $(document).ready(function () {
+
+  // $(document).ready(function () {
 
 
-//   // Add temoin
-//   $(".add-temoin").click(function () {
-//     var clone = $(".temoin:first").clone(true);
-//     clone.find("input").val(""); 
-//     clone.find(".add-temoin").remove(); 
-//     clone.find(".remove-temoin").show();
-//     $("#temoins").append(clone);
-//   });
+  //   // Add temoin
+  //   $(".add-temoin").click(function () {
+  //     var clone = $(".temoin:first").clone(true);
+  //     clone.find("input").val(""); 
+  //     clone.find(".add-temoin").remove(); 
+  //     clone.find(".remove-temoin").show();
+  //     $("#temoins").append(clone);
+  //   });
 
-//   // Remove temoin
-//   $("#temoins").on("click", ".remove-temoin", function () {
-//     $(this).closest(".temoin").remove();
-//   });
-
-
+  //   // Remove temoin
+  //   $("#temoins").on("click", ".remove-temoin", function () {
+  //     $(this).closest(".temoin").remove();
+  //   });
 
 
-// });
+
+
+  // });
 
 
 
