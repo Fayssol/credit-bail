@@ -32,7 +32,7 @@
 
 
 {% endif %}
-<form id="transactionForm" action="{% url 'askia_admin:save_transaction' %}" method="post" class="form-control-sm">
+<form id="transactionForm" action="{% url 'askia_admin:save_transaction' %}" method="post" class="form-control-sm mt-4">
   {% csrf_token %}
 
   <fieldset class="border p-3 shadow border-light">
