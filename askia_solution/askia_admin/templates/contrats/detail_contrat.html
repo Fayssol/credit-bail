@@ -377,9 +377,10 @@
                                             <!-- <button type="button" class="btn btn-primary">Editer</button> -->
                                             <button type="button" class="btn btn-secondary">Archver</button>
 
-                                            <!-- <button type="button" class="btn btn-warning mx-2">Redéfinir</button> -->
+                                            {% if contrat.etat == "ANNULE" %}
                                             <button type="button" class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#exampleModalFullscreen">Réassigner</button>
-
+                                            {% endif %}
+                                            
                                             {% if contrat.etat == "EN_COURS" %}
                                                 <form id = "cancel_form" action="{% url 'askia_admin:annuler_contrat' %}" method="post">
                                                     {% csrf_token %}

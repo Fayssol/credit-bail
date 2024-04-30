@@ -38,18 +38,20 @@ def save_contrat(request):
         clt=Client(nom=nom,contact=contact,adresse=adress,date_naissance=date_naiss)
         clt.save()
         ####contrat infos
+        montant=request.POST.get('montantC')
+        duree=request.POST.get('duree')
+        date=request.POST.get('date_sgnture')
+
         if request.path == "/reassigner/":
             id_contrat = int(request.POST.get('contrat_parent'))
             parent_contrat = Contrat.objects.get(pk=id_contrat)
-
-            montant=request.POST.get('montantC')
-            duree=request.POST.get('duree')
-            date=request.POST.get('date_sgnture')
-            #instance
             contrat=Contrat(montant_contrat=montant,date_contrat=date,duree=duree,client=clt)
             contrat.contrat_parent = parent_contrat
-            contrat.etat = "REASSIGNER"
-            contrat.save()
+            parent_contrat.etat = "REASSIGNER"
+        else:    
+            #instance
+            contrat=Contrat(montant_contrat=montant,date_contrat=date,duree=duree,client=clt)
+        contrat.save()
         ###temoin infos
        
         nomsTemoin=request.POST.getlist('nomTemoin')
