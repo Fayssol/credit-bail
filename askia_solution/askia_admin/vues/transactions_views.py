@@ -57,7 +57,7 @@ def transaction_form(request):
 # transactions liste
 def transaction_index(request):
     date_actuelle = date.today().isoformat()
-    contrats = Contrat.objects.all()
+    contrats =  contrats = Contrat.objects.filter(etat="EN_COURS").all()
 
     return render(request,"transactions/liste.html",{'contrats': contrats, 'date_actuelle': date_actuelle})
 

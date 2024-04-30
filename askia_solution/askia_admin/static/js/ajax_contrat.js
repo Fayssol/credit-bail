@@ -101,6 +101,8 @@ $(document).ready(function() {
                             return '<span class="badge bg-warning ">'+'en cours'+'</span>';
                         }else if(row.etat == "TERMINE"){
                             return '<span class="badge bg-success ">'+'terminé'+'</span>';
+                        }else if(row.etat == "REASSIGNER"){
+                            return '<span class="badge bg-info ">'+'reassigné'+'</span>';
                         }else{
                             return '<span class="badge bg-danger ">'+'annulé'+'</span>';
                         }
