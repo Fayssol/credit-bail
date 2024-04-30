@@ -374,8 +374,21 @@
                                         <div class="d-flex justify-content-between ">
                                             <!-- <button type="button" class="btn btn-primary">Editer</button> -->
                                             <button type="button" class="btn btn-secondary">Archver</button>
-                                            <button type="button" class="btn btn-warning mx-2">Redéfinir</button>
-                                            <button type="button" class="btn btn-danger">Annuler</button>
+
+                                            <!-- <button type="button" class="btn btn-warning mx-2">Redéfinir</button> -->
+                                            <button type="button" class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#exampleModalFullscreen">Réassigner</button>
+
+                                            {% if contrat.etat == "EN_COURS" %}
+                                                <form id = "cancel_form" action="{% url 'askia_admin:annuler_contrat' %}" method="post">
+                                                    {% csrf_token %}
+                                                    <input name="canceled_id" type="text" hidden value="{{contrat.id}}">
+                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalLive">Annuler</button>
+                                                </form>
+                                            {% endif %}    
+                                          
+
+
+                                            
 
                                         </div>
                                     <!-- </div> -->
@@ -471,6 +484,194 @@
         </div>
     </div>
   </div>
+   <!-- Modal -->
+<div class="modal fade" id="exampleModalLive" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLiveLabel">Confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr de vouloir annuler ce contrat</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</button>
+                <button id="oui" type="button" class="btn btn-danger">Oui</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal redefinition -->
+<div class="modal fade" id="exampleModalFullscreen" tabindex="-1" aria-labelledby="exampleModalFullscreenLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title h4" id="exampleModalFullscreenLabel">Réassignation du contrat</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- ...content -->
+                <div class="container-fluid">
+
+                    <form id="contratForms" action="{% url 'askia_admin:save_contrat' %}" class="mx-4 mt-4" method="post">
+                      {% csrf_token %}
+                  
+                      <fieldset class="border p-3 shadow-sm  border-dark">
+                        <legend class="w-auto px-2 fs-6 shadow-4 text-secondary fw-bold shadow">Client Info</legend>
+                        <div class="row g-3">
+                          <div class="col-md-6 mb-3">
+                            <label for="nomClt" class="form-label fs-5">Nom & Prénoms</label>
+                            <div class="input-group">
+                              <span class="input-group-text"><img src="{% static 'img/user-solid.svg' %}" alt=""></span>
+                              <input type="text" id="contrat" class="form-control" placeholder="Nom & Prénoms" name="nom">
+                            </div>
+                            <span id="contratError" class="error text-danger"></span>
+                          </div>
+                  
+                          <div class="col-md-6 mb-3">
+                            <label for="contact" class="form-label fs-5">Contact</label>
+                            <div class="input-group">
+                              <span class="input-group-text"><img src="{% static 'img/phone-solid.svg' %}" alt=""></span>
+                              <input id="contact" type="text" class="form-control" placeholder="+228" name="contact">
+                            </div>
+                            <span id="contactError" class="error text-danger"></span>
+                          </div>
+                        </div>
+                  
+                        <div class="row g-3">
+                          <div class="col-md-6 mb-3">
+                            <label for="address" class="form-label fs-5">Address</label>
+                            <div class="input-group">
+                              <span class="input-group-text"><img src="{% static 'img/house-solid.svg' %}" alt=""></span>
+                              <input type="text" id="address" class="form-control" placeholder="Address" name="adresse">
+                            </div>
+                            <span id="adresseError" class="error text-danger"></span>
+                          </div>
+                  
+                          <div class="col-md-6 mb-3">
+                            <label for="date_naissance" class="form-label fs-5">Date Naissance</label>
+                            <div class="input-group">
+                              <!-- <span class="input-group-text"><img src="{% static 'img/calendar-days-solid.svg' %}" alt=""></span> -->
+                              <input type="date" id="dateN" class="form-control" placeholder="Date Naiss" name="date_naissance">
+                            </div>
+                            <span id="dnError" class="error text-danger"></span>
+                          </div>
+                        </div>
+                  
+                      </fieldset>
+                  
+                      <fieldset class="border p-3 shadow-sm  border-dark">
+                        <legend class="w-auto px-2 fs-6 shadow text-secondary fw-bold"> Contrat Info</legend>
+                  
+                        <div class="row g-3">
+                          <div class="col-md-4 mb-3">
+                            <label for="montant" class="form-label fs-5">Montant</label>
+                            <div class="input-group">
+                              <span class="input-group-text"><img src="{% static 'img/piggy-bank-solid.svg' %}" alt=""></span>
+                              <input type="number" id="montantC" class="form-control" placeholder="En FCFA" name="montantC">
+                            </div>
+                            <span id="montantError2" class="error text-danger"></span>
+                          </div>
+                  
+                          <div class="col-md-4 mb-3">
+                            <label for="duree" class="form-label fs-5">Durée</label>
+                            <div class="input-group">
+                              <span class="input-group-text"><img src="{% static 'img/clock-solid.svg' %}" alt=""></span>
+                              <input type="number" id="dureeC" class="form-control" placeholder="En mois" name="duree">
+                            </div>
+                            <span id="dureeError" class="error text-danger"></span>
+                          </div>
+                  
+                          <div class="col-md-4 mb-3">
+                            <label for="date_sgnture" class="form-label fs-5">Date Signature</label>
+                            <div class="input-group">
+                              <!-- <span class="input-group-text"><img src="{% static 'img/calendar-days-solid.svg' %}" alt=""></span> -->
+                              <input type="date" id="dateS" class="form-control" placeholder="" name="date_sgnture" value="{{date_actuelle}}" max="{{date_actuelle}}">
+                            </div>
+                            <span id="dateSgnError" class="error text-danger"></span>
+                          </div>
+                        </div>
+                  
+                      </fieldset>
+                      <!--  -->
+                      <fieldset class="border p-3 shadow-sm  border-dark">
+                        <legend class="w-auto px-2 fs-6 shadow text-secondary fw-bold">Témoins Info</legend>
+                        <div id="temoins">
+                          <div class="temoin form-row">
+                            <div class="col-md-12">
+                              <div class="  row g-3">
+                                <div class="col-md-4">
+                                  <label for="nomTemoin" class="form-label fs-5">Nom & Prénoms</label>
+                                  <div class="input-group">
+                                    <span class="input-group-text"><img src="{% static 'img/user-solid.svg' %}" alt=""></span>
+                                    <input id="nameT" type="text" class="form-control" placeholder="Nom & Prénoms" name="nomTemoin">
+                                  </div>
+                                  <span id="nametError" class="error text-danger"></span>
+                                </div>
+                  
+                                <div class="col-md-4">
+                                  <label for="contactTemoin" class="form-label fs-5">Telephone</label>
+                                  <div class="input-group">
+                                    <span class="input-group-text"><img src="{% static 'img/phone-solid.svg' %}" alt=""></span>
+                                    <input type="text" id="phone" class="form-control" placeholder="+228" name="contactTemoin">
+                                  </div>
+                                  <span id="phoneError" class="error text-danger"></span>
+                                </div>
+                                <div class="col-md-4">
+                                  <label for="adresseTemoin" class="form-label fs-5">Address</label>
+                                  <div class="input-group">
+                                    <span class="input-group-text"><img src="{% static 'img/house-solid.svg' %}" alt=""></span>
+                                    <input type="text" id="adresseT" class="form-control" placeholder="Address" name="adresseTemoin">
+                                  </div>
+                                  <span id="adressetError" class="error text-danger"></span>
+                                </div>
+                              </div>
+                              <!--  -->
+                              <!-- <div class="col-md-12 text-right">
+                                <span class="add-temoin"><i class="bi bi-plus-lg text-success"></i></span>
+                                <button type="button" class="btn btn-sm remove-temoin " style="display:none;"><i class="bi bi-x-lg text-danger"></i></button>
+                              </div> -->
+                              <!--  -->
+                               <!-- Boutons Add et Remove -->
+                              <div class="col-md-12 text-right mt-3">
+                                <span class="add-temoin fw-bold"><i class="bi bi-plus-lg text-success "></i> Add</span>
+                                <button type="button" class="btn btn-sm remove-temoin fw-bold" style="display:none;"><i class="bi bi-x-lg text-danger"></i> Remove</button>
+                              </div>
+                          <!-- Fin Boutons Add et Remove -->
+                        </div>
+                            </div>
+                          </div>
+                  </div>
+                        
+                      </fieldset>
+                      
+                  
+                      <div id="errorMessages"></div>
+                  
+                      
+                  
+                  
+                      <div class="row justify-content-center mb-4">
+                  
+                        <div class="col-md-4 text-center"> 
+                          <button type="button" id="contratBtn" class="btn btn-primary mt-4 w-100 mx-auto fw-bold fs-6 shadow-sm">Enregistrer</button>
+                  
+                        </div>
+                      </div>
+                  
+                     
+                    </form>
+                  </div>
+                <!-- content -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 {%endblock%}
 
 {%block footer_js%}
@@ -493,6 +694,11 @@
                 { targets: [-1, -3], className: 'dt-body-right' }
             ]
         });
+    });
+</script>
+<script>
+    $('#oui').click(function(){
+        $('#cancel_form').submit();
     });
 </script>
 
