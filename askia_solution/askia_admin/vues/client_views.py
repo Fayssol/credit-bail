@@ -48,12 +48,13 @@ def save_contrat(request):
             contrat=Contrat(montant_contrat=montant,date_contrat=date,duree=duree,client=clt)
             contrat.contrat_parent = parent_contrat
             parent_contrat.etat = "REASSIGNER"
+            parent_contrat.save()
         else:    
             #instance
             contrat=Contrat(montant_contrat=montant,date_contrat=date,duree=duree,client=clt)
         contrat.save()
         ###temoin infos
-       
+
         nomsTemoin=request.POST.getlist('nomTemoin')
         adressesTemoin=request.POST.getlist('adresseTemoin')
         contacts=request.POST.getlist('contactTemoin')
@@ -146,8 +147,9 @@ def contrat_view(request):
         date_from = request.POST.get('from_date', None)
         date_to = request.POST.get('to_date', None)
         
-        # filtered_contrat=Contrat.objects.filter(etat != "REASSIGNER").order_by('-date_contrat','-id')
-        filtered_contrat = Contrat.objects.exclude(etat="REASSIGNER").order_by('-date_contrat', '-id')
+        filtered_contrat = Contrat.objects.order_by('-date_contrat', '-id')
+
+        # filtered_contrat = Contrat.objects.exclude(etat="REASSIGNER").order_by('-date_contrat', '-id')
 
         if search :
             filtered_contrat = filtered_contrat.filter(
