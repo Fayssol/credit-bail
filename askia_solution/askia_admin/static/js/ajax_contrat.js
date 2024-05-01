@@ -93,7 +93,7 @@ $(document).ready(function() {
                         }
                         
                     }
-                },
+                }, 
 
                { data: 'etat', visible: true,title:"Etat" ,
                     render:function(data, type, row){

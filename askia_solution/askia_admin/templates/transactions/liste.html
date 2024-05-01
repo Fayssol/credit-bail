@@ -14,6 +14,21 @@
 <div class="row shadow mt-4">
 	<div class="col-12">
 		<div class="card card-default">
+      <!--  -->
+      {% if msg %}
+      <div id="myAlert" class="alert alert-warning alert-dismissible d-flex align-items-center justify-content-between fade show">
+      <div>
+         <i class="bi-check-circle-fill"></i>
+         <strong class="mx-2">warning!</strong> Le reste à payer est de {{reste}} </strong>
+      </div> 
+      
+        <button id="myBtn" type="button" class="btn-close" data-bs-dismiss="alert"></button>
+       <!-- <span class="fermer">
+         <i class="bi bi-x-lg text-danger"></i>
+       </span> -->
+     </div> 
+     {% endif %}
+      <!--  -->
 			<div class="card-header card-header-border-bottom d-flex justify-content-between">
 				
                 <!--  -->
@@ -76,7 +91,9 @@
           </div>
           <div class="modal-body">
               <!-- ... -->
-
+              
+             
+             <!--  -->
               <form id="transactionForm" action="{% url 'askia_admin:transaction_modal' %}" method="post" class="form-control-sm">
                 {% csrf_token %}
               

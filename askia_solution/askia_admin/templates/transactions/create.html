@@ -15,23 +15,23 @@
 {% block body%}
 
 {% if msg %}
-<!-- <div id="myAlert" class="alert alert-success alert-dismissible d-flex align-items-center justify-content-between fade show">
+ <div id="myAlert" class="alert alert-warning alert-dismissible d-flex align-items-center justify-content-between fade show">
  <div>
     <i class="bi-check-circle-fill"></i>
-    <strong class="mx-2">Success!</strong> Transaction de <strong> {{montant_versement}} CFA  </strong> pour le client {{client}}
- </div> -->
-  <!-- <button id="myBtn" type="button" class="btn-close" data-bs-dismiss="alert"></button> -->
+    <strong class="mx-2">warning!</strong> Le reste à payer est de {{reste}} </strong>
+ </div> 
+ 
+   <button id="myBtn" type="button" class="btn-close" data-bs-dismiss="alert"></button>
   <!-- <span class="fermer">
     <i class="bi bi-x-lg text-danger"></i>
-  </span>
-</div> -->
-
-
-{% else %}
-
-
-
+  </span> -->
+</div> 
 {% endif %}
+
+
+
+
+
 <form id="transactionForm" action="{% url 'askia_admin:save_transaction' %}" method="post" class="form-control-sm mt-4">
   {% csrf_token %}
 
