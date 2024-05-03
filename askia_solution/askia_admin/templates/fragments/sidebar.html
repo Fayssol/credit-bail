@@ -14,33 +14,34 @@
       <!-- Menu: main ul -->
 
       <ul class="menu-list flex-grow-1 mt-3">
+
           <li class="collapsed">
-              <a class="m-link active" data-bs-toggle="collapse" data-bs-target="#dashboard-Components" href="#">
+              <a class="m-link {% if request.path == '/' %}active{%endif%}" data-bs-toggle="collapse" data-bs-target="#dashboard-Components" href="#">
                   <i class="icofont-home fs-5 bi bi-house-fill"></i> <span>Dashboard</span> <span class="arrow icofont-dotted-down ms-auto text-end fs-5 bi bi-chevron-down"></span></a>
               <!-- Menu: Sub menu ul -->
-              <ul class="sub-menu collapse show" id="dashboard-Components">
-                  <li><a class="ms-link active" href="/"> <span>Home</span></a></li>
+              <ul class="sub-menu collapse show {% if request.path == '/' %}show{%endif%}" id="dashboard-Components">
+                  <li><a class="ms-link {% if request.path == '/' %}active{%endif%} " href="/"> <span>Home</span></a></li>
                   <!-- <li><a class="ms-link" href="#"> <span>P</span></a></li> -->
               </ul>
           </li>
           <li  class="collapsed">
-              <a class="m-link"  data-bs-toggle="collapse" data-bs-target="#project-Components" href="#">
+              <a class="m-link {% if request.path|slice:':12' == '/transaction' %}active{%endif%}"  data-bs-toggle="collapse" data-bs-target="#project-Components" href="#">
                   <i class="icofont-briefcase bi bi-people-fill bi bi-piggy-bank-fill"></i><span>TRANSACTIONS</span> <span class="arrow icofont-dotted-down ms-auto text-end fs-5 bi bi-chevron-down"></span></a>
               <!-- Menu: Sub menu ul -->
-              <ul class="sub-menu collapse" id="project-Components">
-                  <li><a class="ms-link" href="{% url 'askia_admin:transaction_form' %}"><span>Enreg. Transaction</span></a></li>
-                  <li><a class="ms-link" href="{% url 'askia_admin:transaction_index' %}"><span>Liste Transactions</span></a></li>
+              <ul class="sub-menu collapse {% if request.path|slice:':12' == '/transaction' %}show{%endif%}" id="project-Components">
+                  <li><a class="ms-link {% if request.path == '/transaction_form/' %}active{%endif%}" href="{% url 'askia_admin:transaction_form' %}"><span>Enreg. Transaction</span></a></li>
+                  <li><a class="ms-link {% if request.path == '/transaction_index' %}active{%endif%}" href="{% url 'askia_admin:transaction_index' %}"><span>Liste Transactions</span></a></li>
                  
               </ul>
           </li>
           
           <li class="collapsed">
-              <a class="m-link" data-bs-toggle="collapse" data-bs-target="#tikit-Components" href="#">
+              <a class="m-link {% if request.path|slice:':8' == '/contrat' %}active{%endif%}" data-bs-toggle="collapse" data-bs-target="#tikit-Components" href="#">
                 <i class="icofont-ticket bi bi-people-fill "></i> <span>CONTRATS</span> <span class="arrow icofont-dotted-down ms-auto text-end fs-5 bi bi-chevron-down"></span></a>
               <!-- Menu: Sub menu ul -->
-              <ul class="sub-menu collapse" id="tikit-Components">
-                  <li><a class="ms-link" href="{% url 'askia_admin:contrat_form' %}"> <span>Enreg. Contrat</span></a></li>
-                  <li><a class="ms-link" href="{% url 'askia_admin:list_contrat' %}"> <span>Liste Contrats</span></a></li>
+              <ul class="sub-menu collapse {% if request.path|slice:':8' == '/contrat' %}show{%endif%}" id="tikit-Components">
+                  <li><a class="ms-link {% if request.path == '/contrat_form/' %}active{%endif%}" href="{% url 'askia_admin:contrat_form' %}"> <span>Enreg. Contrat</span></a></li>
+                  <li><a class="ms-link {% if request.path == '/contrats/' %}active{%endif%}" href="{% url 'askia_admin:list_contrat' %}"> <span>Liste Contrats</span></a></li>
               </ul>
           </li>
 
