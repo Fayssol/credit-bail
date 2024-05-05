@@ -4,7 +4,6 @@ from jinja2 import Environment
 from latex import build_pdf
 from os.path import dirname, abspath
 
-
 def generate_pdf(context, template_dir="",pdf_name="document.pdf", template_file="template.tex"):
     """INSTACIATION D'UN NOUVEL ENVIRONNEMENT AVEC DES OPTIONS DE BALISES PERSONNALISÉES"""
     j2_env = Environment(
@@ -16,11 +15,16 @@ def generate_pdf(context, template_dir="",pdf_name="document.pdf", template_file
         comment_end_string="}",
     )
     """DECLARATION DE FICHIER"""
-    #Fichier à lire contenant le template avec les balises
-    fichier_in = open(dirname(abspath(__file__))+"/"+template_dir + template_file,"r")
     
+    #Fichier à lire contenant le template avec les balises
+    in_template_dir_path = f"{dirname(abspath(__file__))}/{template_dir}"
+    in_template_path = in_template_dir_path + template_file
+    fichier_in = open(in_template_path,"r")
+
     #Fichier en sortie accueillant les données fournies
-    fichier_out = open(dirname(abspath(__file__))+"/out/"+template_dir+"template_out.tex","w")
+    out_template_dir_path = f"{dirname(abspath(__file__))}/out/{template_dir}"
+    out_template_path = out_template_dir_path + "template_out.tex"
+    fichier_out = open(out_template_path,"w")
     
     template = fichier_in.read()#Lecture du template
     monContext = context
@@ -33,95 +37,19 @@ def generate_pdf(context, template_dir="",pdf_name="document.pdf", template_file
     fichier_out.write(j2_tamplate.render(monContext))
     fichier_out.close()
     
-    mon_pdf = build_pdf(open(dirname(abspath(__file__))+"/out/"+template_dir+"template_out.tex","r"))
-    mon_pdf.save_to(dirname(abspath(__file__))+"/out/"+template_dir+pdf_name)
+    mon_pdf = build_pdf(open(out_template_path,"r"))
+    out_file_path = out_template_dir_path +pdf_name
+    mon_pdf.save_to(out_file_path)
     """FERMETURE DE CANAUX"""
     fichier_in.close()
+    return out_file_path
+    
     
 if __name__ == "__main__":
     
-    contrats = [
-        {
-            'client': {'nom': 'Dupont  Fils'},
-            'date_contrat': '01/05/2024',
-            'montant_contrat': '10 000',
-            'duree': '12',
-            'status': 'Actif',
-            'etat': 'En cours'
-        },
-        {
-            'client': {'nom': 'Martin SARL KOba gdshhjhhh jhshjshdh'},
-            'date_contrat': '15/06/2024',
-            'montant_contrat': '8 500',
-            'duree': '6',
-            'status': 'Actif',
-            'etat': 'En cours'
-        },
-        {
-            'client': {'nom': 'Leroux SA'},
-            'date_contrat': '10/07/2024',
-            'montant_contrat': '25 000',
-            'duree': '24',
-            'status': 'En attente',
-            'etat': 'En cours'
-        },
-        {
-            'client': {'nom': 'Bernard  Cie'},
-            'date_contrat': '20/08/2024',
-            'montant_contrat': '15 000',
-            'duree': '12',
-            'status': 'Actif',
-            'etat': 'En cours'
-        },
-        {
-            'client': {'nom': 'Dubois Co'},
-            'date_contrat': '05/09/2024',
-            'montant_contrat': '12 000',
-            'duree': '18',
-            'status': 'Actif',
-            'etat': 'En cours'
-        },
-        {
-            'client': {'nom': 'Durand SAS'},
-            'date_contrat': '10/10/2024',
-            'montant_contrat': '9 000',
-            'duree': '6',
-            'status': 'En attente',
-            'etat': 'En cours'
-        },
-        {
-            'client': {'nom': 'Lefevre  Fils'},
-            'date_contrat': '15/11/2024',
-            'montant_contrat': '22 000',
-            'duree': '24',
-            'status': 'Actif',
-            'etat': 'En cours'
-        },
-        {
-            'client': {'nom': 'Moreau  Co'},
-            'date_contrat': '20/12/2024',
-            'montant_contrat': '13 000',
-            'duree': '12',
-            'status': 'Actif',
-            'etat': 'En cours'
-        },
-        {
-            'client': {'nom': 'Roussel SARL'},
-            'date_contrat': '25/01/2025',
-            'montant_contrat': '16 000',
-            'duree': '24',
-            'status': 'En attente',
-            'etat': 'En cours'
-        },
-        {
-            'client': {'nom': 'Petit  Fils'},
-            'date_contrat': '01/02/2025',
-            'montant_contrat': '10 500',
-            'duree': '18',
-            'status': 'Actif',
-            'etat': 'En cours'
-        }
-    ]
+    from test import contrat
+ 
+    
 
-    monContext ={"contrats":contrats}
-    generate_pdf(monContext,"contrats/liste/")
+    # monContext ={"contrat":contrats}
+    print(generate_pdf(contrat,"contrats/definition/"))

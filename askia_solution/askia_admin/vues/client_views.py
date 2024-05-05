@@ -5,13 +5,42 @@ from django.http import JsonResponse
 from django.urls import reverse
 from ..models import Versement, Contrat, Client
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, HttpResponse
+
 from django.views.decorators.csrf import csrf_protect
 from django.db.models import Q
-
 from datetime import date
+from os.path import dirname, abspath
+from django.contrib import messages
+from askia_admin.templating_latex.controlleur import generate_pdf as generer
 
-from django.shortcuts import render
+
+
+
+    
+    
+# fonction de création et de téléchargement de pdf
+def get_pdf_from_http(request,model:str, context:dict, pdf_type:str):
+    success_message = None
+    error_message = None
+    try:
+        templae_dir:str = model+"/"+pdf_type+"/"
+
+        pdf_name:str = pdf_type +".pdf" 
+        # print("55")
+
+        out_pdf = generer(context, templae_dir,pdf_name)       
+        # print("55")
+
+        success_message = 'Succes !!!'
+        messages.success(request, success_message)     
+        print(out_pdf)
+        with open( out_pdf, "rb") as my_file:
+            return HttpResponse(my_file.read(), content_type = "application/pdf")
+    except Exception as e:
+        error_message = f"Une erreur s'est produite : {str(e)}"
+        print(error_message)
+        messages.error(request, error_message)
+        return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
 # formulaire de création d'un contrat#
@@ -80,41 +109,43 @@ def contrat_pdf(request):
         adress = request.POST.get("adresse")
         date_naiss = request.POST.get("date_naissance")
         # instance
-        client = Client(
-            nom=nom, contact=contact, adresse=adress, date_naissance=date_naiss
-        )
-        # clt.save()
+   
+        client = {"nom":nom,"contact":contact, "adresse":adress, "date_naissance":date_naiss}
+
+        
         ####contrat infos
         montant = request.POST.get("montantC")
         duree = request.POST.get("duree")
         date = request.POST.get("date_sgnture")
         # instance
-        contrat = Contrat(
-            montant_contrat=montant, date_contrat=date, duree=duree, client=client
-        )
-        # contrat.save()
+   
+        contrat = {    "montant_contrat":montant, "date_contrat":date, "duree":duree}
+        
         ###temoin infos
 
         noms_temoin = request.POST.getlist("nomTemoin")
         adresses_temoin = request.POST.getlist("adresseTemoin")
         contacts = request.POST.getlist("contactTemoin")
-        print(noms_temoin)
+        # print(noms_temoin)
         temoins = []
      
         for i, temoin in enumerate(noms_temoin):
-            t = Temoin(
-                nom=temoin[i],
-                contact=contacts[i],
-                adresse=adresses_temoin[i],
-                contrat=contrat,
-            )
+        
+            t = {
+                "nom":temoin[i],
+                "contact":contacts[i],
+                "adresse":adresses_temoin[i],
+            }
+            temoins.append(t)
             # t.save()
         contexte = {"client": client, "contrat": contrat, "temoins": temoins}
-        print(contexte  )
-
+        
+        print(contexte )
+        # print('Ici')
         ## save et validator##
+        return get_pdf_from_http(request, "contrats", contexte, "definition")
         # return redirect("/contrats")
-        return JsonResponse(contexte)
+        # return wJsonResponse(contexte)
 
     else:
         return render(request, "contrats/create.html")

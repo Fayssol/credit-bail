@@ -70,7 +70,7 @@ $('#contratBtn').click(function () {
         //     csrfmiddlewaretoken:''
         // };
 let formData  = $(form).serialize()
-console.log(formData);
+// console.log(formData);
         $.ajax({
             type: "POST",
             url: "/contrat_pdf/",
@@ -81,8 +81,8 @@ console.log(formData);
             $('#contratBtn').attr('disabled', false)
             $('#contratBtn .spinner-dr').addClass("d-none");
             $('#contratBtn .btn-spinner-test-dr').removeClass('d-none')
-            console.log($(this));
-            console.log(reponse.data);
+            // console.log($(this));
+            console.log("response",reponse);
         }).fail(function(error){
             $('#contratBtn').attr('disabled', false)
             $('#contratBtn .spinner-dr').addClass("d-none");
