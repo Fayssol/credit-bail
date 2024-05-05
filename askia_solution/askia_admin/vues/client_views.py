@@ -23,19 +23,21 @@ def get_pdf_from_http(request,model:str, context:dict, pdf_type:str):
     success_message = None
     error_message = None
     try:
-        templae_dir:str = model+"/"+pdf_type+"/"
+        template_dir:str = model+"/"+pdf_type+"/"
 
         pdf_name:str = pdf_type +".pdf" 
         # print("55")
 
-        out_pdf = generer(context, templae_dir,pdf_name)       
-        # print("55")
-
-        success_message = 'Succes !!!'
-        messages.success(request, success_message)     
-        print(out_pdf)
-        with open( out_pdf, "rb") as my_file:
-            return HttpResponse(my_file.read(), content_type = "application/pdf")
+        out_pdf = generer(context, template_dir, pdf_name)
+        with open(out_pdf, "rb") as my_file:
+            response = HttpResponse(my_file.read(), content_type="application/pdf")
+            # response = HttpResponse('y_file.read()')
+            response['Content-Disposition'] = f'attachment; filename="{pdf_name}"'
+            # Afficher un message de succès
+            success_message = 'Téléchargement du PDF réussi!'
+            # print(response.content)
+            messages.success(request, success_message)
+            return response
     except Exception as e:
         error_message = f"Une erreur s'est produite : {str(e)}"
         print(error_message)
