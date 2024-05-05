@@ -1,5 +1,13 @@
 "use strict";
-
+let formData;
+const resetForms = () => {
+    let forms = document.getElementsByTagName('form');
+    for (const element of forms) {
+        console.log(element);
+        element.reset();
+    }
+}
+let pdfUrl;
 $('#contratBtn').click(function () {
 
     const form = $('#contratForms'); // Sélectionnez le formulaire
@@ -39,18 +47,18 @@ $('#contratBtn').click(function () {
         $('#contratBtn .btn-spinner-test-dr').addClass('d-none')
 
 
-        let formData = $(form).serialize()
+        formData = $(form).serialize()
         // console.log(formData);
         $.ajax({
             type: "POST",
             url: "/contrat_pdf/",
             data: formData,
-            
-            encode: true,   
+
+            encode: true,
             xhrFields: {
                 responseType: 'blob'
-              },
-      
+            },
+
             success: function (data) {
                 $('#contratBtn').attr('disabled', false)
                 $('#contratBtn .spinner-dr').addClass("d-none");
@@ -59,15 +67,15 @@ $('#contratBtn').click(function () {
                 // console.log(blob.size);
                 console.log("Ok");
                 let blob = new Blob([data]);
-                let url = window.URL.createObjectURL(blob);
+                pdfUrl = window.URL.createObjectURL(blob);
                 // var link = document.createElement('a');
                 // link.href = url;
                 // link.download = 'example.pdf';
                 // link.click();
-                
+
                 let pdfModal = $("#contratDefModal")
                 let iframeContainer = $("#iframe-container");
-                let iframe = `<iframe src="${url}" width="100%" height="600px">
+                let iframe = `<iframe src="${pdfUrl}" width="100%" height="600px">
                     </iframe> `;
                 iframeContainer.html(iframe);
                 pdfModal.modal("show");
@@ -85,3 +93,63 @@ $('#contratBtn').click(function () {
 }
 
 );
+$('#contratSaveBtn').click(function () {
+
+
+
+
+
+    $('#contratSaveBtn').attr('disabled', true)
+    $('#contratSaveBtn .spinner-dr').removeClass("d-none");
+    $('#contratSaveBtn .btn-spinner-test-dr').addClass('d-none')
+
+
+
+
+    $.ajax({
+        type: "POST",
+        url: "/save/",
+        data: formData,
+
+        encode: true,
+        dataType: "json",
+        success: function (data) {
+            $('#contratSaveBtn').attr('disabled', false)
+            $('#contratSaveBtn .spinner-dr').addClass("d-none");
+            $('#contratSaveBtn .btn-spinner-test-dr').removeClass('d-none')
+            // console.log($(this));
+            // console.log(blob.size);
+            // console.log(data.ok);
+            console.log("Ok");
+
+            if (data.ok) {
+                var link = document.createElement('a');
+                link.href = pdfUrl;
+                link.download = 'contrat_definition.pdf';
+                link.click();
+                location.href = "/contrats"
+            } else {
+                resetForms()
+                location.reload()
+            }
+
+
+        },
+        error: function (xhr) {
+            $('#contratSaveBtn').attr('disabled', false)
+            $('#contratSaveBtn .spinner-dr').addClass("d-none");
+            $('#contratSaveBtn .btn-spinner-test-dr').removeClass('d-none')
+            console.log("Error");
+            console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+        }
+    })
+
+
+}
+
+);
+// $('#resetForm').click(function () {
+//     resetForms()
+// }
+
+// );

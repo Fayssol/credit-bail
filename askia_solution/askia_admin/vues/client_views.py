@@ -96,9 +96,12 @@ def save_contrat(request):
             t.save()
 
         ## save et validator##
-        return redirect("/contrats")
+        # return redirect("/contrats")
+        return JsonResponse({"ok":True,"message":"Cantrat saved"})
+
     else:
-        return render(request, "contrats/create.html")
+        return JsonResponse({"ok":False,"message":"Cantrat saved"})
+
 
 
 def contrat_pdf(request):
