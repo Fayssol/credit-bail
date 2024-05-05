@@ -104,7 +104,7 @@ def save_contrat(request):
 
 
 
-def contrat_pdf(request):
+def contrat_def_pdf(request):
     if request.method == "POST":
         # validator
         # client infos
@@ -154,6 +154,14 @@ def contrat_pdf(request):
 
     else:
         return render(request, "contrats/create.html")
+
+
+
+def contrat_list_pdf(request):
+    contrats = Contrat.objects.all()
+    contexte = {"contrats": contrats}
+    print(contexte )
+    return get_pdf_from_http(request, "contrats", contexte, "liste")
 
 
 def index(request):

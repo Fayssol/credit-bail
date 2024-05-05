@@ -12,6 +12,7 @@
 {%endblock%}
 
 {%block body%}
+{% include 'pdf/modal.html' %}
 
 <div class="row mt-4 shadow ">
 	<div class="col-12 ">
@@ -26,7 +27,26 @@
 				
                 <!--  -->
                 <div class="d-grid gap-2 d-md-block">
-                  <button type="button" class="btn btn-outline-secondary mx-4  fs-6 shadow-sm">PDF</button>
+                  <button type="button" class="btn btn-outline-secondary mx-4  fs-6 shadow-sm" id="contratsPdf">   <span class="spinner-dr  d-none">
+                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                    Un instant ...
+                  </span>
+                  <span class="btn-spinner-test-dr">
+                    PDF
+                  </span></button>
+
+
+
+              
+
+
+
+
+
+
+
+
+
                   <button type="button" class="btn btn-outline-secondary fs-6 shadow-sm">EXCEL</button>
                 </div>
                <a href="{% url 'askia_admin:contrat_form' %}">
@@ -81,6 +101,9 @@
 
 
 {%block footer_js%}
+
 <script src="{% static '/js/ajax_contrat.js' %}"></script>
+
+<script src="{% static '/js/contrats_pdf.js' %}"></script>
 
 {%endblock%}

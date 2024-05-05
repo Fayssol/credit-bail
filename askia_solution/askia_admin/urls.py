@@ -22,7 +22,8 @@ urlpatterns = [
     #contrats
     path('contrat_form/', views.contrat_form,name='contrat_form'),
     path('contrats/', views.list_contrat,name='list_contrat'),
-    path('contrat_pdf/', views.contrat_pdf, name="contrat_pdf"),
+    path('contrats_pdf/', views.contrat_list_pdf,name='contrat_list_pdf'),
+    path('contrat_pdf/', views.contrat_def_pdf, name="contrat_def_pdf"),
     path('save/', views.save_contrat, name="save_contrat"),
     path('update/<int:id>/', views.update_contrat, name="update_contrat"),  
     path('edit/<int:id>/', views.edit_contrat, name="edit_contrat"),

@@ -1,6 +1,5 @@
 from posixpath import abspath
 from jinja2 import Environment
-
 from latex import build_pdf
 from os.path import dirname, abspath
 
@@ -48,8 +47,14 @@ def generate_pdf(context, template_dir="",pdf_name="document.pdf", template_file
 if __name__ == "__main__":
     
     from test import contrat
+    # from askia_admin.models import Contrat
  
     
+    # contrats = Contrat.objects.all()
+ 
+  
+
+
 
     # monContext ={"contrat":contrats}
     print(generate_pdf(contrat,"contrats/definition/"))
