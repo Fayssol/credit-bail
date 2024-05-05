@@ -110,10 +110,11 @@ def contrat_pdf(request):
             )
             # t.save()
         contexte = {"client": client, "contrat": contrat, "temoins": temoins}
+        print(contexte  )
 
         ## save et validator##
         # return redirect("/contrats")
-        return HttpResponse(contexte)
+        return JsonResponse(contexte)
 
     else:
         return render(request, "contrats/create.html")

@@ -56,33 +56,34 @@ $('#contratBtn').click(function () {
         $('#contratBtn .spinner-dr').removeClass("d-none");
         $('#contratBtn .btn-spinner-test-dr').addClass('d-none')
         console.log($(this));
-        let formData = {
-            nom: client,
-            contact: contact,
-            adresse: address,
-            date_naissance: dateN,
-            montantC: montantC,
-            duree: dureeC,
-            date_sgnture: dateS,
-            nomTemoin: nameT,
-            contactTemoin: phone,
-            adresseTemoin: adresseT,
-            superheroAlias: $("#superheroAlias").val(),
-        };
-
+        // let formData = {
+        //     nom: client,
+        //     contact: contact,
+        //     adresse: address,
+        //     date_naissance: dateN,
+        //     montantC: montantC,
+        //     duree: dureeC,
+        //     date_sgnture: dateS,
+        //     nomTemoin: nameT,
+        //     contactTemoin: phone,
+        //     adresseTemoin: adresseT,
+        //     csrfmiddlewaretoken:''
+        // };
+let formData  = $(form).serialize()
+console.log(formData);
         $.ajax({
             type: "POST",
-            url: "/contrat_pdf",
+            url: "/contrat_pdf/",
             data: formData,
             dataType: "json",
             encode: true,
-        }).done(function (data) {
+        }).done(function (reponse) {
             $('#contratBtn').attr('disabled', false)
             $('#contratBtn .spinner-dr').addClass("d-none");
             $('#contratBtn .btn-spinner-test-dr').removeClass('d-none')
             console.log($(this));
-            console.log(data);
-        }).catch(function(error){
+            console.log(reponse.data);
+        }).fail(function(error){
             $('#contratBtn').attr('disabled', false)
             $('#contratBtn .spinner-dr').addClass("d-none");
             $('#contratBtn .btn-spinner-test-dr').removeClass('d-none')
