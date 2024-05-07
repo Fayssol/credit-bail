@@ -1,0 +1,14 @@
+# Fichiers LaTeX générés dans tous les sous-répertoires
+**/*.aux
+**/*.log
+**/*.out
+**/*.toc
+**/*.gz
+**/*.bbl
+**/*.blg
+**/*.synctex.gz
+**/*.pdf
+**/*.fdb_latexmk
+**/*.fls
+**/*.bak
+ifnti/

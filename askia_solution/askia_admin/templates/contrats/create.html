@@ -12,6 +12,10 @@
 {%endblock%}
 
 {%block body%}
+<!-- Modal XL -->
+{% include 'pdf/modal.html' %}
+
+
 {% include "contrats/form_contrat.html" with parametre=False %}
 
 
@@ -20,11 +24,82 @@
 
 
 {%block footer_js%}
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+  integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+  integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    // Add temoin
+    $(".add-temoin").click(function () {
+      if (validateTemoin()) {
+        var clone = $(".temoin:first").clone(true);
+        clone.find("input").val("");
+        clone.find(".add-temoin").remove();
+        clone.find(".remove-temoin").show();
+        $("#temoins").append(clone);
+      }
+    });
+
+    // Remove temoin
+    $("#temoins").on("click", ".remove-temoin", function () {
+      $(this).closest(".temoin").remove();
+    });
+
+    // Validation function
+    function validateTemoin() {
+      var isValid = true;
+      $(".temoin").each(function () {
+        var fullname = $(this).find("input[name='nomTemoin']").val();
+        var telephone = $(this).find("input[name='contactTemoin']").val();
+        var telephone = parseInt(telephone);
+        var address = $(this).find("input[name='adresseTemoin']").val();
+
+
+
+        const contratRegex = /^[A-Za-z\s\-']+$/;
+        if (fullname == "") {
+          $(this).find("#nametError").text("Le nom est requis");
+          isValid = false;
+        } else if (!contratRegex.test(fullname) || fullname.length < 3) {
+          $(this).find("#nametError").text("Le nom ne doit contenir que des lettres et au moins 3 caractères.");
+          isValid = false;
+        } else {
+          $(this).find("#nametError").text("");
+        }
+
+        if (isNaN(telephone)) {
+          $(this).find("#phoneError").text("Le phone est requis");
+          isValid = false;
+        } else if (Number.isInteger(telephone) && telephone.toString().length !== 8) {
+          $(this).find("#phoneError").text("Le phone doit contenir exactement 8 caractères.");
+          isValid = false;
+        } else {
+          $(this).find("#phoneError").text("");
+        }
+
+
+
+
+        if (address == "" || Number.isInteger(parseInt(address))) {
+          $(this).find("#adressetError").text("L'adresse est requise");
+          isValid = false;
+        } else {
+          $(this).find("#adressetError").text("");
+        }
+
+      });
+      return isValid;
+    }
+
+  });
+</script>
+<!--  -->
+
 
 <script src="{% static '/js/contrat_temoin_validation.js' %}"></script>
 <!--  -->

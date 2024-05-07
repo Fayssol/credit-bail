@@ -151,10 +151,20 @@
   
   
       <div class="row justify-content-center mb-4">
-  
-        <div class="col-md-4 text-center"> 
-          <button type="button" id="contratBtn" class="btn btn-primary mt-4 w-100 mx-auto fw-bold fs-6 shadow-sm">Enregistrer</button>
-  
+
+        <div class="col-md-4 text-center">
+          <!-- <button type="button" id="contratBtn" class="btn btn-primary mt-4 w-100 mx-auto fw-bold fs-6 shadow-sm">Enregistrer</button> -->
+          <!-- btn text : grow disabled -->
+          <button class="btn btn-primary mt-4 w-100 mx-auto fw-bold fs-6 shadow-sm" type="button" id="contratBtn">
+            <span class="spinner-dr  d-none">
+            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            Un instant ...
+          </span>
+          <span class="btn-spinner-test-dr">
+            Enregistrer
+          </span>
+          
+          </button>
         </div>
       </div>
   
