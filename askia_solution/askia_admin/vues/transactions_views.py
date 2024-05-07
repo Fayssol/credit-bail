@@ -13,24 +13,56 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 def save_transaction(request):
-    msg = False 
+
+    msg_vers_depasse = False
     if request.method == "POST":
         submission_url = request.path
         print(submission_url)
+        contrats = Contrat.objects.filter(etat="EN_COURS").all()
+        date_actuelle =  date.today().isoformat()
+
         try:
             montant_versement = request.POST["montant_versement"]
             date_versement = request.POST["date_versement"]
             contrat = request.POST["contrat"]
             note = request.POST["note"]  
             contrat_obj = Contrat.objects.get(client=Client.objects.get(nom=contrat))
-            Versement.objects.create(montant_versement=montant_versement, date_versement=date_versement, contrat=contrat_obj, note=note)
+            # Avant de creer un versement il faut verifier que le versement ne va pas exceder
+            try:
+                paye = contrat_obj.versement_set.last().montant_total_paye
+            except:
+                paye = 0    
+            a_paye = contrat_obj.montant_contrat
+            reste_a_paye = a_paye - paye
+            if int(montant_versement) <= reste_a_paye:
+                 print("oui inferieur******************")
+                 Versement.objects.create(montant_versement=montant_versement, date_versement=date_versement, contrat=contrat_obj, note=note)
+                 paye_apres_vers = contrat_obj.versement_set.last().montant_total_paye
+                 if int(paye_apres_vers) == int(a_paye):
+                  
+                     contrat_obj.etat = "TERMINE"
+                   
+                     contrat_obj.save()
+                   
+           
+                 if submission_url == '/transaction_modal/':
+                   
+                    return HttpResponseRedirect(reverse("askia_admin:transaction_index"), {"reste":reste_a_paye,"msg":msg_vers_depasse})
+                
+                 HttpResponseRedirect(reverse("askia_admin:transaction_form"), {"reste":reste_a_paye, "msg":msg_vers_depasse})
+            else:
+                
+                 msg_vers_depasse = True
 
-            msg = True  # Définir msg à True si la transaction est réussie
-            if submission_url == '/transaction_modal/':
-                return HttpResponseRedirect(reverse("askia_admin:transaction_index"), locals())
-            
-            HttpResponseRedirect(reverse("askia_admin:transaction_form"), locals())
-            
+           
+                 if submission_url == '/transaction_modal/':
+                  
+                    # return HttpResponseRedirect(reverse("askia_admin:transaction_index"), {"reste":reste_a_paye,"msg":msg_vers_depasse})
+                    return render(request,"transactions/liste.html",{"reste":reste_a_paye,"msg":msg_vers_depasse, "date_actuelle":date_actuelle,"contrats":contrats})
+                
+                #  HttpResponseRedirect(reverse("askia_admin:transaction_form"), {"reste":reste_a_paye, "msg":msg_vers_depasse})
+                 return render(request,"transactions/create.html",{"reste":reste_a_paye,"msg":msg_vers_depasse, "date_actuelle":date_actuelle})
+
         except Contrat.DoesNotExist:
             print("Contrat does not exist")
         except Exception as e:
@@ -57,7 +89,7 @@ def transaction_form(request):
 # transactions liste
 def transaction_index(request):
     date_actuelle = date.today().isoformat()
-    contrats = Contrat.objects.all()
+    contrats =  contrats = Contrat.objects.filter(etat="EN_COURS").all()
 
     return render(request,"transactions/liste.html",{'contrats': contrats, 'date_actuelle': date_actuelle})
 

@@ -23,8 +23,12 @@
         <div class="row clearfix">
             <div class="col-md-12">
                 <div class="card border-0 mb-4 no-bg shadow">
-                    <div class="card-header py-3 px-0 d-flex align-items-center  justify-content-between border-bottom">
+                    <div class="card-header py-3 px-0 border-bottom">
                         <h3 class=" fw-bold flex-fill mb-0 text-center">Détails Contrat</h3>
+                        {% if contrat.etat == "REASSIGNER" %}
+                        <p class=" text-center fw-bolder fs-6">Réassigné à {{ contrat__contrat_parent.client.nom }}</p>
+                        {% endif %}
+
                     </div>
                 </div>
             </div>
@@ -101,25 +105,29 @@
                             <div class="card shadow">
                                 <div class="card-body">
                                     <table id="" class="table table-hover align-middle mb-0" style="width:100%">
-                                        <h6 class="fw-bold ">Résumer ancien contrat</h6>
+                                        <div class="d-flex justify-content-between">
+
+                                            <h6 class="fw-bold ">Résumer ancien contrat </h6>
+                                            <a class="text-primary fs-6 fw-bolder" href="/detail_contrat/{{contrat.contrat_parent.id}}/"><button class="btn btn-light">Détail</button></a> 
+                                        </div>
                                         <thead>
                                             <tr>
-                                                <th>NO</th>
-                                                <th>Project</th>
-                                                <th>Date Start</th>
-                                                <th>Date End</th>
-                                                <th>Amount</th>
-                                                <th>status</th>
+                                                <th>Client</th>
+                                                <th>Contact</th>
+                                                <th>Adresse</th>
+                                                <th>Date Sign</th>
+                                                <th>À payé</th>
+                                                <th>Payé</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><a href="invoices.html" class="fw-bold text-secondary">#00001</a></td>
-                                                <td><a href="projects.html">Social Geek Made</a></td>
-                                                <td>10-01-2021</td>
-                                                <td>10-02-2021</td>
-                                                <td>$3250</td>
-                                                <td><span class="badge bg-warning">Pending</span></td>
+                                                <td>{{contrat.contrat_parent.client.nom}}</td>
+                                                <td>{{contrat.contrat_parent.client.contact}}</td>
+                                                <td>{{contrat.contrat_parent.client.adresse}}</td>
+                                                <td>{{contrat.contrat_parent.date_contrat}}</td>
+                                                <td>{{contrat.contrat_parent.montant_contrat}}</td>
+                                                <td>{{contrat.contrat_parent.versement_set.last.montant_total_paye}}</td>
                                             </tr>
                                         </tbody>    
 
@@ -139,9 +147,11 @@
                                     <button type="button" class="btn btn-outline-secondary mx-4  fs-6 shadow-sm">PDF</button>
                                     <button type="button" class="btn btn-outline-secondary fs-6 shadow-sm">EXCEL</button>
                                   </div>
+                                  {% if contrat.etat != "REASSIGNER" %}
                                   <button type="button" class="btn btn-primary btn-pill fw-bold fs-6 shadow-sm" data-bs-toggle="modal" data-bs-target="#exampleModalLg">
                                     <span class="add-temoin"><i class="bi bi-plus-lg"></i></span>
                                     Ajouter</button>
+                                   {% endif %} 
                             </div>
                             <div class="card-body">
                                
@@ -261,6 +271,8 @@
                                                     <span class="ms-2 badge bg-success">terminé</span>
                                                     {% elif contrat.etat == "ANNULE" %}
                                                     <span class="ms-2 badge bg-danger">annulé</span>
+                                                    {% elif contrat.etat == "REASSIGNER" %}
+                                                    <span class="ms-2 badge bg-info">reassigné</span>
                                                     {% else %}
                                                     <span class="ms-2 badge bg-warning">en cours</span>
                                                     {% endif %}
@@ -368,14 +380,29 @@
                         <div class="row">
                             
                             <div class='col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-4' >
-                                <h6 class="mb-2 fw-bold text-danger mb-3">Zone Rouge</h6>
+                                <h6 class="mb-2 fw-bold mb-3">Actions Zone</h6>
                                 <!-- <div class="card"> -->
                                     <!-- <div class="card-body"> -->
                                         <div class="d-flex justify-content-between ">
-                                            <!-- <button type="button" class="btn btn-primary">Editer</button> -->
+                                           {% if contrat.etat == "TERMINE" %}
                                             <button type="button" class="btn btn-secondary">Archver</button>
-                                            <button type="button" class="btn btn-warning mx-2">Redéfinir</button>
-                                            <button type="button" class="btn btn-danger">Annuler</button>
+                                            {% endif %}
+
+                                            {% if contrat.etat == "ANNULE" %}
+                                            <button type="button" class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#exampleModalFullscreen">Réassigner</button>
+                                            {% endif %}
+                                            
+                                            {% if contrat.etat == "EN_COURS" %}
+                                                <form id = "cancel_form" action="{% url 'askia_admin:annuler_contrat' %}" method="post">
+                                                    {% csrf_token %}
+                                                    <input name="canceled_id" type="text" hidden value="{{contrat.id}}">
+                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalLive">Annuler</button>
+                                                </form>
+                                            {% endif %}    
+                                          
+
+
+                                            
 
                                         </div>
                                     <!-- </div> -->
@@ -471,6 +498,45 @@
         </div>
     </div>
   </div>
+   <!-- Modal -->
+<div class="modal fade" id="exampleModalLive" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLiveLabel">Confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr de vouloir annuler ce contrat ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</button>
+                <button id="oui" type="button" class="btn btn-danger">Oui</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal redefinition -->
+<div class="modal fade" id="exampleModalFullscreen" tabindex="-1" aria-labelledby="exampleModalFullscreenLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title h4" id="exampleModalFullscreenLabel">Réassignation du contrat</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- ...content -->
+                {% include "contrats/form_contrat.html" with parametre=True %}
+
+                <!-- content -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 {%endblock%}
 
 {%block footer_js%}
@@ -495,5 +561,14 @@
         });
     });
 </script>
+<script src="{% static '/js/contrat_temoin_validation.js' %}"></script>
+
+<script>
+    $('#oui').click(function(){
+        $('#cancel_form').submit();
+    });
+</script>
+
+<script src="{% static '/js/contrat_form_validation.js' %}"></script>
 
 {%endblock%}

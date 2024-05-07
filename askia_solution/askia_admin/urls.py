@@ -30,7 +30,9 @@ urlpatterns = [
     path('detail_contrat/<int:id>/', views.detail_contrat,name='detail_contrat'),
 
     path('ajax_contrat_list', views.contrat_view, name="ajax_contrat_list"),
+    path('annuler_contrat', views.annuler_contrat, name="annuler_contrat"),
 
+     path('reassigner/', views.save_contrat, name="reassigner_contrat"),
 
 
 ]
