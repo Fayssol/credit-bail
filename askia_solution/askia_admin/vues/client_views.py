@@ -164,31 +164,21 @@ def contrat_list_pdf(request):
     return get_pdf_from_http(request, "contrats", contexte, "liste")
 
 
-<<<<<<< HEAD
 def index(request):
-    return render(request, "contrats/index.html")
-=======
-# def index(request):
-#     date_actuelle = date.today().isoformat()
+    date_actuelle = date.today().isoformat()
 
-#     return render(request,"contrats/index.html", locals())
->>>>>>> 279e4948a1e9ca610bb1cbbfd7d390aea648d32b
+    return render(request,"contrats/index.html", locals())
+
 
 
 # view that print client list
 def list_contrat(request):
 
-<<<<<<< HEAD
     # contrats=Contrat.objects.all()
     return render(request, "contrats/list.html", locals())
 
 
 # delete client
-=======
-   
-    return render(request,"contrats/list.html")
-#delete client
->>>>>>> 279e4948a1e9ca610bb1cbbfd7d390aea648d32b
 def delete():
     pass
 
@@ -242,14 +232,9 @@ def update_contrat(request, id):
         return HttpResponse("ok")
 
 
-<<<<<<< HEAD
-def detail_contrat(request, id):
-    contrat = Contrat.objects.get(pk=id)
-=======
 def detail_contrat(request,id):
     date_actuelle = date.today().isoformat()
     contrat=Contrat.objects.get(pk=id)
->>>>>>> 279e4948a1e9ca610bb1cbbfd7d390aea648d32b
     if contrat.versement_set.all().last() is not None:
         reste = (
             contrat.montant_contrat
@@ -257,35 +242,13 @@ def detail_contrat(request,id):
         )
         boolle = True
     else:
-<<<<<<< HEAD
-        reste = contrat.montant_contrat
-        boolle = False
-    return render(
-        request,
-        "contrats/detail_contrat.html",
-        {"contrat": contrat, "reste": reste, "boolle": boolle},
-    )
-
-=======
         reste = contrat.montant_contrat 
         boolle = False    
     return render(request,"contrats/detail_contrat.html",{"contrat":contrat, "reste":reste, "boolle":boolle, "date_actuelle":date_actuelle})
->>>>>>> 279e4948a1e9ca610bb1cbbfd7d390aea648d32b
 
 @csrf_protect
 def contrat_view(request):
     if request.method == "POST":
-<<<<<<< HEAD
-        draw = int(request.POST.get("draw"))
-        start = int(request.POST.get("start"))
-        length = int(request.POST.get("length"))
-        search = request.POST.get("search[value]")
-        date_from = request.POST.get("from_date", None)
-        date_to = request.POST.get("to_date", None)
-
-        filtered_contrat = Contrat.objects.order_by("-date_contrat", "-id")
-        if search:
-=======
         draw = int(request.POST.get('draw'))
         start = int(request.POST.get('start'))
         length = int(request.POST.get('length'))
@@ -298,7 +261,6 @@ def contrat_view(request):
         # filtered_contrat = Contrat.objects.exclude(etat="REASSIGNER").order_by('-date_contrat', '-id')
 
         if search :
->>>>>>> 279e4948a1e9ca610bb1cbbfd7d390aea648d32b
             filtered_contrat = filtered_contrat.filter(
                 Q(montant_contrat__icontains=search)
                 | Q(duree__icontains=search)
@@ -337,9 +299,6 @@ def contrat_view(request):
             ],
         }
         return JsonResponse(data)
-<<<<<<< HEAD
-    return render(request, "contrats/list.html")
-=======
     return render(request,'contrats/list.html')
         
             
@@ -353,4 +312,3 @@ def annuler_contrat(request):
         contrat.save()
         return redirect('/contrats')
         # return render(request,'contrats/list.html')
->>>>>>> 279e4948a1e9ca610bb1cbbfd7d390aea648d32b
