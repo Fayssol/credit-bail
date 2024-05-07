@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="{% static '/css/dataTables.bootstrap5.min.css' %}">
 
 
+
   <style>
     /* Custom style to set icon size */
     .alert i[class^="bi-"]{
@@ -64,15 +65,15 @@
 <!-- Jquery Core Js -->
 <script src=" {% static '/js/libscripts.bundle.js' %}"></script>
 
-<!-- Plugin Js-->
-<script src=" {% static '/js/apexcharts.bundle.js' %}"></script>
+
 
 <!-- Jquery Page Js -->
 <!-- <script src="{% static '/js/jquery.datatables.min.js' %}"></script> -->
 <!-- <script src="{% static '/js/datatables.bootstrap4.min.js' %}"></script> -->
 <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
 <script src=" {% static '/js/template.js' %}"></script>
-<script src=" {% static '/js/hr.js' %}"></script>
+
+{% comment %} <script src=" {% static '/js/hr.js' %}"></script> {% endcomment %}
 <script src="{% static '/js/validations_fonctions.js' %}"></script>
 <script src="{% static '/js/vider_champs.js' %}"></script>
 <script src="{% static '/js/trans_form_validations.js' %}"></script>

@@ -1,0 +1,36 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[left=2cm, top=3cm, bottom=2cm, right=2cm]{geometry}
+\usepackage{multirow}
+\usepackage{lmodern}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\usepackage{pdflscape} % Package pour le mode paysage
+
+\definecolor{lavender}{RGB}{230,230,250}
+
+% Définition du compteur rownum
+\newcounter{rownum}
+
+\begin{document}
+
+\begin{landscape} % Début du mode paysage
+\begin{center}
+\begin{tabularx}{\linewidth}{|c|c|X|m{2.5cm}|r|r|c|m{2cm}|}
+    \hline
+    \rowcolor{lavender} \textbf{N.} & \textbf{Numéro de Contrat} & \textbf{Nom du Client} & \textbf{Date Sign} & \textbf{Montant (FCFA)} & \textbf{Durée (mois)} & \textbf{Statut} & \textbf{État} \\ \hline
+    \BLOCK{for contrat in contrats}
+        \addtocounter{rownum}{1} % Incrémentation du compteur
+        \therownum & CTR\VAR{contrat.id} & \VAR{contrat['client']['nom']} & \VAR{contrat['date_contrat']} & \VAR{contrat['montant_contrat']} & \VAR{contrat['duree']} & \VAR{contrat['status']} & \VAR{contrat['etat']}\\ \hline
+    \BLOCK{endfor}
+\end{tabularx}
+\end{center}
+\end{landscape} % Fin du mode paysage
+
+\end{document}
