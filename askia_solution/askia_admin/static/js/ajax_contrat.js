@@ -69,7 +69,7 @@ $(document).ready(function() {
                // {data: 'id', visible: false},
                { data: 'client', visible: true, title:"Nom du Client",
                render: function ( data, type, row ) {
-                return '<div class="input-group text-center p-2">' +
+                return '<div class="input-group text-center p-2 d-flex align-items-center">' +
                     '<img src="/static/img/user-solid.svg" alt="">' +
                     '<span class="fw-bolder">'+row.client+'</span>' +
                     '</div>';

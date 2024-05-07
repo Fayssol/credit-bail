@@ -69,7 +69,7 @@ function loadData(initial_date, finale_date) {
             // {data: 'id', visible: false},
             { data: 'nom', visible: true ,title:"Clients",
             render: function ( data, type, row ) {
-                return '<div class="input-group text-center p-2">' +
+                return '<div class="input-group text-center p-2 d-flex align-items-center">' +
                     '<img src="/static/img/user-solid.svg" alt="">' +
                     '<span class="fw-bolder">'+row.nom+'</span>' +
                     '</div>';
