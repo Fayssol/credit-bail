@@ -36,6 +36,9 @@ urlpatterns = [
 
      path('reassigner/', views.save_contrat, name="reassigner_contrat"),
 
+    #    path('login/', views.custom_login, name='login'),
+    # path('home/', views.home, name='home'),
+
 
 ]
 
