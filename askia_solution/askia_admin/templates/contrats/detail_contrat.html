@@ -252,7 +252,7 @@
                                             </div>
                                             <div class="col-6">
                                                 <div class="d-flex align-items-center">
-                                                    {% if contrat.status == "A_JOUR" %}
+                                                    {% if contrat.status == "AJOUR" %}
                                                     <span class="ms-2 badge bg-success">à jour</span>
                                                     {% else %}
                                                     <span class="ms-2 badge bg-danger">à jour</span>
@@ -392,7 +392,7 @@
                                             <button type="button" class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#exampleModalFullscreen">Réassigner</button>
                                             {% endif %}
                                             
-                                            {% if contrat.etat == "EN_COURS" %}
+                                            {% if contrat.etat == "ENCOURS" %}
                                                 <form id = "cancel_form" action="{% url 'askia_admin:annuler_contrat' %}" method="post">
                                                     {% csrf_token %}
                                                     <input name="canceled_id" type="text" hidden value="{{contrat.id}}">
