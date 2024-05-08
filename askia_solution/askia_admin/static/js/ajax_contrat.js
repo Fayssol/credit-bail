@@ -69,7 +69,7 @@ $(document).ready(function() {
                // {data: 'id', visible: false},
                { data: 'client', visible: true, title:"Nom du Client",
                render: function ( data, type, row ) {
-                return '<div class="input-group text-center p-2">' +
+                return '<div class="input-group text-center p-2 d-flex align-items-center">' +
                     '<img src="/static/img/user-solid.svg" alt="">' +
                     '<span class="fw-bolder">'+row.client+'</span>' +
                     '</div>';
@@ -86,9 +86,9 @@ $(document).ready(function() {
                { data: 'duree', visible: true,title:"Durée (mois)" },
                { data: 'status', visible: true, title:"Status",
                     render:function(data, type, row){
-                        if(row.status == "A_JOUR"){
+                        if(row.status == "AJOUR"){
                             return '<span class="badge bg-success">'+'à jour'+'</span>';
-                        }else if(row.status == "EN_RETARD"){
+                        }else if(row.status == "ENRETARD"){
                             return '<span class="badge bg-lavender-purple">'+'en retart'+'</span>';
                         }
                         
@@ -97,7 +97,7 @@ $(document).ready(function() {
 
                { data: 'etat', visible: true,title:"Etat" ,
                     render:function(data, type, row){
-                        if(row.etat == "EN_COURS"){
+                        if(row.etat == "ENCOURS"){
                             return '<span class="badge bg-warning ">'+'en cours'+'</span>';
                         }else if(row.etat == "TERMINE"){
                             return '<span class="badge bg-success ">'+'terminé'+'</span>';

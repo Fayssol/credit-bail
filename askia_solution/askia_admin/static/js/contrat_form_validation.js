@@ -96,9 +96,6 @@ $('#contratBtn').click(function () {
 $('#contratSaveBtn').click(function () {
 
 
-
-
-
     $('#contratSaveBtn').attr('disabled', true)
     $('#contratSaveBtn .spinner-dr').removeClass("d-none");
     $('#contratSaveBtn .btn-spinner-test-dr').addClass('d-none')

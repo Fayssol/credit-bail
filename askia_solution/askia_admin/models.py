@@ -24,13 +24,13 @@ class Contrat(models.Model):
     montant_contrat=models.IntegerField()
     duree=models.IntegerField()  
 
-    Etat = models.TextChoices("Etat", "EN_COURS ANNULE TERMINE REASSIGNER")
+    Etat = models.TextChoices("Etat", "ENCOURS ANNULE TERMINE REASSIGNER")
 
-    etat = models.CharField(max_length=10, choices=Etat.choices, default=Etat.EN_COURS)
+    etat = models.CharField(max_length=10, choices=Etat.choices, default=Etat.ENCOURS)
 
-    Status = models.TextChoices("Status", "A_JOUR EN_RETARD")
+    Status = models.TextChoices("Status", "AJOUR ENRETARD")
 
-    status = models.CharField(max_length=10, choices=Status.choices, default=Status.A_JOUR)
+    status = models.CharField(max_length=10, choices=Status.choices, default=Status.AJOUR)
     date_contrat=models.DateField()
 
     #fichier=models.FileField(max_length=50)
