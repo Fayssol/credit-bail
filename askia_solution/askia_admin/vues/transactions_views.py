@@ -84,12 +84,12 @@ def transaction_form(request):
     #     'date_actuelle': date_actuelle,
     #     'contrats':contrats
     # }
-    return render(request,"transactions/create.html", locals())
+    return render(request,"transactions/create.html", {"date_actuelle":date_actuelle, "contrats":contrats})
 
 # transactions liste
 def transaction_index(request):
     date_actuelle = date.today().isoformat()
-    contrats =  contrats = Contrat.objects.filter(etat="ENCOURS").all()
+    contrats = Contrat.objects.filter(etat="ENCOURS").all()
 
     return render(request,"transactions/liste.html",{'contrats': contrats, 'date_actuelle': date_actuelle})
 
