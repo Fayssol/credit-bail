@@ -154,7 +154,7 @@
                                    {% endif %} 
                             </div>
                             <div class="card-body">
-                               
+                               <input type="text" id="contratId" hidden value="{{contrat.id}}">
                                 <form id="date_filter" class="ms-auto mb-4" method="POST">
                                     {% csrf_token %}
                                      <input type="hidden" name="csrfmiddlewaretoken"> 
@@ -173,51 +173,8 @@
                                     </div>
                                 </form>
                                 <h6 class="mb-0 fw-bold mb-4">Liste des versements</h6>
-                                <table id="myProjectTable" class="table table-hover align-middle mb-0" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>NO</th>
-                                            <th>Project</th>
-                                            <th>Date Start</th>
-                                            <th>Date End</th>
-                                            <th>Amount</th>
-                                            <th>status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><a href="invoices.html" class="fw-bold text-secondary">#00001</a></td>
-                                            <td><a href="projects.html">Social Geek Made</a></td>
-                                            <td>10-01-2021</td>
-                                            <td>10-02-2021</td>
-                                            <td>$3250</td>
-                                            <td><span class="badge bg-warning">Pending</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="invoices.html" class="fw-bold text-secondary">#00002</a></td>
-                                            <td><a href="projects.html">Practice to Perfect</a></td>
-                                            <td>12-02-2021</td>
-                                            <td>10-04-2021</td>
-                                            <td>$1578</td>
-                                            <td><span class="badge bg-success">Paid</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="invoices.html" class="fw-bold text-secondary">#00003</a></td>
-                                            <td><a href="projects.html">Rhinestone</a></td>
-                                            <td>18-02-2021</td>
-                                            <td>20-04-2021</td>
-                                            <td>$1978</td>
-                                            <td><span class="badge bg-lavender-purple">Draf</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="invoices.html" class="fw-bold text-secondary">#00004</a></td>
-                                            <td><a href="projects.html">Box of Crayons</a></td>
-                                            <td>28-02-2021</td>
-                                            <td>30-04-2021</td>
-                                            <td>$1978</td>
-                                            <td><span class="badge bg-lavender-purple">Draf</span></td>
-                                        </tr>
-                                    </tbody>
+                                <table id="vers_contrat_table" class="table table-hover align-middle mb-0" style="width:100%">
+                                    
                                 </table>
                             </div>
                         </div>
@@ -570,5 +527,158 @@
 </script>
 
 <script src="{% static '/js/contrat_form_validation.js' %}"></script>
+<script>
 
+$(document).ready(function() {
+    $('#vers_contrat_table')
+    .addClass( 'nowrap' )
+    .dataTable( {
+        responsive: true,
+        columnDefs: [
+            { targets: [-1, -3], className: 'dt-body-right' }
+        ]
+    });
+});
+
+   
+var TOKEN = $('input[name="csrfmiddlewaretoken"]').val();
+var id_contrat=$('#contratId').val();
+function loadData(initial_date, finale_date) {
+
+    new DataTable('#vers_contrat_table', {
+    responsive: true,
+    // rowReorder: true,
+    // rowReorder: {
+    //     selector: 'td:nth-child(2)'
+    // },
+    
+    serverSide: true,
+    paging: true,
+    processing: true,
+    stateSave: true,
+    'lengthMenu': [10, 25, 50, 100, 150, 200, 300, 500],
+    searching: true,
+    sort: true,
+    ajax: {
+            url : `/ajax_transaction_list_contrat/`,
+            type: 'POST',
+            headers: {
+            'X-CSRFToken': TOKEN
+            },
+            data: {
+
+            "from_date": initial_date,
+            "to_date": finale_date,
+            "id": id_contrat
+            },
+        
+        },
+        language: {
+            processing: "Traitement en cours...",
+            search: "Rechercher&nbsp;:",
+            lengthMenu: "Afficher _MENU_ &eacute;l&eacute;ments",
+            info: "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+            infoEmpty: "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+            infoFiltered: "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+            infoPostFix: "",
+            loadingRecords: "Chargement en cours...",
+            zeroRecords: "Aucun &eacute;l&eacute;ment &agrave; afficher",
+            emptyTable: "Aucune donnée disponible dans le tableau",
+            paginate: {
+                first: "Premier",
+                previous: "Pr&eacute;c&eacute;dent",
+                next: "Suivant",
+                last: "Dernier"
+            },
+            aria: {
+                sortAscending: ": activer pour trier la colonne par ordre croissant",
+                sortDescending: ": activer pour trier la colonne par ordre décroissant"
+            }
+        },
+       // langage: langage,
+        columns: [
+            // {data: 'id', visible: false},
+            { data: 'nom', visible: true ,title:"Clients",
+            render: function ( data, type, row ) {
+                return '<div class="input-group text-center p-2 d-flex align-items-center">' +
+                    '<img src="/static/img/user-solid.svg" alt="">' +
+                    '<span class="fw-bolder">'+row.nom+'</span>' +
+                    '</div>';
+                }
+            },
+
+            { data: 'contact', visible: true, title:"Contacts"},
+            { data: 'date_versement', visible: true,title:"Date Vers." },
+            { data: 'montant_versement', visible: true,title:"Montant Versé" },
+
+            { data: 'montant_total_paye',
+                visible: true, 
+                title:"Total Versé",
+                render: function ( data, type, row ) {
+                   
+                        return '<span class="text-secondary">'+row.montant_total_paye+'</span>';
+                   
+                }
+            },
+
+            { data: 'montant_contrat', visible: true,title:"À Payé", },
+
+            { data: 'reste', visible: true,title:"Reste",
+                render: function ( data, type, row ) {
+                    
+                    return '<span class="text-primary">'+row.reste+'</span>';
+            
+                 }
+             },
+
+
+            { data: 'note', visible: true, title:"Notes" }
+        ],
+        columnDefs: [
+            
+            //  { className: "dt-center", targets: "_all" }, // Centrer tous les contenus de colonnes
+             { targets: "_all", className: 'dt-right' },
+           
+
+
+
+            
+        ],
+     
+});
+
+}
+
+
+
+
+$(document).ready(function () {
+
+loadData()
+
+$('form#date_filter').on('submit', function (e) {
+
+    e.preventDefault();
+
+    var from_date = $('#from_date').val()
+    var to_date = $('#to_date').val()
+    $('#transactions_table').DataTable().destroy()
+    loadData(from_date, to_date)
+
+});
+
+
+
+$('#from_date').on('change', function () {
+
+$('#to_date').removeAttr("readonly")
+$('#to_date').attr("min", $(this).val())
+$('#to_date').val($(this).val())
+
+});
+
+});
+
+
+</script>
 {%endblock%}

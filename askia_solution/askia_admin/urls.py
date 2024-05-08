@@ -17,6 +17,8 @@ urlpatterns = [
     path('transaction_index',views.transaction_index, name="transaction_index"),
     path('', views.welcome, name="welcome"),
     path('ajax_transaction_list', views.transaction_list, name="ajax_transaction_list"),
+    path('ajax_transaction_list_contrat/', views.transaction_list, name="ajax_transaction_list_contrat"),
+
     path('transaction_modal/',views.save_transaction, name="transaction_modal"),
     
     #contrats
