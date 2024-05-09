@@ -1,9 +1,13 @@
-from django.urls import path
 from . import views
+
+from django.urls import path
+
 
 
 
 app_name = 'askia_admin'
+
+
 
 
 urlpatterns = [
@@ -11,11 +15,12 @@ urlpatterns = [
     path('base/', views.base,name='base'),
    
 
+
     #transaction
     path('transaction/', views.save_transaction, name="save_transaction"),
     path('transaction_form/', views.transaction_form, name="transaction_form"),
     path('transaction_index',views.transaction_index, name="transaction_index"),
-    path('', views.welcome, name="welcome"),
+    
     path('ajax_transaction_list', views.transaction_list, name="ajax_transaction_list"),
     path('ajax_transaction_list_contrat/', views.transaction_list, name="ajax_transaction_list_contrat"),
 
@@ -36,8 +41,10 @@ urlpatterns = [
 
      path('reassigner/', views.save_contrat, name="reassigner_contrat"),
 
-    #    path('login/', views.custom_login, name='login'),
-    # path('home/', views.home, name='home'),
+    path('home/', views.welcome, name="welcome"),
+    path('login/', views.custom_login, name='login_verify'),
+    path('', views.login_page, name='login_page'),
+
 
 
 ]

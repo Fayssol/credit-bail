@@ -1,7 +1,7 @@
 $(document).ready(function() {
     
     $("#montant").on("input", function() {
-        console.log('dsfs');
+       
         $("#montantError").empty(); 
     });
 
@@ -11,63 +11,79 @@ $(document).ready(function() {
 
 
     $("#contrat").on("input", function() {
-        console.log('dsfs');
+       
         $("#contratError").empty(); 
     });
 
     $("#date").on("input", function() {
-        console.log('dsfs');
+       
         $("#dateError2").empty(); 
     });
     
     // $("#nomClt").on("input", function() {
-    //     console.log('dsfs');
+    //    
     //     $("#contratError").empty(); 
     // });
 
     $("#contact").on("input", function() {
-        console.log('dsfs');
+       
         $("#contactError").empty(); 
     });
 
     $("#address").on("input", function() {
-        console.log('dsfs');
+       
         $("#adresseError").empty(); 
     });
 
     $("#dateN").on("input", function() {
-        console.log('dsfs');
+       
         $("#dnError").empty(); 
     });
 
     $("#montantC").on("input", function() {
-        console.log('dsfs');
+        
         $("#montantError").empty(); 
     });
 
     $("#dureeC").on("input", function() {
-        console.log('dsfs');
+        
         $("#dureeError").empty(); 
     });
 
     $("#dateS").on("input", function() {
-        console.log('dsfs');
+        
         $("#dateSgnError").empty(); 
     });
 
     $("#nameT:first").on("input", function() {
-        console.log('dsfs');
+        
         $("#nametError:first").empty(); 
     });
 
     $("#phone:first").on("input", function() {
-        console.log('dsfs');
+        
         $("#phoneError:first").empty(); 
     });
 
     $("#adresseT:first").on("input", function() {
-        console.log('dsfs');
+        
         $("#adressetError:first").empty(); 
+    });
+
+// others
+    $("#nameT:last").on("input", function() {
+       
+        $("#nametError:last").empty(); 
+    });
+
+    $("#phone:last").on("input", function() {
+       
+        $("#phoneError:last").empty(); 
+    });
+
+    $("#adresseT:last").on("input", function() {
+       
+        $("#adressetError:last").empty(); 
     });
 
 

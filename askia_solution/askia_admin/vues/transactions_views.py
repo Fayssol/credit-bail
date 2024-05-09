@@ -11,7 +11,9 @@ from datetime import date
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def save_transaction(request):
 
     msg_vers_depasse = False
@@ -74,6 +76,7 @@ def save_transaction(request):
 
 
 # formulaire de création d'une transaction#
+@login_required
 def transaction_form(request):
      # Obtenir la date actuelle
     date_actuelle = date.today().isoformat()
@@ -87,13 +90,14 @@ def transaction_form(request):
     return render(request,"transactions/create.html", {"date_actuelle":date_actuelle, "contrats":contrats})
 
 # transactions liste
+@login_required
 def transaction_index(request):
     date_actuelle = date.today().isoformat()
     contrats = Contrat.objects.filter(etat="ENCOURS").all()
 
     return render(request,"transactions/liste.html",{'contrats': contrats, 'date_actuelle': date_actuelle})
 
-
+@login_required
 @csrf_protect
 def transaction_list(request):
     if request.method == "POST":

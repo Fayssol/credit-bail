@@ -25,16 +25,23 @@ def welcome(request):
 
 
 
-# def custom_login(request):
-#     if request.method == 'POST':
-#         form = CustomAuthenticationForm(request, request.POST)
-#         if form.is_valid():
-#             username = form.cleaned_data['username']
-#             password = form.cleaned_data['password']
-#             user = authenticate(request, username=username, password=password)
-#             if user is not None:
-#                 login(request, user)
-#                 return redirect('home')
-#     else:
-#         form = CustomAuthenticationForm()
-#     return render(request, 'login.html', {'form': form})
+def custom_login(request):
+    print("je suis la")
+    if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('/home')
+    else:
+        return redirect('/')
+    return render(request, 'auth/login.html')
+
+def login_page(request):
+     return render(request, "auth/login.html")
+
+
+def error_404(request, exception):
+    return render(request, 'pages/404.html', {})
+

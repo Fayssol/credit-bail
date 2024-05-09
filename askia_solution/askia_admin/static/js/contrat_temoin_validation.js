@@ -50,7 +50,6 @@
 
 
 
-
               if (address == "" || Number.isInteger(parseInt(address))) {
                   $(this).find("#adressetError").text("L'adresse est requise");
                   isValid = false;
@@ -63,3 +62,6 @@
       }
       
   });
+
+
+ 
