@@ -103,7 +103,7 @@
               <div class="dropdown user-profile ml-2 ml-sm-3 d-flex align-items-center zindex-popover">
                   <div class="u-info me-2">
                       <p class="mb-0 text-end line-height-sm "><span class="font-weight-bold">{{request.user.username|upper}}</span></p>
-                      <small>connecté</small>
+                      <small class="text-success">connecté</small>
                   </div>
                   <a class="nav-link dropdown-toggle pulse p-0" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static">
                     <img class="avatar rounded-circle" src=" {% static 'img/user-solid.svg' %}" alt="profile">
@@ -115,7 +115,7 @@
                                   <img class="avatar rounded-circle" src=" {% static 'img/user-solid.svg' %}" alt="profile">
                                   <div class="flex-fill ms-3">
                                       <p class="mb-0"><span class="font-weight-bold">{{request.user.username|upper}}</span></p>
-                                      <small class="">connecté</small>
+                                      <small class="text-success">connecté</small>
                                   </div>
                               </div>
                               
@@ -124,7 +124,7 @@
                           <div class="list-group m-2 ">
 
                               <a href="#" class="list-group-item list-group-item-action border-0 "><i class="icofont-contact-add fs-5 me-3 bi bi-people-fill"></i>Membres</a>
-                              <a href="{% url 'askia_admin:login_page' %}" class="list-group-item list-group-item-action border-0 "><i class="bi bi-box-arrow-right icofont-contact-add fs-5 me-3"></i>Se déconnecter</a>
+                              <a href="{% url 'askia_admin:logout' %}" class="list-group-item list-group-item-action border-0 "><i class="bi bi-box-arrow-right icofont-contact-add fs-5 me-3"></i>Se déconnecter</a>
                               <div><hr class="dropdown-divider border-dark"></div>
                               <a href="#" class="list-group-item list-group-item-action border-0 "><i class="icofont-contact-add fs-5 me-3 bi bi-plus-lg"></i>Ajouter un compte</a>
                           </div>
