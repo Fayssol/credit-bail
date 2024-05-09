@@ -2,7 +2,7 @@
  // Vérification du montant
  function montant_validation(montant) {
     if(isNaN(montant)){
-        $("#montantError").html("Le montant est requise.");
+        $("#montantError").html("Le montant est requis.");
         return false;
     }else if(Number.isInteger(montant) && montant <0){
         $("#montantError").html("Le montant est positif.");

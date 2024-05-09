@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.urls import reverse
 from ..models import Versement, Contrat, Client
 from django.http import HttpResponseRedirect
-
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
 from django.db.models import Q
 from datetime import date
@@ -19,6 +19,7 @@ from askia_admin.templating_latex.controlleur import generate_pdf as generer
     
     
 # fonction de création et de téléchargement de pdf
+@login_required
 def get_pdf_from_http(request,model:str, context:dict, pdf_type:str):
     success_message = None
     error_message = None
@@ -46,6 +47,7 @@ def get_pdf_from_http(request,model:str, context:dict, pdf_type:str):
 
 
 # formulaire de création d'un contrat#
+@login_required
 def contrat_form(request):
     date_actuelle = date.today().isoformat()
     return render(request, "contrats/create.html", locals())
@@ -54,7 +56,7 @@ def contrat_form(request):
 # def client_liste(request):
 #     return render(request,'clients/liste.html')
 
-
+@login_required
 def save_contrat(request):
 
     if request.method == "POST":
@@ -103,7 +105,7 @@ def save_contrat(request):
         return JsonResponse({"ok":False,"message":"Cantrat saved"})
 
 
-
+@login_required
 def contrat_def_pdf(request):
     if request.method == "POST":
         # validator
@@ -156,41 +158,42 @@ def contrat_def_pdf(request):
         return render(request, "contrats/create.html")
 
 
-
+@login_required
 def contrat_list_pdf(request):
     contrats = Contrat.objects.all()
     contexte = {"contrats": contrats}
     print(contexte )
     return get_pdf_from_http(request, "contrats", contexte, "liste")
 
-
+@login_required
 def index(request):
     date_actuelle = date.today().isoformat()
-
     return render(request,"contrats/index.html", locals())
 
 
 
 # view that print client list
+@login_required
 def list_contrat(request):
-
     # contrats=Contrat.objects.all()
     return render(request, "contrats/list.html", locals())
 
 
 # delete client
+@login_required
 def delete():
     pass
 
 
 # update client
+@login_required
 def edit_contrat(request, id):
     result = Contrat.objects.filter(pk=id)
     contrat = get_object_or_404(result)
     print(contrat)
     return render(request, "contrats/edit.html", locals())
 
-
+@login_required
 def update_contrat(request, id):
     if request.method == "POST":
         # validator
@@ -231,7 +234,7 @@ def update_contrat(request, id):
 
         return HttpResponse("ok")
 
-
+@login_required
 def detail_contrat(request,id):
     date_actuelle = date.today().isoformat()
     contrat=Contrat.objects.get(pk=id)
@@ -246,6 +249,7 @@ def detail_contrat(request,id):
         boolle = False    
     return render(request,"contrats/detail_contrat.html",{"contrat":contrat, "reste":reste, "boolle":boolle, "date_actuelle":date_actuelle})
 
+@login_required
 @csrf_protect
 def contrat_view(request):
     if request.method == "POST":
@@ -302,7 +306,7 @@ def contrat_view(request):
     return render(request,'contrats/list.html')
         
             
-
+@login_required
 def annuler_contrat(request):
     if request.method == "POST":
         canceled_id = int(request.POST.get('canceled_id'))
