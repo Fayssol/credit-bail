@@ -6,6 +6,7 @@ from .models import Contrat
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
+from django.contrib.auth import logout
 
 # Create your views here.
 
@@ -45,3 +46,8 @@ def login_page(request):
 def error_404(request, exception):
     return render(request, 'pages/404.html', {})
 
+
+def logout_view(request):
+    logout(request)
+    
+    return redirect('/')

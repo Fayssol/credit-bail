@@ -45,7 +45,7 @@ urlpatterns = [
     path('login/', views.custom_login, name='login_verify'),
     path('', views.login_page, name='login_page'),
 
-
+     path('logout/', views.logout_view, name='logout'),
 
 ]
 
