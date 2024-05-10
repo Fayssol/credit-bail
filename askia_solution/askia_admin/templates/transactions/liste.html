@@ -46,7 +46,7 @@
 
 			<div class="card-body">
 
-				<div class="basic-data-table">
+				<div class="basic-data-table ">
                     <form id="date_filter" class="ms-auto mb-4" method="POST">
                         {% csrf_token %}
                          <input type="hidden" name="csrfmiddlewaretoken"> 
@@ -65,11 +65,13 @@
                         </div>
                     </form>
 
+                        <div class="table-responsive">
+                          <table id="transactions_table" class="table table-hover align-middle mb-0" style="width:100%">
+                            <h4>Liste des transactions</h4>
+                            
+                          </table>
+                        </div>
                         
-                        <table id="transactions_table" class="table table-hover align-middle mb-0" style="width:100%">
-                          <h4>Liste des transactions</h4>
-                          
-                        </table>
 
 
 
