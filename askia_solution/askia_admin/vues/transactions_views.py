@@ -107,12 +107,15 @@ def transaction_list(request):
         search = request.POST.get('search[value]')
         date_from = request.POST.get('from_date', None)
         date_to = request.POST.get('to_date', None)
-        id=request.POST.get('id')
+       
         
         filtered_transactions = Versement.objects.order_by('-date_versement', '-id')
-        url="ajax_transaction_list_contrat"
+        url="/ajax_transaction_list_contrat/"
         if (request.path== url):
-            filtered_transactions = Versement.objects.filter(id=id).order_by('-date_versement', '-id')
+            id=request.POST.get('id')
+            print('**************id=',id)
+            contrat_courant=Contrat.objects.get(id=id)
+            filtered_transactions = Versement.objects.filter(contrat=contrat_courant).order_by('-date_versement', '-id')
         else:
             filtered_transactions = Versement.objects.order_by('-date_versement', '-id')
 
@@ -133,6 +136,8 @@ def transaction_list(request):
 
         
         if (request.path== url):
+            id=request.POST.get('id')
+            print('**************id=',id)
             contrat_courant=Contrat.objects.get(id=id)
             total_records = Versement.objects.filter(contrat=contrat_courant).count()
         else:
