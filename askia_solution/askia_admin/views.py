@@ -17,7 +17,7 @@ def base(request):
 
 @login_required
 def welcome(request):
-    en_cours = Contrat.objects.filter(etat="EN_COURS").all().count()
+    en_cours = Contrat.objects.filter(etat="ENCOURS").all().count()
     termines = Contrat.objects.filter(etat="TERMINE").all().count()
     annules = Contrat.objects.filter(etat="ANNULE").all().count()
     redefinis = Contrat.objects.filter(etat="REASSIGNER").all().count()
