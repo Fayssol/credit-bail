@@ -26,7 +26,7 @@ alter user <USERNAME> createdb password '<USER_PASSWORD>';
 ```
 
 
-3. Editons le fichier `/etc/postgresql/<NOTRE_VERSION>/main/pg_hba.conf`
+3. Editons le fichier `/etc/postgresql/<NOTRE_VERSION>/main/pg_hba.conf` \
 Dans ce fichier nous allons activer la connection par mot de passe pour tous les utilisateurs:
 
 ```conf
@@ -49,7 +49,7 @@ sudo systemctl restart postgresql
  psql -U <USER_NAME> -d template1
  create database <DB_NAME>;
 ```
-6. Remarque
+6. Remarque:\
 Par défaut postgresql écoute sur le port `5432` et sur l'adresse locale `localhost`. Tous ces paramètres peuvent êtres modifiés dans le fichier `/etc/postgresql/<VERSION>/main/postgresql.conf`
 
 ## Éxecution du projet
