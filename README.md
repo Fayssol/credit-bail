@@ -1,6 +1,6 @@
 
-# Projet Askia
-**Projet de gestion des contrats/paiements en django utilisant postgresql comme base de données** 
+# Projet Recouvrement
+**Projet de Recouvrement des dettes (credit bail de moto) en django utilisant postgresql comme base de données** 
 
 ## Installation et Configuration de postgresql sous Linux
 ### Installation
