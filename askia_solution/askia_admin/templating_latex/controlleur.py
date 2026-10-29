@@ -6,11 +6,11 @@ from os.path import dirname, abspath
 def generate_pdf(context, template_dir="",pdf_name="document.pdf", template_file="template.tex"):
     """INSTACIATION D'UN NOUVEL ENVIRONNEMENT AVEC DES OPTIONS DE BALISES PERSONNALISÉES"""
     j2_env = Environment(
-        variable_start_string="\VAR{",
+        variable_start_string=r"\VAR{",
         variable_end_string="}",
-        block_start_string="\BLOCK{",
+        block_start_string=r"\BLOCK{",
         block_end_string="}",
-        comment_start_string="\COMMENT{",
+        comment_start_string=r"\COMMENT{",
         comment_end_string="}",
     )
     """DECLARATION DE FICHIER"""
