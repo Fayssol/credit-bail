@@ -17,3 +17,8 @@ tempdir==0.7.1
 typing_extensions==4.9.0
 
 python manage.py createsuperuser --verbosity 2
+
+pourquoi mcp direct ds Django ??
+et si cetai un projet odoo ou nestjs ??
+cest qw un sdk mcp ??
+obliger daoir une application ou on peut avoir juste un serveur mcp qui expose des donne comme des fichiers ??
