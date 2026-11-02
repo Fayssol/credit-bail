@@ -68,13 +68,12 @@ Exemple de résultat :
     "etat_contrat": "ENCOURS",
     "statut_paiement": "AJOUR"
 }
-
+```
 
 
 
 ### 2. Documentation de l'agent IA (`ai_agent.py`)
 
-```md
 ## Agent IA
 
 ### Présentation
@@ -121,3 +120,4 @@ L'architecture globale est organisée comme suit :
                          v
                    BASE DE DONNÉES
                        SQLite
+```
