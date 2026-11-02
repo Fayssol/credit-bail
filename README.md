@@ -1,106 +1,120 @@
 
 # Projet Recouvrement
-**Projet de Recouvrement des dettes (credit bail de moto) en django utilisant postgresql comme base de données** 
+**Projet de Recouvrement des dettes (credit bail de moto) en django utilisant postgresql/SQLite comme base de données** 
+## Fonctionalites
+- Enregistrement de contrat
+- Enregistrement des reglements de client
+- Consultation du status des reglements et l'etat du contrat
 
 ## Installation et Configuration de postgresql sous Linux
-### Installation
-```bash
-sudo apt update
-sudo apt install postgresql 
-```
-### vérification
+Lire le fichier installation.txt
 
-```bash
-sudo systemctl status postgresql 
-```
-Vous devriez voir que le service est "active (running)".
-### Configuration
-1. Se connecter en tant que postgres
-``` bash
-sudo su postgres
-psql
-```
-2. Créons notre utilisateur postgresql
-```sql 
-create user <USER_NAME>;
-alter user <USERNAME> createdb password '<USER_PASSWORD>';
-```
+## Serveur MCP (Model Context Protocol)
+
+### Présentation
+
+Le projet intègre un serveur MCP permettant à un agent IA d'interagir avec les fonctionnalités métier de l'application Django.
+
+Le serveur MCP expose des outils qui permettent notamment de consulter la situation financière d'un client et d'enregistrer ses versements.
+
+L'objectif est de rendre les fonctionnalités métier accessibles à un agent IA sans lui donner un accès direct à la base de données.
+
+### Architecture
+
+L'architecture repose sur les composants suivants :
+
+- **Django** : application métier et gestion des données.
+- **Services Django** : contiennent la logique métier.
+- **Serveur MCP** : expose les services Django sous forme d'outils.
+- **Client MCP** : se connecte au serveur et exécute les outils disponibles.
+- **Agent IA** : exploite les outils MCP pour répondre aux demandes de l'utilisateur.
+
+### Outils MCP disponibles
+
+#### 1. Consulter la situation d'un client
+
+Nom de l'outil : `consulter_situation_client`
+
+Cet outil permet de retrouver la situation financière d'un client à partir de son nom.
+
+Paramètre :
+
+| Paramètre | Type | Description |
+|---|---|---|
+| `nom_client` | `str` | Nom du client à rechercher |
+
+Informations retournées :
+
+- Nom du client
+- Identifiant du contrat
+- Montant total du contrat
+- Montant déjà payé
+- Solde restant à payer
+- État du contrat
+- Statut des paiements
+
+Exemple de résultat :
+
+```json
+{
+    "nom_client": "client one",
+    "contrat_id": 1,
+    "montant_contrat": 500000,
+    "montant_paye": 20000,
+    "reste_a_payer": 480000,
+    "etat_contrat": "ENCOURS",
+    "statut_paiement": "AJOUR"
+}
 
 
-3. Editons le fichier `/etc/postgresql/<NOTRE_VERSION>/main/pg_hba.conf` \
-Dans ce fichier nous allons activer la connection par mot de passe pour tous les utilisateurs:
 
-```conf
-# TYPE  DATABASE        USER            ADDRESS                 METHOD
 
-# "local" is for Unix domain socket connections only
-local   all             all                                     md5
-```
-NB: Cette session est vers la fin du fichier
+### 2. Documentation de l'agent IA (`ai_agent.py`)
 
-4. Redémarrer le serveur postgresql
+```md
+## Agent IA
 
-```bash 
-sudo systemctl restart postgresql 
-```
+### Présentation
 
-5. Créons la base de données de notre app avec le user de l'étape 2.
+Le projet intègre un agent IA permettant à un utilisateur d'interagir avec les fonctionnalités de l'application en langage naturel.
 
-```bash
- psql -U <USER_NAME> -d template1
- create database <DB_NAME>;
-```
-6. Remarque:\
-Par défaut postgresql écoute sur le port `5432` et sur l'adresse locale `localhost`. Tous ces paramètres peuvent êtres modifiés dans le fichier `/etc/postgresql/<VERSION>/main/postgresql.conf`
+Au lieu de devoir naviguer dans l'interface Django ou connaître les identifiants techniques des contrats, l'utilisateur peut simplement poser une question ou formuler une demande.
 
-## Éxecution du projet
+Exemples :
 
-### Tirer le projet sur github
+- Quelle est la situation financière de client one ?
+- Combien ce client a-t-il déjà payé ?
+- Quel est le solde restant de son contrat ?
+- Je souhaite enregistrer un versement de 50 000 FCFA pour ce client.
 
-```bash
-git clone https://github.com/Fayssol/askia.git
-```
-### Créer un env à la racine du projet et installer les dependances
+L'agent IA analyse la demande, identifie l'outil MCP approprié et lui transmet les paramètres nécessaires.
 
-```bash
-virtualenv askia_env
-source askia_env/bin/activate
-pip install -r requirements.txt
+### Architecture de l'agent
 
-```
+L'architecture globale est organisée comme suit :
 
-### La base de données
-
-1- Dupliquer le fichier `askia/askia_solution/askia_solution/.env.exemple` en `.env` et remplisser l'intérieur :
-
-```
-DB_NAME=dbname
-DB_USER=username
-DB_PASSWORD=password
-DB_HOST=host
-DB_PORT=port
-
-```
-
-2- Les migrations
-
-```bash
- python3 manage.py makemigrations
- python3 manage.py makemigrations askia_admin
- python3 manage.py migrate
-
-```
-### Création d'un user
-
-```bash
-python3 manage.py createsuperuser
-```
-
-### Démarrer le serveur
-
-```bash
-python3 manage.py runserver
-```
-## Ressouces
-installation de python-dotenv
-https://myapollo.com.tw/en/blog/python-dotenv/
+```text
+                    UTILISATEUR
+                         |
+                         v
+                     AGENT IA
+                    ai_agent.py
+                         |
+                         v
+                  MODÈLE DE LANGAGE
+                       (LLM)
+                         |
+                         v
+                    CLIENT MCP
+                         |
+                         v
+                   SERVEUR MCP
+                  mcp_server.py
+                         |
+                         v
+                  SERVICES DJANGO
+                    services.py
+                         |
+                         v
+                   BASE DE DONNÉES
+                       SQLite
