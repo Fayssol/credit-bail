@@ -1,10 +1,13 @@
 
-# Projet Recouvrement
+# Projet credit bail de moto
 **Projet de Recouvrement des dettes (credit bail de moto) en django utilisant postgresql/SQLite comme base de données** 
 ## Fonctionalites
 - Enregistrement de contrat
 - Enregistrement des reglements de client
 - Consultation du status des reglements et l'etat du contrat
+
+## Objectif 
+Manipulation de projet Django et du concept MCP/agents AI
 
 ## Installation et Configuration de postgresql sous Linux
 Lire le fichier installation.txt
